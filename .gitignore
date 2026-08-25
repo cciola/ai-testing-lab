@@ -1,0 +1,18 @@
+# Playwright
+node_modules/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Cucumber Reports
+/report/
+cucumber-report.html
+cucumber-report.json
+
+# console logs
+/test-results/
+
+# Storage States (sessões)
+storageState*.json
+sessionStorage*.json

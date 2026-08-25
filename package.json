@@ -1,0 +1,28 @@
+{
+  "name": "ai-testing-lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "e2e.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test-local": "cross-env ENV=local HEADLESS=true cucumber-js",
+    "test:dev": "rimraf report && cross-env ENV=dev cucumber-js",
+    "test:hom": "rimraf report && cross-env ENV=hom cucumber-js",
+    "test:dev:report": "rimraf report && cross-env ENV=dev cucumber-js && node generate-report.js",
+    "test:hom:report": "rimraf report && cross-env ENV=hom cucumber-js && node generate-report.js",
+    "test:dev:tags": "rimraf report && cross-env ENV=dev cucumber-js --tags",
+    "test:hom:tags": "rimraf report && cross-env ENV=hom cucumber-js --tags",
+    "test:playwright": "node node_modules/@playwright/test/cli/index.js test"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@playwright/test": "latest",
+    "cross-env": "^10.1.0",
+    "rimraf": "^3.0.2",
+    "@types/node": "^25.9.0",
+    "playwright": "^1.62.1"
+  },
+  "dependencies": {
+    "node": "^25.2.0"
+  }
+}
