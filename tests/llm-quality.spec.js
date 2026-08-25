@@ -1,5 +1,4 @@
-// Quality of response — capacidade de gerar respostas de qualidade
-// Respostas de LLM podem variar mesmo quando estão corretas.
+// Quality/format — capacidade de gerar respostas de qualidade, respeitando um formato
 
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../utils/llm-client');

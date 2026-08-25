@@ -1,5 +1,5 @@
 # AI-Testing-Lab
-Este projeto demonstra uma suite de testes automatizados usando Playwright para uma aplicação que utiliza Large Language Models (LLMs).
+Este projeto demonstra uma suite de testes automatizados usando Playwright em uma aplicação LLM local.
 
 ```bash
 npm init -y
