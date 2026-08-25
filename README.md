@@ -1,5 +1,5 @@
 # AI-Testing-Lab
-Projeto com suíte de testes automatizados para uma aplicação que utiliza uma LLM.
+Este projeto demonstra uma suite de testes automatizados usando Playwright para uma aplicação que utiliza Large Language Models (LLMs).
 
 ```bash
 npm init -y
@@ -33,19 +33,24 @@ test('LLM deve responder a uma pergunta simples', async () => {
 });
 ```
 
-Execute `npm run test tests/llm-basic.spec.js`, o resultado será **1 passed**.
+Execute `npm run test tests/llm-basic.spec.js`, o teste deve passar.
 
-Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
 
 ## Teste com um LLM real - LM Studio (agente Gemma 4 E2B)
 
+Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
+
 1. Instale o SDK `npm install openai`. Esse pacote é apenas um cliente JavaScript para uma API compatível com OpenAI.
 
-2. Vamos usar o LM Studio, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download?utm_source=chatgpt.com
+2. Vamos usar o LM Studio, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download
 
-3. Baixe um modelo de agente: abra o LM Studio, menu lateral My Models, pesquise e baixe **Gemma4 E2B**. O `gemma-4-e2b` é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41 GB como memória mínima do sistema. Ele também é otimizado para execução local em notebooks/dispositivos menores.
+3. Baixe um modelo de agente: abra o LM Studio, menu lateral **My Models**, pesquise e baixe **Gemma4 E2B**.
 
-4. Após baixar, clique em Chats, selecione o model google/gemma-4-e2b, pergunte no chat **Qual é a capital do Brasil?** (é comum uma demora no processamento das respostas). Vamos validar que:
+O `gemma-4-e2b` é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. Ele também é otimizado para execução local em notebooks/dispositivos menores.
+
+4. Após baixar, clique em **Chats**, selecione o model `google/gemma-4-e2b`
+
+5. Pergunte no chat **Qual é a capital do Brasil?** (é comum uma demora no processamento das respostas). Vamos validar que:
 
 * o LM Studio está funcionando
 * o modelo Gemma foi carregado corretamente
@@ -54,9 +59,10 @@ Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
 
 Agora vamos começar criar testes para avaliar qualidade, consistência, tempo de resposta e comportamento diante de perguntas diferentes.
 
-5. Deixe o modelo carregado e inicie o servidor local (menu Developer, alterar opção Status para Running).
+6. Deixe o modelo carregado e inicie o servidor local (menu Developer, alterar opção Status para Running).
 
-6. Configure o model e a URL local no arquivo`utils/llm-client.js`:
+7. Configure o model e a URL local no arquivo `utils/llm-client.js`:
+
 ```javascript
 const MODEL = 'gemma-4-e2b';
 const BASE_URL = 'http://localhost:1234/v1';
@@ -91,7 +97,8 @@ async function askLLM(prompt) {
 module.exports = { askLLM };
 ```
 
-7. Altere `llm-basic.spec.js` conforme abaixo e execute o teste:
+8. Altere `llm-basic.spec.js` conforme abaixo e execute o teste:
+
 ```javascript
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../utils/llm-client');
@@ -110,7 +117,6 @@ test('LLM deve responder corretamente a uma pergunta simples', async () => {
 
 Objective
 
-This project demonstrates practical QA techniques for applications powered by Large Language Models (LLMs).
 
 # 📋 Requisitos #
 * **JavaScript
