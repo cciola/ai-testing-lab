@@ -18,7 +18,8 @@ Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
 * responde consistentemente;
 * recusa solicitações inadequadas.
 
-Criar um teste spec.js, contendo:
+## Teste com mock ##
+Criar o teste `llm-basic.spec.js`, contendo:
 ```bash
 const { test, expect } = require('@playwright/test');
 
@@ -32,9 +33,11 @@ test('LLM deve responder a uma pergunta simples', async () => {
 });
 ```
 
-Execute `npm run test:playwright`, resultado: **1 passed**.
+Execute `npm run test tests/llm-basic.spec.js`, o resultado será **1 passed**.
 
 Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
+
+## Teste com um LLM real - LM Studio (agente Gemma 4 E2B)
 
 1. Instale o SDK `npm install openai`. Esse pacote é apenas um cliente JavaScript para uma API compatível com OpenAI.
 
@@ -42,7 +45,7 @@ Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
 
 3. Baixe um modelo de agente: abra o LM Studio, menu lateral My Models, pesquise e baixe **Gemma4 E2B**. O `gemma-4-e2b` é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41 GB como memória mínima do sistema. Ele também é otimizado para execução local em notebooks/dispositivos menores.
 
-4. Após baixar, clique em Chats, selecione o model google/gemma-4-e2b, pergunte no chat "Qual é a capital do Brasil?" para validar que:
+4. Após baixar, clique em Chats, selecione o model google/gemma-4-e2b, pergunte no chat **Qual é a capital do Brasil?** (é comum uma demora no processamento das respostas). Vamos validar que:
 
 * o LM Studio está funcionando
 * o modelo Gemma foi carregado corretamente
@@ -51,11 +54,56 @@ Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
 
 Agora vamos começar criar testes para avaliar qualidade, consistência, tempo de resposta e comportamento diante de perguntas diferentes.
 
+5. Deixe o modelo carregado e inicie o servidor local (menu Developer, alterar opção Status para Running).
 
+6. Configure o model e a URL local no arquivo`utils/llm-client.js`:
+```javascript
+const MODEL = 'gemma-4-e2b';
+const BASE_URL = 'http://localhost:1234/v1';
 
+async function askLLM(prompt) {
+  const response = await fetch(`${BASE_URL}/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: MODEL,
+      messages: [
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      temperature: 0
+    })
+  });
 
+  if (!response.ok) {
+    throw new Error(`LLM request failed: ${response.status}`);
+  }
 
+  const data = await response.json();
 
+  return data.choices[0].message.content;
+}
+
+module.exports = { askLLM };
+```
+
+7. Altere `llm-basic.spec.js` conforme abaixo e execute o teste:
+```javascript
+const { test, expect } = require('@playwright/test');
+const { askLLM } = require('../utils/llm-client');
+
+test('LLM deve responder corretamente a uma pergunta simples', async () => {
+  const response = await askLLM('Quanto é 2 + 2?');
+
+  console.log('Resposta do modelo:', response);
+
+  expect(response).toContain('4');
+});
+```
 
 
 ---
@@ -64,9 +112,9 @@ Objective
 
 This project demonstrates practical QA techniques for applications powered by Large Language Models (LLMs).
 
-Technologies
-JavaScript
-Playwright
+# 📋 Requisitos #
+* **JavaScript
+* **Playwright
 Node.js
 LLM API
 REST API
@@ -82,18 +130,18 @@ Prompt injection testing
 UI automation
 
 What is being evaluated
-✓ Factuality
-✓ Hallucination
-✓ Consistency
-✓ Robustness
+✓ Factuality (fatualidade)
+✓ Hallucination (alucinação)
+✓ Consistency (consistência)
+✓ Robustness (robustez)
 ✓ Grounding
-✓ Prompt injection resistance
-✓ API behavior
+✓ Prompt injection resistance (resistência a injeção de comandos)
+✓ API behavior (comportamento de API)
 
-Limitations
+Limitações:
 
-LLM responses are non-deterministic;
-exact text matching is often inappropriate;
-LLM-as-a-judge can introduce bias;
-evaluation criteria must be explicit;
-some results require human review.
+* as respostas de LLMs são não determinísticas;
+* a correspondência exata de texto é frequentemente inadequada;
+* o uso de LLMs como juízes pode introduzir vieses;
+* os critérios de avaliação devem ser explícitos;
+* alguns resultados requerem revisão humana.
