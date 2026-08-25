@@ -16,3 +16,6 @@ cucumber-report.json
 # Storage States (sessões)
 storageState*.json
 sessionStorage*.json
+
+# Environment
+.env

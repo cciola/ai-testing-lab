@@ -11,5 +11,8 @@
     "@playwright/test": "^1.62.1",
     "@types/node": "^25.9.0",
     "playwright": "^1.62.1"
+  },
+  "dependencies": {
+    "openai": "^7.5.0"
   }
 }
