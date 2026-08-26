@@ -1,4 +1,4 @@
-// Basic functionality — capacidade de responder a perguntas simples
+// Basic functionality — resposta correta a uma pergunta simples
 
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../utils/llm-client');

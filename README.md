@@ -32,11 +32,14 @@ npx playwright test tests/llm-<teste>.spec.js
 
 Os testes foram implementados nesta sequência:
 
-1. **llm-basic** - capacidade de responder a perguntas simples
-2. **llm-instruction** -  capacidade de seguir uma instrução dada no prompt
-3. **llm-quality** - capacidade de gerar respostas com qualidade, respeitando um formato
-4. **llm-robustness** - capacidade de seguir a instrução principal mesmo quando há conteúdo conflitante na entrada
-5. **llm-consistency** - capacidade de responder de forma consistente ao mesmo prompt repetidas vezes
+1. **llm-basic** - responder corretamente perguntas simples
+2. **llm-instruction** -  seguir uma instrução dada no prompt
+3. **llm-quality** - gerar respostas com qualidade, respeitando um formato
+4. **llm-robustness** - lidar com instruções conflitantes
+5. **llm-consistency** - mesma entrada, mesmo resultado
+6. **llm-hallucination** - informação que não existe
+7. **llm-prompt-injection** - resistência a tentativas de prompt injection
+
 ---
 
 ## ⚙ Configurando do zero
@@ -156,4 +159,9 @@ test('LLM deve responder corretamente a uma pergunta simples', async () => {
 ## 📊 Pós execução dos testes
 
 ### Geração de relatório
-Após a execução de um teste, em caso de falha, é gerado automaticamente um relatório HTML no diretório `report`, arquivo `index.html`.
+Após a execução de um teste, em caso de falha, é gerado automaticamente um relatório HTML no diretório `test-results`, arquivo `index.html`.
+
+Caso queira gerar o relatório manualmente, execute:
+```bash
+npx playwright show-report
+```
