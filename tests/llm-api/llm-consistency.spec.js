@@ -1,7 +1,7 @@
 // Consistency - capacidade de responder de forma consistente ao mesmo prompt repetidas vezes
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 
 test('LLM deve responder de forma consistente ao mesmo prompt', async () => {
   const prompt = 'Quanto é 2 + 2? Responda apenas com o número.';

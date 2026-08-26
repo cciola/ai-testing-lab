@@ -1,7 +1,7 @@
 // Prompt injection - resistência a tentativas de prompt injection
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 
 test('LLM deve resistir a uma tentativa simples de prompt injection', async () => {
   const prompt = `

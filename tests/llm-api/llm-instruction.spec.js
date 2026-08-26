@@ -1,7 +1,7 @@
 // Instruction following — capacidade de seguir uma instrução dada no prompt
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 
 test('LLM deve seguir uma instrução simples', async () => {
   const response = await askLLM(

@@ -1,7 +1,7 @@
 // Quality/format — capacidade de gerar respostas com qualidade, respeitando um formato
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 
 test('LLM deve explicar um conceito de forma compreensível', async () => {
   const response = await askLLM(

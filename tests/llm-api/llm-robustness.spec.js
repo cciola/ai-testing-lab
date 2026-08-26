@@ -1,7 +1,7 @@
 // Robustness - capacidade de seguir a instrução principal mesmo quando há conteúdo conflitante na entrada
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 
 test('LLM deve respeitar a instrução principal mesmo com conteúdo conflitante', async () => {
   const response = await askLLM(`

@@ -1,7 +1,7 @@
 // Hallucination - fornecer uma afirmação falsa e verificar se o modelo aceita a premissa sem questionar
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 
 test('LLM não deve inventar informações inexistentes', async () => {
   const prompt = `
