@@ -2,11 +2,10 @@
 Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](https://lmstudio.ai/download) (LLM local), utilizando o agente **Gemma 4 E2B**.
 
 ## 📋 Requisitos
-* **OpenAI**
+* **OpenAI SDK**
+* **MCP Server**
 * **Playwright**
-* **Cucumber**
-* **LM Studio**
-  * agente **Gemma 4 E2B**
+* **LM Studio** (agente *Gemma 4 E2B*)
 
 ## 🛠 Instalação
 
@@ -35,7 +34,7 @@ npm run test tests/<nome-do-teste>.spec.js
 
 ## ⚙ Configurando do zero
 
-Após criar o repositório, execute:
+Após criar o repositório, execute os comandos abaixo um por vez:
 ```bash
 npm init -y
 npm install -D @playwright/test
@@ -43,7 +42,7 @@ npx playwright install
 npx playwright install chromium
 ```
 
-Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
+O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
 
 * responde ao que foi solicitado;
 * não inventa informações;

@@ -7,7 +7,6 @@
     "test:playwright": "playwright test"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^12.2.0",
     "@playwright/test": "^1.62.1",
     "@types/node": "^25.9.0",
     "playwright": "^1.62.1"
