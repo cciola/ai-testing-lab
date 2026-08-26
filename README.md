@@ -27,9 +27,16 @@ npm install
 ## 🧪 Execução dos testes
 
 ```bash
-npm run test tests/<nome-do-teste>.spec.js
+npx playwright test tests/llm-<teste>.spec.js
 ```
 
+Os testes foram implementados nesta sequência:
+
+1. **llm-basic** - capacidade de responder a perguntas simples
+2. **llm-instruction** -  capacidade de seguir uma instrução dada no prompt
+3. **llm-quality** - capacidade de gerar respostas com qualidade, respeitando um formato
+4. **llm-robustness** - capacidade de seguir a instrução principal mesmo quando há conteúdo conflitante na entrada
+5. **llm-consistency** - capacidade de responder de forma consistente ao mesmo prompt repetidas vezes
 ---
 
 ## ⚙ Configurando do zero
@@ -80,18 +87,18 @@ Agora vamos sair do mock e fazer o primeiro teste contra um LLM real local:
 
 3. Baixe um modelo de agente: abra o LM Studio, menu lateral **My Models**, pesquise e baixe **Gemma 4 E2B**.
 
-O `gemma-4-e2b` é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
+  O `gemma-4-e2b` é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
 
 4. Após baixar, clique em **Chats**, selecione o model `google/gemma-4-e2b`.
 
-5. Pergunte no chat ***Qual é a capital do Brasil?*** (é comum uma demora no processamento das respostas). Vamos validar que:
+5. Pergunte no chat *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
 
-* o LM Studio está funcionando
-* o modelo Gemma foi carregado corretamente
-* conseguiu entender a pergunta e gerar uma resposta correta
-* a execução foi local, sem precisar da API da OpenAI
+  * o LM Studio está funcionando
+  * o modelo Gemma foi carregado corretamente
+  * conseguiu entender a pergunta e gerar uma resposta correta
+  * a execução foi local, sem precisar da API da OpenAI
 
-Agora vamos começar criar testes para avaliar qualidade, consistência, tempo de resposta e comportamento diante de perguntas diferentes.
+  Agora vamos começar criar testes para avaliar qualidade, consistência, tempo de resposta e comportamento diante de perguntas diferentes.
 
 6. Deixe o modelo carregado e inicie o servidor local (menu Developer, alterar opção Status para Running).
 

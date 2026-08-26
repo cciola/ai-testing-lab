@@ -1,4 +1,4 @@
-// Quality/format — capacidade de gerar respostas de qualidade, respeitando um formato
+// Quality/format — capacidade de gerar respostas com qualidade, respeitando um formato
 
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../utils/llm-client');
