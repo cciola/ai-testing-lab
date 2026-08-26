@@ -1,6 +1,41 @@
 # AI-Testing-Lab
-Este projeto demonstra uma suite de testes automatizados usando Playwright em uma aplicação LLM local.
+Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](https://lmstudio.ai/download) (LLM local), utilizando o agente **Gemma 4 E2B**.
 
+## 📋 Requisitos
+* **OpenAI**
+* **Playwright**
+* **Cucumber**
+* **LM Studio**
+  * agente **Gemma 4 E2B**
+
+## 🛠 Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/nome-do-projeto.git
+```
+
+2. Acesse o diretório do projeto:
+```bash
+cd nome-do-projeto
+```
+
+3. Instale as dependências necessárias:
+```bash
+npm install
+```
+
+## 🧪 Execução dos testes
+
+```bash
+npm run test tests/<nome-do-teste>.spec.js
+```
+
+---
+
+## ⚙ Configurando do zero
+
+Após criar o repositório, execute:
 ```bash
 npm init -y
 npm install -D @playwright/test
@@ -18,7 +53,7 @@ Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
 * responde consistentemente;
 * recusa solicitações inadequadas.
 
-## Teste com mock ##
+### 🎭 Teste com mock
 Criar o teste `llm-basic.spec.js`, contendo:
 ```bash
 const { test, expect } = require('@playwright/test');
@@ -36,21 +71,21 @@ test('LLM deve responder a uma pergunta simples', async () => {
 Execute `npm run test tests/llm-basic.spec.js`, o teste deve passar.
 
 
-## Teste com um LLM real - LM Studio (agente Gemma 4 E2B)
+### 🤖 Teste com um LLM real - LM Studio (agente Gemma 4 E2B)
 
-Agora vamos sair do mock e fazer o primeiro teste contra um LLM real:
+Agora vamos sair do mock e fazer o primeiro teste contra um LLM real local:
 
 1. Instale o SDK `npm install openai`. Esse pacote é apenas um cliente JavaScript para uma API compatível com OpenAI.
 
-2. Vamos usar o LM Studio, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download
+2. Vamos usar o **LM Studio**, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download
 
-3. Baixe um modelo de agente: abra o LM Studio, menu lateral **My Models**, pesquise e baixe **Gemma4 E2B**.
+3. Baixe um modelo de agente: abra o LM Studio, menu lateral **My Models**, pesquise e baixe **Gemma 4 E2B**.
 
-O `gemma-4-e2b` é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. Ele também é otimizado para execução local em notebooks/dispositivos menores.
+O `gemma-4-e2b` é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
 
-4. Após baixar, clique em **Chats**, selecione o model `google/gemma-4-e2b`
+4. Após baixar, clique em **Chats**, selecione o model `google/gemma-4-e2b`.
 
-5. Pergunte no chat **Qual é a capital do Brasil?** (é comum uma demora no processamento das respostas). Vamos validar que:
+5. Pergunte no chat ***Qual é a capital do Brasil?*** (é comum uma demora no processamento das respostas). Vamos validar que:
 
 * o LM Studio está funcionando
 * o modelo Gemma foi carregado corretamente
@@ -112,42 +147,7 @@ test('LLM deve responder corretamente a uma pergunta simples', async () => {
 });
 ```
 
+## 📊 Pós execução dos testes
 
----
-
-Objective
-
-
-# 📋 Requisitos #
-* **JavaScript
-* **Playwright
-Node.js
-LLM API
-REST API
-GitHub Actions
-Docker
-Testing approach
-Functional testing
-API testing
-LLM evaluation
-RAG testing
-Security testing
-Prompt injection testing
-UI automation
-
-What is being evaluated
-✓ Factuality (fatualidade)
-✓ Hallucination (alucinação)
-✓ Consistency (consistência)
-✓ Robustness (robustez)
-✓ Grounding
-✓ Prompt injection resistance (resistência a injeção de comandos)
-✓ API behavior (comportamento de API)
-
-Limitações:
-
-* as respostas de LLMs são não determinísticas;
-* a correspondência exata de texto é frequentemente inadequada;
-* o uso de LLMs como juízes pode introduzir vieses;
-* os critérios de avaliação devem ser explícitos;
-* alguns resultados requerem revisão humana.
+### Geração de relatório
+Após a execução de um teste, em caso de falha, é gerado automaticamente um relatório HTML no diretório `report`, arquivo `index.html`.
