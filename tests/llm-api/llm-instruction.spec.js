@@ -1,14 +1,18 @@
 // Instruction following — capacidade de seguir uma instrução dada no prompt
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../../utils/llm-client');
+const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const MODELS = require('../../config/models');
+
+const MODEL = MODELS.GEMMA;
 
 test('LLM deve seguir uma instrução simples', async () => {
   const response = await askLLM(
-    'Responda apenas com a palavra APROVADO.'
+    'Responda apenas com a palavra APROVADO.',
+    MODEL
   );
 
-  console.log('Resposta do modelo:', response);
+  logLLMResponse(response);
 
   expect(response.trim()).toBe('APROVADO');
 });

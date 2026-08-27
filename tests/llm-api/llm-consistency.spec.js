@@ -2,6 +2,9 @@
 
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../../utils/llm-client');
+const MODELS = require('../../config/models');
+
+const MODEL = MODELS.GEMMA;
 
 test('LLM deve responder de forma consistente ao mesmo prompt', async () => {
   const prompt = 'Quanto é 2 + 2? Responda apenas com o número.';
@@ -9,7 +12,7 @@ test('LLM deve responder de forma consistente ao mesmo prompt', async () => {
   const responses = [];
 
   for (let i = 0; i < 5; i++) {
-    const response = await askLLM(prompt);
+    const response = await askLLM(prompt, MODEL);
 
     responses.push(response.trim());
 

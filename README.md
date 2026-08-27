@@ -2,6 +2,8 @@
 Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](https://lmstudio.ai/download) (LLM local).
 
 ## 📋 Requisitos
+* **NodeJS 24.20.0 ou superior**
+* **Npm 9.6.5 ou superior**
 * **MCP Server**
 * **Playwright**
 * **LM Studio**
@@ -33,6 +35,7 @@ npm init -y
 npm install -D @playwright/test
 npx playwright install
 npx playwright install chromium
+npm install undici@6
 ```
 
 O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
@@ -48,17 +51,26 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 ### 🎭 Teste com mock
 O teste `llm-basic-mock.spec.js` faz uma pergunta no prompt e temporariamente simula a resposta do LLM.
 
-### 🤖 Teste com LLM real (LM Studio)
+### 🤖 Teste com LLM real local (LM Studio)
 
-Para fazer o teste contra um LLM real local, siga os passos abaixo:
-
-1. Vamos usar o **LM Studio**: https://lmstudio.ai/download
+1. Baixe o **LM Studio**: https://lmstudio.ai/download
 
 2. No menu lateral **My Models**, pesquise e baixe os modelos:
 
-* `google/gemma-4-e2b` (para os testes de **llm-api**) - o **Gemma4 E2B** é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
+* `google/gemma-4-e2b` (para os testes de **llm-api**) - o **Gemma4 E2B** é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, otimizado para execução direta em dispositivos locais com menos recursos.
 
 * `unsloth/Qwen3.5-4b-gguf` (para os testes de **ai-assisted**) - o **Qwen3.5 4B GGUF** é um modelo de AI multimodal leve, com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
+
+* `devQuasar/Qwen3-4B-Instruct-2507-GGUF Q4_K_M` (para os testes de **ai-assisted**) - o **Qwen3-4B-Instruct-2507-GGUF Q4_K_M** é uma versão quantizada (comprimida) de 4 bilhões de parâmetros do modelo de linguagem Qwen3, focada em seguir instruções sem o modo de raciocínio profundo ("non-thinking"), ideal para rodar localmente com baixo uso de recursos.
+
+No **Qwen**, altere estas configurações para melhorar o desempenho:
+- aba Load
+  - Context and Offload
+    - Context Length: 4096
+    - GPU Offload: 0
+- aba Inference
+  - Reasoning
+    - Enable Thinking: desabilitar
 
 3. Em **Chats**, selecione o modelo desejado, pergunte *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
 
@@ -69,21 +81,21 @@ Para fazer o teste contra um LLM real local, siga os passos abaixo:
 
 5. Deixe o modelo carregado e inicie o servidor local (menu **Developer**, alterar opção **Status** para *Running*).
 
-6. O modelo e a URL local devem ser configurados no arquivo `utils/llm-client.js`:
+6. A URL local deve ser configurada no arquivo `utils/llm-client.js`:
+
+**Importante:** O ID do model informado em `models.js` deve ser igual ao ID exibido no LM Studio.
 
 ```javascript
-const MODEL = 'gemma-4-e2b';
-// ou const MODEL = 'unsloth/Qwen3.5-4b-gguf';
 const BASE_URL = 'http://localhost:1234/v1';
 ```
 
 ## 🧪 Execução dos testes
-O comando de execução segue o padrão `npx playwright test tests/<pasta>/<teste>.spec.js`, exemplo:
 ```bash
-npx playwright test tests/llm-api/llm-basic.spec.js
+npm run test:ai test-generation.spec.js
+npm run test:llm llm-basic.spec.js
 ```
 
-### llm-api
+### Testes - llm-api
 
 - **llm-basic** - responder corretamente perguntas simples
 - **llm-instruction** -  seguir uma instrução dada no prompt
@@ -93,7 +105,7 @@ npx playwright test tests/llm-api/llm-basic.spec.js
 - **llm-hallucination** - informação que não existe
 - **llm-prompt-injection** - resistência a tentativas de prompt injection
 
-### ai-assisted
+### Testes - ai-assisted
 
 - **test-generation** - gerar casos de teste a partir de um requisito
 
@@ -105,5 +117,5 @@ Após a execução de um teste, em caso de falha, é gerado automaticamente um r
 
 Caso queira gerar o relatório manualmente, execute:
 ```bash
-npx playwright show-report
+npm run report
 ```

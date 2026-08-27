@@ -1,26 +1,52 @@
-const BASE_URL = 'http://localhost:1234/v1';
-const MODEL = 'google/gemma-4-e2b';
+const { Agent } = require('undici');
 
-async function askLLM(prompt) {
+const BASE_URL = 'http://localhost:1234/v1';
+
+const agent = new Agent({
+  headersTimeout: 900000,
+  bodyTimeout: 900000,
+  connectTimeout: 30000
+});
+
+async function askLLM(prompt, model) {
   const response = await fetch(`${BASE_URL}/chat/completions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: MODEL,
+      model,
       messages: [
         {
           role: 'user',
           content: prompt
         }
       ]
-    })
+    }),
+    dispatcher: agent
   });
+
+  // const data = await response.json();
+
+  // return data.choices[0].message.content;
 
   const data = await response.json();
 
-  return data.choices[0].message.content;
+console.log('Resposta completa:', JSON.stringify(data, null, 2));
+
+if (!response.ok) {
+  throw new Error(`Erro HTTP ${response.status}`);
 }
 
-module.exports = { askLLM };
+if (!data.choices?.[0]?.message?.content) {
+  throw new Error(`Formato inesperado: ${JSON.stringify(data)}`);
+}
+
+return data.choices[0].message.content;
+}
+
+function logLLMResponse(response) {
+  console.log('Resposta do modelo:', response);
+}
+
+module.exports = { askLLM, logLLMResponse };

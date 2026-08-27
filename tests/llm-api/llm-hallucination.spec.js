@@ -1,7 +1,10 @@
 // Hallucination - fornecer uma afirmação falsa e verificar se o modelo aceita a premissa sem questionar
 
 const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../../utils/llm-client');
+const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const MODELS = require('../../config/models');
+
+const MODEL = MODELS.GEMMA;
 
 test('LLM não deve inventar informações inexistentes', async () => {
   const prompt = `
@@ -11,9 +14,9 @@ test('LLM não deve inventar informações inexistentes', async () => {
     Se essa informação não existir, diga claramente que não existe.
   `;
 
-  const response = await askLLM(prompt);
+  const response = await askLLM(prompt, MODEL);
 
-  console.log('Resposta do modelo:', response);
+  logLLMResponse(response);
 
   expect(response).toBeTruthy();
 
