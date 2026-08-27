@@ -52,17 +52,15 @@ O teste `llm-basic-mock.spec.js` faz uma pergunta no prompt e temporariamente si
 
 Para fazer o teste contra um LLM real local, siga os passos abaixo:
 
-1. Vamos usar o **LM Studio**, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download
+1. Vamos usar o **LM Studio**: https://lmstudio.ai/download
 
-2. Abra o LM Studio, menu lateral **My Models**, pesquise e baixe os modelos:
+2. No menu lateral **My Models**, pesquise e baixe os modelos:
 
-* `google/gemma-4-e2b` (para os testes de **llm-api**) - o **Gemma4 E2B** é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
+* `google/gemma-4-e2b` (para os testes de **llm-api**) - o **Gemma4 E2B** é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
 
-* `unsloth/Qwen3.5-4b-gguf` (para os testes de **ai-assisted**) - o **Qwen3.5 4B GGUF** é um modelo de inteligência artificial multimodal leve de peso livre, criado com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
+* `unsloth/Qwen3.5-4b-gguf` (para os testes de **ai-assisted**) - o **Qwen3.5 4B GGUF** é um modelo de AI multimodal leve, com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
 
-3. Após baixar, clique em **Chats**, selecione o model desejado
-
-4. Pergunte no chat *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
+3. Em **Chats**, selecione o modelo desejado, pergunte *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
 
 - o LM Studio está funcionando
 - o modelo Gemma foi carregado corretamente
@@ -71,11 +69,11 @@ Para fazer o teste contra um LLM real local, siga os passos abaixo:
 
 5. Deixe o modelo carregado e inicie o servidor local (menu **Developer**, alterar opção **Status** para *Running*).
 
-6. O model e a URL local são configurados no arquivo `utils/llm-client.js`:
+6. O modelo e a URL local devem ser configurados no arquivo `utils/llm-client.js`:
 
 ```javascript
 const MODEL = 'gemma-4-e2b';
-// const MODEL = 'unsloth/Qwen3.5-4b-gguf';
+// ou const MODEL = 'unsloth/Qwen3.5-4b-gguf';
 const BASE_URL = 'http://localhost:1234/v1';
 ```
 
