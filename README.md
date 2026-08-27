@@ -4,9 +4,9 @@ Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](
 ## 📋 Requisitos
 * **MCP Server**
 * **Playwright**
-* **LM Studio** - modelos
-    - *Gemma 4 E2B* (Google)
-    - *Qwen3.5 4B GGUF* (Unsloth)
+* **LM Studio**
+    - modelo *Gemma 4 E2B* (Google)
+    - modelo *Qwen3.5 4B GGUF* (Unsloth)
 
 ## 🛠 Instalação
 
@@ -56,13 +56,9 @@ Para fazer o teste contra um LLM real local, siga os passos abaixo:
 
 2. Abra o LM Studio, menu lateral **My Models**, pesquise e baixe os modelos:
 
-* Para os testes de **llm-api** - `google/gemma-4-e2b`
+* `google/gemma-4-e2b` (para os testes de **llm-api**) - o **Gemma4 E2B** é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
 
-    O Gemma4 E2B é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
-
-* Para os testes de **ai-assisted** - `unsloth/Qwen3.5-4b-gguf`
-
-    O Qwen3.5 4B GGUF é um modelo de inteligência artificial multimodal leve de peso livre, criado com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
+* `unsloth/Qwen3.5-4b-gguf` (para os testes de **ai-assisted**) - o **Qwen3.5 4B GGUF** é um modelo de inteligência artificial multimodal leve de peso livre, criado com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
 
 3. Após baixar, clique em **Chats**, selecione o model desejado
 
@@ -89,19 +85,19 @@ O comando de execução segue o padrão `npx playwright test tests/<pasta>/<test
 npx playwright test tests/llm-api/llm-basic.spec.js
 ```
 
-### llm-api *(model Gemma 4 E2B)*
+### llm-api
 
-1. **llm-basic** - responder corretamente perguntas simples
-2. **llm-instruction** -  seguir uma instrução dada no prompt
-3. **llm-quality** - gerar respostas com qualidade, respeitando um formato
-4. **llm-robustness** - lidar com instruções conflitantes
-5. **llm-consistency** - mesma entrada, mesmo resultado
-6. **llm-hallucination** - informação que não existe
-7. **llm-prompt-injection** - resistência a tentativas de prompt injection
+- **llm-basic** - responder corretamente perguntas simples
+- **llm-instruction** -  seguir uma instrução dada no prompt
+- **llm-quality** - gerar respostas com qualidade, respeitando um formato
+- **llm-robustness** - lidar com instruções conflitantes
+- **llm-consistency** - mesma entrada, mesmo resultado
+- **llm-hallucination** - informação que não existe
+- **llm-prompt-injection** - resistência a tentativas de prompt injection
 
-### ai-assisted *(model Qwen3.5 - 4B GGUF)*
+### ai-assisted
 
-1. **test-generation** - gerar casos de teste a partir de um requisito
+- **test-generation** - gerar casos de teste a partir de um requisito
 
 
 ## 📊 Pós execução dos testes
