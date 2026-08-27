@@ -1,11 +1,12 @@
 # AI-Testing-Lab
-Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](https://lmstudio.ai/download) (LLM local), utilizando o agente **Gemma 4 E2B**.
+Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](https://lmstudio.ai/download) (LLM local).
 
 ## 📋 Requisitos
-* **OpenAI SDK**
 * **MCP Server**
 * **Playwright**
-* **LM Studio** (agente *Gemma 4 E2B*)
+* **LM Studio** - modelos
+    - *Gemma 4 E2B* (Google)
+    - *Qwen3.5 4B GGUF* (Unsloth)
 
 ## 🛠 Instalação
 
@@ -23,24 +24,6 @@ cd nome-do-projeto
 ```bash
 npm install
 ```
-
-## 🧪 Execução dos testes
-
-```bash
-npx playwright test tests/llm-<teste>.spec.js
-```
-
-Os testes foram implementados nesta sequência:
-
-1. **llm-basic** - responder corretamente perguntas simples
-2. **llm-instruction** -  seguir uma instrução dada no prompt
-3. **llm-quality** - gerar respostas com qualidade, respeitando um formato
-4. **llm-robustness** - lidar com instruções conflitantes
-5. **llm-consistency** - mesma entrada, mesmo resultado
-6. **llm-hallucination** - informação que não existe
-7. **llm-prompt-injection** - resistência a tentativas de prompt injection
-
----
 
 ## ⚙ Configurando do zero
 
@@ -63,98 +46,63 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 * recusa solicitações inadequadas.
 
 ### 🎭 Teste com mock
-Criar o teste `llm-basic.spec.js`, contendo:
-```bash
-const { test, expect } = require('@playwright/test');
+O teste `llm-basic-mock.spec.js` faz uma pergunta no prompt e temporariamente simula a resposta do LLM.
 
-test('LLM deve responder a uma pergunta simples', async () => {
-  const prompt = 'Qual é a capital do Brasil?';
+### 🤖 Teste com LLM real (LM Studio)
 
-  // Temporariamente simulamos a resposta do LLM
-  const response = 'A capital do Brasil é Brasília.';
+Para fazer o teste contra um LLM real local, siga os passos abaixo:
 
-  expect(response).toContain('Brasília');
-});
-```
+1. Vamos usar o **LM Studio**, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download
 
-Execute `npm run test tests/llm-basic.spec.js`, o teste deve passar.
+2. Abra o LM Studio, menu lateral **My Models**, pesquise e baixe os modelos:
 
+* Para os testes de **llm-api** - `google/gemma-4-e2b`
 
-### 🤖 Teste com um LLM real - LM Studio (agente Gemma 4 E2B)
+    O Gemma4 E2B é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
 
-Agora vamos sair do mock e fazer o primeiro teste contra um LLM real local:
+* Para os testes de **ai-assisted** - `unsloth/Qwen3.5-4b-gguf`
 
-1. Instale o SDK `npm install openai`. Esse pacote é apenas um cliente JavaScript para uma API compatível com OpenAI.
+    O Qwen3.5 4B GGUF é um modelo de inteligência artificial multimodal leve de peso livre, criado com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
 
-2. Vamos usar o **LM Studio**, ele oferece uma API compatível com OpenAI. Faça download em https://lmstudio.ai/download
+3. Após baixar, clique em **Chats**, selecione o model desejado
 
-3. Baixe um modelo de agente: abra o LM Studio, menu lateral **My Models**, pesquise e baixe **Gemma 4 E2B**.
+4. Pergunte no chat *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
 
-  O `gemma-4-e2b` é uma versão pequena do Gemma 4, modelo de IA leve do Google, que possui suporte a texto, imagens, raciocínio e tool calling, e o LM Studio informa 4.41GB como memória mínima do sistema. É otimizado para execução direta em dispositivos locais com menos recursos.
+- o LM Studio está funcionando
+- o modelo Gemma foi carregado corretamente
+- conseguiu entender a pergunta e gerar uma resposta correta
+- a execução foi local, sem precisar da API da OpenAI
 
-4. Após baixar, clique em **Chats**, selecione o model `google/gemma-4-e2b`.
+5. Deixe o modelo carregado e inicie o servidor local (menu **Developer**, alterar opção **Status** para *Running*).
 
-5. Pergunte no chat *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
-
-  * o LM Studio está funcionando
-  * o modelo Gemma foi carregado corretamente
-  * conseguiu entender a pergunta e gerar uma resposta correta
-  * a execução foi local, sem precisar da API da OpenAI
-
-  Agora vamos começar criar testes para avaliar qualidade, consistência, tempo de resposta e comportamento diante de perguntas diferentes.
-
-6. Deixe o modelo carregado e inicie o servidor local (menu Developer, alterar opção Status para Running).
-
-7. Configure o model e a URL local no arquivo `utils/llm-client.js`:
+6. O model e a URL local são configurados no arquivo `utils/llm-client.js`:
 
 ```javascript
 const MODEL = 'gemma-4-e2b';
+// const MODEL = 'unsloth/Qwen3.5-4b-gguf';
 const BASE_URL = 'http://localhost:1234/v1';
-
-async function askLLM(prompt) {
-  const response = await fetch(`${BASE_URL}/chat/completions`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      temperature: 0
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error(`LLM request failed: ${response.status}`);
-  }
-
-  const data = await response.json();
-
-  return data.choices[0].message.content;
-}
-
-module.exports = { askLLM };
 ```
 
-8. Altere `llm-basic.spec.js` conforme abaixo e execute o teste:
-
-```javascript
-const { test, expect } = require('@playwright/test');
-const { askLLM } = require('../utils/llm-client');
-
-test('LLM deve responder corretamente a uma pergunta simples', async () => {
-  const response = await askLLM('Quanto é 2 + 2?');
-
-  console.log('Resposta do modelo:', response);
-
-  expect(response).toContain('4');
-});
+## 🧪 Execução dos testes
+O comando de execução segue o padrão `npx playwright test tests/<pasta>/<teste>.spec.js`, exemplo:
+```bash
+npx playwright test tests/llm-api/llm-basic.spec.js
 ```
+
+### llm-api *(model Gemma 4 E2B)*
+
+1. **llm-basic** - responder corretamente perguntas simples
+2. **llm-instruction** -  seguir uma instrução dada no prompt
+3. **llm-quality** - gerar respostas com qualidade, respeitando um formato
+4. **llm-robustness** - lidar com instruções conflitantes
+5. **llm-consistency** - mesma entrada, mesmo resultado
+6. **llm-hallucination** - informação que não existe
+7. **llm-prompt-injection** - resistência a tentativas de prompt injection
+
+### ai-assisted *(model Qwen3.5 - 4B GGUF)*
+
+1. **test-generation** - gerar casos de teste a partir de um requisito
+
 
 ## 📊 Pós execução dos testes
 

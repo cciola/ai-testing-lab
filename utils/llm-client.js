@@ -1,5 +1,5 @@
-const MODEL = 'gemma-4-e2b';
 const BASE_URL = 'http://localhost:1234/v1';
+const MODEL = 'google/gemma-4-e2b';
 
 async function askLLM(prompt) {
   const response = await fetch(`${BASE_URL}/chat/completions`, {
@@ -14,14 +14,9 @@ async function askLLM(prompt) {
           role: 'user',
           content: prompt
         }
-      ],
-      temperature: 0
+      ]
     })
   });
-
-  if (!response.ok) {
-    throw new Error(`LLM request failed: ${response.status}`);
-  }
 
   const data = await response.json();
 

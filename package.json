@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "description": "Laboratório para estudos de testes de sistemas de IA e LLMs",
   "scripts": {
-    "test": "cucumber-js",
     "test:playwright": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@types/node": "^25.9.0",
     "playwright": "^1.62.1"
-  },
-  "dependencies": {
-    "openai": "^7.5.0"
   }
 }
