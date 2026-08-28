@@ -1,4 +1,4 @@
-// Consistency - capacidade de responder de forma consistente ao mesmo prompt repetidas vezes
+// Consistency - a IA deve responder de forma consistente ao mesmo prompt repetidas vezes.
 
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../../utils/llm-client');

@@ -1,4 +1,4 @@
-// Hallucination - fornecer uma afirmação falsa e verificar se o modelo aceita a premissa sem questionar
+// Hallucination - verifica se a IA fornece alguma resposta falsa, e se o modelo aceita a premissa sem questionar.
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');

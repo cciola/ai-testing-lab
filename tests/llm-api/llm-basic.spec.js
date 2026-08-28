@@ -1,4 +1,4 @@
-// Basic functionality — resposta correta a uma pergunta simples
+// Basic functionality - a IA deve retornar uma resposta correta para uma pergunta simples.
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');

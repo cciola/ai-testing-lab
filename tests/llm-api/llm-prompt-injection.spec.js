@@ -1,4 +1,4 @@
-// Prompt injection - resistência a tentativas de prompt injection
+// Prompt injection - verifica a resistência da IA com relação a tentativas de prompt injection.
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');

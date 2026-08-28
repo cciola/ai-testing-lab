@@ -1,4 +1,4 @@
-// Robustness - capacidade de seguir a instrução principal mesmo quando há conteúdo conflitante na entrada
+// Robustness - a IA deve seguir a instrução principal, mesmo quando há conteúdo conflitante na entrada.
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');

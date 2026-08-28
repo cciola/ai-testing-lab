@@ -1,4 +1,4 @@
-// Instruction following — capacidade de seguir uma instrução dada no prompt
+// Instruction following - a IA deve seguir uma instrução simples dada no prompt.
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
