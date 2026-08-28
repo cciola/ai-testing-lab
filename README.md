@@ -43,8 +43,8 @@ Baixe o LM Studio: https://lmstudio.ai/download
 
 Em *My Models*, pesquise e baixe os seguintes modelos:
 
-* **Gemma4 E2B** - `google/gemma-4-e2b` (utilizaremos para os testes de **llm-api**)
-* **Qwen3-4B-Instruct-2507** (GGUF Q4_K_M) - `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF` (utilizaremos para os testes de **ai-assisted**)
+* **Gemma4 E2B** - `google/gemma-4-e2b`
+* **Qwen3-4B-Instruct-2507** (GGUF Q4_K_M) - `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
 
 Melhore o desempenho do **Qwen**, alterando estas configurações:
 - Load > Context and Offload
@@ -74,44 +74,54 @@ const BASE_URL = 'http://localhost:1234/v1';
 ## 🧪 Execução dos testes
 
 ### AI-Testing
+> Utilize o model `google/gemma-4-e2b`
+
 O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
 
-* responde ao que foi solicitado;
-* não inventa informações;
-* segue instruções;
-* mantém formato esperado;
-* não revela informações indevidas;
-* responde consistentemente;
-* recusa solicitações inadequadas.
+* responde ao que foi solicitado
+* não inventa informações
+* segue instruções
+* mantém formato esperado
+* não revela informações indevidas
+* responde consistentemente
+* recusa solicitações inadequadas
 
 ```bash
 # Comando base
 npx playwright tests/ai-assisted/<teste>.spec.js
 
 # Testes
-llm-basic-mock       # simula uma resposta mockada do LLM
-llm-basic            # responder corretamente perguntas simples
-llm-instruction      # seguir uma instrução dada no prompt
-llm-quality          # gerar respostas com qualidade, respeitando um formato
-llm-robustness       # lidar com instruções conflitantes
-llm-consistency      # mesma entrada, mesmo resultado
-llm-hallucination    # informação que não existe
-llm-prompt-injection # resistência a tentativas de prompt injection
+llm-basic-mock        # simula uma resposta mockada do LLM
+llm-basic             # responder corretamente perguntas simples
+llm-instruction       # seguir uma instrução dada no prompt
+llm-quality           # gerar respostas com qualidade, respeitando um formato
+llm-robustness        # lidar com instruções conflitantes
+llm-consistency       # mesma entrada, mesmo resultado
+llm-hallucination     # informação que não existe
+llm-prompt-injection  # resistência a tentativas de prompt injection
 ```
 
-## AI-Assisted
-O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumentar produtividade e qualidade — não necessariamente testar a própria IA.
+### AI-Assisted
+> Utilize o model `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
 
+O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumentar produtividade e qualidade, não necessariamente testar a própria IA. Por exemplo:
 
+* geração de cenários positivos
+* geração de cenários negativos
+* regras de negócio implícitas
+* cenários de segurança
+* cenários de integração
+* identificação de riscos
+* perguntas que deveriam ser esclarecidas com o PO
 
 ```bash
 # Comando base
 npx playwright tests/ai-assisted/<teste>.spec.js
 
 # Testes
-test-generation       # geração de casos de teste a partir de um requisito
-requirement-adherence # extrapolação do requisito
-consistency           # manter a mesma resposta essencial ao fazer a mesma pergunta duas vezes
+test-generation        # geração de casos de teste a partir de um requisito
+requirement-adherence  # extrapolação do requisito
+consistency            # manter a mesma resposta essencial ao fazer a mesma pergunta duas vezes
 ```
 
 ---

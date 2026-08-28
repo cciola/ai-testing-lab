@@ -1,4 +1,5 @@
 const { Agent } = require('undici');
+const { saveResponse } = require('./llm-output');
 
 const BASE_URL = 'http://localhost:1234/v1';
 
@@ -49,4 +50,12 @@ function logLLMResponse(response) {
   console.log('Resposta do modelo:', response);
 }
 
-module.exports = { askLLM, logLLMResponse };
+async function saveLLMResponse(response, fileName) {
+  await saveResponse(response, fileName);
+}
+
+module.exports = {
+  askLLM,
+  logLLMResponse,
+  saveLLMResponse
+};

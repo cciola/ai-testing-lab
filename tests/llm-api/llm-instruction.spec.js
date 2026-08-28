@@ -2,6 +2,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.GEMMA;
@@ -15,4 +16,6 @@ test('LLM deve seguir uma instrução simples', async () => {
   logLLMResponse(response);
 
   expect(response.trim()).toBe('APROVADO');
+
+  saveLLMResponse(response, 'llm-instruction');
 });

@@ -2,6 +2,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.GEMMA;
@@ -24,6 +25,8 @@ test('LLM não deve inventar informações inexistentes', async () => {
     response.toLowerCase(),
     'O modelo pode ter inventado uma informação inexistente.'
   ).toMatch(/não existe|não existia|não há|não existe informação|impossível|não é possível/);
+
+  saveLLMResponse(response, 'llm-hallucination');
 });
 
 /*

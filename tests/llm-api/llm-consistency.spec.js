@@ -2,6 +2,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { askLLM } = require('../../utils/llm-client');
+const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.GEMMA;
@@ -24,6 +25,8 @@ test('LLM deve responder de forma consistente ao mesmo prompt', async () => {
 
   // E devem conter o resultado esperado
   expect(responses[0]).toBe('4');
+
+  saveLLMResponse(response, 'llm-consistency');
 });
 
 /*

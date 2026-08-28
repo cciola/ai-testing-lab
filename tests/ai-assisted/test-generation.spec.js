@@ -1,7 +1,7 @@
 // Test Generation - geração de casos de teste pela IA. A IA não deve inventar regras de negócio que não estão presentes no requisito fornecido.
 
 const { test, expect } = require('@playwright/test');
-
+const { saveLLMResponse } = require('../../utils/llm-client');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
@@ -37,4 +37,6 @@ test('IA deve gerar casos de teste a partir de um requisito', async () => {
   expect(responseLower).toContain('e-mail');
   expect(responseLower).toContain('senha');
   expect(responseLower).toContain('login');
+
+  saveLLMResponse(response, 'test-generation');
 });

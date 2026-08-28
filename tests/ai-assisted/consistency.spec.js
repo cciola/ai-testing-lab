@@ -1,7 +1,7 @@
 // Consistency: a IA deve manter a mesma resposta essencial, quando fazemos a mesma pergunta duas vezes
 
 const { test, expect } = require('@playwright/test');
-
+const { saveLLMResponse } = require('../../utils/llm-client');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
@@ -42,11 +42,11 @@ test('IA deve apresentar respostas consistentes para o mesmo requisito', async (
   // As duas respostas devem reconhecer a restrição do requisito
   expect(response1Lower).toContain('não');
   expect(response2Lower).toContain('não');
+
+  saveLLMResponse(response1, 'consistency');
+  saveLLMResponse(response2, 'consistency');
 });
 
-
 /*
-
-Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual:
-
+Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual.
 */

@@ -2,6 +2,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.GEMMA;
@@ -20,6 +21,8 @@ test('LLM deve respeitar a instrução principal mesmo com conteúdo conflitante
     response.trim(),
     'O modelo não respeitou a instrução de responder apenas APROVADO.'
   ).toBe('APROVADO.');
+
+  saveLLMResponse(response, 'llm-robustness');
 });
 
 /* O teste vai falhar, e está funcionando corretamente; quem não cumpriu o critério foi o Gemma.

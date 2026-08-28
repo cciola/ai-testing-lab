@@ -1,8 +1,8 @@
 // Requirement Adherence - a IA deve respeitar o requisito fornecido, não extrapolando suas limitações,respeitando a fonte de verdade fornecida
 
 const { test, expect } = require('@playwright/test');
-
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
@@ -46,4 +46,31 @@ test('IA não deve inventar regras não presentes no requisito', async () => {
   expect(responseLower).not.toContain('5 tentativas');
   expect(responseLower).not.toContain('força bruta');
   expect(responseLower).not.toContain('dashboard');
+
+  saveLLMResponse(response, 'requirement-adherence');
 });
+
+/*
+Na resposta, a IA identificou corretamente que o requisito só define:
+login com e-mail e senha válidos.
+
+E explicitamente reconheceu que não temos informação suficiente sobre:
+tamanho da senha;
+formato exato do e-mail;
+mensagens de erro;
+limite de tentativas;
+2FA;
+política de segurança.
+
+Isso é um comportamento que queremos de uma IA em um cenário de QA.
+
+Mas encontramos um problema interessante: ela primeiro disse
+"válidos" ... indica que o e-mail deve seguir o formato esperado
+e
+"a senha deve atender aos critérios de validade (como tamanho mínimo...)"
+
+Isso é uma inferência. Depois ela mesma se corrige:
+"não podemos inferir regras adicionais"
+
+Então temos uma resposta que termina corretamente, mas contém uma contradição interna.
+*/

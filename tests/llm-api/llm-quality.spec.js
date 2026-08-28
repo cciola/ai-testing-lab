@@ -2,6 +2,7 @@
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.GEMMA;
@@ -17,4 +18,6 @@ test('LLM deve explicar um conceito de forma compreensível', async () => {
   expect(response).toBeTruthy();
   expect(response.length).toBeGreaterThan(20);
   expect(response.split(/[.!?]+/).filter(Boolean).length).toBeLessThanOrEqual(3);
+
+  saveLLMResponse(response, 'llm-quality');
 });
