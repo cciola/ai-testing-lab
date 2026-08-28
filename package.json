@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "Laboratório para estudos de testes de sistemas de IA e LLMs",
   "scripts": {
-    "test:ai": "playwright test tests/ai-assisted",
-    "test:llm": "playwright test tests/llm-api",
-    "test:rag": "playwright test tests/rag",
-    "test:sec": "playwright test tests/security",
+    "test:playwright": "playwright test",
     "report": "playwright show-report"
   },
   "devDependencies": {
@@ -15,7 +12,7 @@
     "playwright": "^1.62.1"
   },
   "dependencies": {
-    "node": "^20.18.1",
+    "node": "^24.20.0",
     "undici": "^6.28.0"
   }
 }

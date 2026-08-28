@@ -1,37 +1,34 @@
 # AI-Testing-Lab
-Projeto de AI-Testing usando Playwright e MCP Server na aplicação [LM Studio](https://lmstudio.ai/download) (LLM local).
+> Projeto de AI-Testing usando Playwright e MCP Server na aplicação **LM Studio** (LLM local).
+
+---
 
 ## 📋 Requisitos
-* **NodeJS 24.20.0 ou superior**
-* **Npm 9.6.5 ou superior**
+* **NodeJS** (versão 24.20.0 ou superior)
+* **NPM** (versão 9.6.5 ou superior)
 * **MCP Server**
 * **Playwright**
 * **LM Studio**
-    - modelo *Gemma 4 E2B* (Google)
-    - modelo *Qwen3.5 4B GGUF* (Unsloth)
+
+---
 
 ## 🛠 Instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/nome-do-projeto.git
-```
-
-2. Acesse o diretório do projeto:
 ```bash
 cd nome-do-projeto
-```
-
-3. Instale as dependências necessárias:
-```bash
 npm install
 ```
 
-## ⚙ Configurando do zero
+---
 
-Após criar o repositório, execute os comandos abaixo um por vez:
+## ⚙ Configuração do zero
+
+1. Crie um repositório
+2. Inicialize um pacote criando o arquivo `package. json`:
 ```bash
 npm init -y
+```
+3. Instale o Playwright, o Chromium e o client Undici (execute um comando por vez):
+```bash
 npm install -D @playwright/test
 npx playwright install
 npx playwright install chromium
@@ -49,49 +46,48 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 * recusa solicitações inadequadas.
 
 ### 🎭 Teste com mock
-O teste `llm-basic-mock.spec.js` faz uma pergunta no prompt e temporariamente simula a resposta do LLM.
+O teste `llm-basic-mock.spec.js` faz uma pergunta no prompt e temporariamente simula uma resposta mockada do LLM.
 
-### 🤖 Teste com LLM real local (LM Studio)
+### 🤖 Teste com LLM real local
 
-1. Baixe o **LM Studio**: https://lmstudio.ai/download
+1. Baixe o LM Studio: https://lmstudio.ai/download
 
-2. No menu lateral **My Models**, pesquise e baixe os modelos:
+2. Em *My Models*, pesquise e baixe os seguintes modelos:
 
-* `google/gemma-4-e2b` (para os testes de **llm-api**) - o **Gemma4 E2B** é uma versão pequena do Gemma 4, com suporte a texto, imagens, raciocínio e tool calling, otimizado para execução direta em dispositivos locais com menos recursos.
+* **Gemma4 E2B** - `google/gemma-4-e2b` (utilizaremospara os testes de **llm-api**)
 
-* `unsloth/Qwen3.5-4b-gguf` (para os testes de **ai-assisted**) - o **Qwen3.5 4B GGUF** é um modelo de AI multimodal leve, com cerca de 4 bilhões de parâmetros, e otimizado para rodar em computadores locais.
+* **Qwen3.5 4B GGUF** - `unsloth/Qwen3.5-4b-gguf` (utilizaremos para os testes de **ai-assisted**)
 
-* `devQuasar/Qwen3-4B-Instruct-2507-GGUF Q4_K_M` (para os testes de **ai-assisted**) - o **Qwen3-4B-Instruct-2507-GGUF Q4_K_M** é uma versão quantizada (comprimida) de 4 bilhões de parâmetros do modelo de linguagem Qwen3, focada em seguir instruções sem o modo de raciocínio profundo ("non-thinking"), ideal para rodar localmente com baixo uso de recursos.
+* **Qwen3-4B-Instruct-2507-GGUF Q4_K_M** - `devQuasar/Qwen3-4B-Instruct-2507-GGUF Q4_K_M` (utilizaremos para os testes de **ai-assisted**)
 
-No **Qwen**, altere estas configurações para melhorar o desempenho:
-- aba Load
-  - Context and Offload
+Melhore o desempenho do **Qwen**, alterando estas configurações:
+- aba Load > Context and Offload:
     - Context Length: 4096
     - GPU Offload: 0
-- aba Inference
-  - Reasoning
+- aba Inference > Reasoning
     - Enable Thinking: desabilitar
 
-3. Em **Chats**, selecione o modelo desejado, pergunte *Qual é a capital do Brasil?* (é comum uma demora no processamento das respostas). Vamos validar que:
+3. Em *Chats*, selecione o modelo desejado, pergunte `Qual é a capital do Brasil?`.
+
+Vamos validar que:
 
 - o LM Studio está funcionando
 - o modelo Gemma foi carregado corretamente
 - conseguiu entender a pergunta e gerar uma resposta correta
 - a execução foi local, sem precisar da API da OpenAI
 
-5. Deixe o modelo carregado e inicie o servidor local (menu **Developer**, alterar opção **Status** para *Running*).
+5. Deixe o modelo carregado e inicie o servidor local (menu *Developer*, alterar opção *Status* para *Running*).
 
 6. A URL local deve ser configurada no arquivo `utils/llm-client.js`:
-
-**Importante:** O ID do model informado em `models.js` deve ser igual ao ID exibido no LM Studio.
-
 ```javascript
 const BASE_URL = 'http://localhost:1234/v1';
 ```
 
+> **Importante:** Os IDs dos models informados em `models.js` devem ser iguais aos IDs exibidos no LM Studio.
+
 ## 🧪 Execução dos testes
 ```bash
-npm run test:ai test-generation.spec.js
+npx playwright tests/ai-assisted/test-generation.spec.js
 npm run test:llm llm-basic.spec.js
 ```
 
@@ -109,6 +105,7 @@ npm run test:llm llm-basic.spec.js
 
 - **test-generation** - gerar casos de teste a partir de um requisito
 
+---
 
 ## 📊 Pós execução dos testes
 
@@ -117,5 +114,5 @@ Após a execução de um teste, em caso de falha, é gerado automaticamente um r
 
 Caso queira gerar o relatório manualmente, execute:
 ```bash
-npm run report
+npx playwright test report
 ```
