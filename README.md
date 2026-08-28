@@ -37,7 +37,7 @@ npx playwright install chromium
 npm install undici@6
 ```
 
-#### 🤖 Instalando o LLM local
+### Instalando o LLM local
 
 1. Baixe o LM Studio: https://lmstudio.ai/download
 
@@ -68,7 +68,7 @@ Vamos validar que:
 const BASE_URL = 'http://localhost:1234/v1';
 ```
 
-> **Importante:** Os IDs dos models informados em `models.js` devem ser iguais aos IDs exibidos no LM Studio.
+**Importante:** Os IDs dos models informados em `models.js` devem ser iguais aos IDs exibidos no LM Studio.
 
 ---
 
@@ -77,7 +77,7 @@ const BASE_URL = 'http://localhost:1234/v1';
 ### AI-Testing
 
 ```bash
-npx playwright tests/llm-api/llm-basic-mock.spec.js`      # simula uma resposta mockada do LLM
+npx playwright tests/llm-api/llm-basic-mock.spec.js       # simula uma resposta mockada do LLM
 npx playwright tests/llm-api/llm-basic.spec.js            # responder corretamente perguntas simples
 npx playwright tests/llm-api/llm-instruction.spec.js      # seguir uma instrução dada no prompt
 npx playwright tests/llm-api/llm-quality.spec.js          # gerar respostas com qualidade, respeitando um formato
@@ -100,7 +100,7 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 ## AI-Assisted
 
 ```bash
-npx playwright tests/ai-assisted/test-generation.spec.js` # gera casos de teste a partir de um requisito
+npx playwright tests/ai-assisted/test-generation.spec.js # gera casos de teste a partir de um requisito
 ```
 
 
@@ -113,5 +113,5 @@ Após a execução de um teste, em caso de falha, é gerado automaticamente um r
 
 Caso queira gerar o relatório manualmente, execute:
 ```bash
-npx playwright test report
+npx playwright show-report
 ```

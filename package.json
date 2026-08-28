@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Laboratório para estudos de testes de sistemas de IA e LLMs",
   "scripts": {
-    "test:playwright": "playwright test",
-    "report": "playwright show-report"
+    "test:playwright": "playwright test"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
