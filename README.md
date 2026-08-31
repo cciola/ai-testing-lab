@@ -76,14 +76,14 @@ const BASE_URL = 'http://localhost:1234/v1';
 
 ## 🧪 Execução dos testes
 
-### [**AI-Testing** [+]](./AI-TESTING.md)
+### [**AI-Testing** [+]](docs/AI-TESTING.md)
 ```bash
 npm run test:ai test-generation.spec.js           # Geração de cenários de teste
 npm run test:ai requirement-adherance.spec.js     # Aderência aos requisitos
 npm run test:ai consistency.spec.js               # Consistência
 ```
 
-### [**AI-Assisted** [+]](./AI-ASSISTED.md)
+### [**AI-Assisted** [+]](docs/AI-ASSISTED.md)
 ```bash
 npm run test:llm llm-basic.spec.js                # Basic Functionality
 npm run test:llm llm-basic-mock.spec.js           # Basic Functionality (usando mock)
