@@ -1,5 +1,4 @@
 # AI-Assisted
-**(Utilize o model `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF)**
 
 O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumentar produtividade e qualidade, não necessariamente testar a própria IA. Por exemplo:
 
@@ -28,13 +27,13 @@ QA ─────┼── IA analisa
 
 ### O erro que queremos evitar
 
-* Pensar: "a IA gerou os testes, então os testes estão corretos"
+- Pensar "a IA gerou os testes, então os testes estão corretos"
+- Mentalidade correta: "a IA gerou **sugestões** de testes. Agora vou **avaliá-las como QA**"
 
-* Mentalidade correta: "a IA gerou **sugestões** de testes. Agora vou **avaliá-las como QA**"
+## IA pode ajudar com ganho de produtividade em
 
-A IA pode ajudar com ganho de produtividade em:
 
-### 1. Análise de requisitos
+**- Análise de requisitos**
 
 Pergunte para a IA:
 ```
@@ -42,11 +41,11 @@ Com relação ao seguinte requisito:
 
 "O usuário pode cancelar um pedido."
 
-* identifique ambiguidades
-* encontre regras implícitas
-* sugira perguntas
-* identifique cenários esquecidos
-* transforme requisitos em critérios de aceite
+- identifique ambiguidades
+- encontre regras implícitas
+- sugira perguntas
+- identifique cenários esquecidos
+- transforme requisitos em critérios de aceite
 ```
 
 Resposta:
@@ -57,17 +56,14 @@ Resposta:
 > - O cancelamento gera reembolso? </br>
 > - O usuário recebe alguma notificação?
 
-### 2. Geração de Casos de Teste
-Você fornece para a IA:
-```
-Requisito
-```
 
-Resposta:
-> Cenários </br>
-> Pré-condições </br>
-> Passos </br>
-> Resultado esperado
+**2. Geração de Casos de Teste**
+
+Você fornece o **requisito** para a IA, e tem como resposta:
+> - Cenários </br>
+> - Pré-condições </br>
+> - Passos </br>
+> - Resultado esperado
 
 ### 3. Geração de Dados
 ```
@@ -76,6 +72,9 @@ Resposta:
 ```
 
 ---
+
+## Cenários automatizados
+**(Utilize o model `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF)**
 
 ### 1. Test Generation
 Geração de casos de teste pela IA, a partir de um requisito. A IA não deve inventar regras de negócio que não estão presentes no requisito fornecido.
