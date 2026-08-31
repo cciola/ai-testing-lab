@@ -94,3 +94,86 @@ npx playwright show-report
 
 ### Resposta da LLM
 Caso o teste passe, um arquivo `.md` contendo o resultado (resposta) da LLM é gerado automaticamente no diretório `llm-results`.
+
+---
+
+## 📂 Estrutura do Projeto
+```
+ai-testing-lab/
+├── README.md
+├── AI-ASSISTED.md
+├── AI-TESTING.md
+├── package.json
+├── playwright.config.ts
+├── .gitignore
+│
+├── docs/
+│   ├── business-rules.md          # Regras de negócio e critérios de validação
+│   ├── faq.md                     # Perguntas frequentes e dúvidas do projeto
+│   └── product-requirements.md    # Requisitos funcionais e não funcionais
+│
+├── config/
+│   └── models.js                  # Modelos LLM configurados para testes
+│
+├── prompts/
+│   ├── evaluation.md              # Prompt para avaliação de respostas
+│   ├── requirement-analysis.md    # Prompt para análise de requisitos
+│   └── test-case-generation.md    # Prompt para geração de casos de teste
+│
+├── knowledge-base/
+│   ├── benefits-policy.md         # Política de benefícios
+│   ├── remote-work-policy.md      # Política de trabalho remoto
+│   ├── security-policy.md         # Política de segurança
+│   └── vacation-policy.md        # Política de férias
+│
+├── utils/
+│   ├── evaluators.js              # Funções de avaliação de respostas
+│   ├── llm-client.js              # Cliente para comunicação com LLM local
+│   ├── llm-output.js              # Tratamento e persistência de saídas
+│   └── test-data.js               # Dados e fixtures usados nos testes
+│
+├── tests/
+│   ├── ai-assisted/
+│   │   ├── ai-consistency.spec.js
+│   │   ├── ai-requirement-adherence.spec.js
+│   │   └── ai-test-generation.spec.js
+│   │
+│   ├── llm-api/
+│   │   ├── llm-basic.spec.js
+│   │   ├── llm-basic-mock.spec.js
+│   │   ├── llm-consistency.spec.js
+│   │   ├── llm-hallucination.spec.js
+│   │   ├── llm-instruction.spec.js
+│   │   ├── llm-prompt-injection.spec.js
+│   │   ├── llm-quality.spec.js
+│   │   └── llm-robustness.spec.js
+│   │
+│   ├── rag/
+│   │   ├── document-content.spec.js
+│   │   ├── grounding.spec.js
+│   │   └── retrieval.spec.js
+│   │
+│   └── security/
+│       ├── data-leakage.spec.js
+│       ├── jailbreak.spec.js
+│       └── prompt-injection.spec.js
+│
+├── pages/
+│   └── # Páginas ou cenários front-end simulados para testes
+│
+├── test-results/
+│   └── # Saídas de execução dos testes
+│
+├── playwright-report/
+│   └── index.html                 # Relatório HTML gerado pelo Playwright
+│
+├── llm-results/
+│   ├── ai-consistency_20260828_15-4645.md
+│   ├── ai-requirement-adherence-2026-082814_3655.md
+│   ├── ai-test-generation_20260828_15-2942.md
+│   └── # Resultados e respostas geradas pela LLM
+│
+└── .github/
+    └── workflows/
+        └── # CI/CD e automação futura
+```

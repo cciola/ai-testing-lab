@@ -10,7 +10,7 @@ O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumen
 * identificação de riscos
 * perguntas que deveriam ser esclarecidas com o PO
 
-### Diferença fundamental
+## Diferença fundamental
 
 **Teste tradicional**
 ```
@@ -25,15 +25,14 @@ QA ─────┼── IA analisa
         └── IA explica
 ```
 
-### O erro que queremos evitar
+## O erro que queremos evitar
 
 - Pensar "a IA gerou os testes, então os testes estão corretos"
 - Mentalidade correta: "a IA gerou **sugestões** de testes. Agora vou **avaliá-las como QA**"
 
-## IA pode ajudar com ganho de produtividade em
+## Ganho de produtividade
 
-
-**- Análise de requisitos**
+### Análise de requisitos
 
 Pergunte para a IA:
 ```
@@ -56,8 +55,7 @@ Resposta:
 > - O cancelamento gera reembolso? </br>
 > - O usuário recebe alguma notificação?
 
-
-**2. Geração de Casos de Teste**
+### Geração de Casos de Teste
 
 Você fornece o **requisito** para a IA, e tem como resposta:
 > - Cenários </br>
@@ -65,10 +63,81 @@ Você fornece o **requisito** para a IA, e tem como resposta:
 > - Passos </br>
 > - Resultado esperado
 
-### 3. Geração de Dados
+### Geração de Dados
+
+Geração de massa para os testes:
 ```
 - Gere 20 e-mails válidos e 20 e-mails inválidos para testes
 - Gere dados para testar CPF, telefone, CEP e nome
+```
+
+### Geração de automação
+Geração de código:
+```
+Crie um teste Playwright para validar o login com usuário e senha.
+```
+
+### Debug
+
+Você fornece o erro da automação + código + contexto, e a IA pode ajudar a identificar:
+
+- timeout
+- locator incorreto
+- race condition
+- elemento invisível
+- problema de espera
+- problema de ambiente
+
+Bem como solicitar **Code Review**.
+
+## Onde NÃO confiar na IA
+
+- A IA pode produzir uma resposta bem escrita, coerente e tecnicamente plausível, e ainda assim estar errada
+- Código aparentemente correto
+
+Sempre questione:
+1. Isso veio do requisito?
+2. Isso veio do código?
+3. Isso é conhecimento geral?
+4. Ou a IA simplesmente assumiu?
+
+## Prompt Engineering para QA
+
+Forneça contexto suficiente para a IA trabalhar corretamente:
+
+```
+Contexto
++
+Objetivo
++
+Restrições
++
+Entrada
++
+Formato esperado
+```
+
+Exemplo:
+
+```
+Atue como um QA especialista em aplicações web.  #
+
+Analise o requisito abaixo:
+
+"O usuário deve conseguir realizar login
+utilizando e-mail e senha válidos."
+
+Gere:
+- cenários positivos;
+- cenários negativos;
+- cenários de fronteira.
+
+Não invente regras.
+Caso alguma informação esteja ausente,
+liste-a como dúvida.
+
+Apresente o resultado em uma tabela contendo:
+ID | Cenário | Resultado esperado
 ```
 
 ---
