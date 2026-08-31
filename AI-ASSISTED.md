@@ -119,25 +119,60 @@ Formato esperado
 
 Exemplo:
 
-```
+```bash
 Atue como um QA especialista em aplicações web.  # quem a IA deve ser (QA)
 
 Analise o requisito abaixo:                      # qual informação utilizar (requisito)
 
-"O usuário deve conseguir realizar login
-utilizando e-mail e senha válidos."
+"O usuário deve conseguir realizar login utilizando e-mail e senha válidos."
 
 Gere:                                           # o que deve fazer (gerar testes)
-- cenários positivos;
-- cenários negativos;
-- cenários de fronteira.
+- cenários positivos
+- cenários negativos
+- cenários de fronteira
 
 Não invente regras.                             # o que não fazer (inventar regras)
-Caso alguma informação esteja ausente,
-liste-a como dúvida.
+Caso alguma informação esteja ausente, liste-a como dúvida.
 
 Apresente o resultado em uma tabela contendo:   # com responder (tabela)
 ID | Cenário | Resultado esperado
+```
+
+## Análise dos casos de teste gerados a partir de requisitos
+Parq o requisito:
+```
+O sistema deve permitir que o usuário faça login utilizando e-mail e senha.
+Após três tentativas inválidas, o acesso deve ser bloqueado.
+```
+
+Peça para a IA:
+```
+Gere casos de teste para este requisito.
+
+Classifique cada caso como:
+- positivo
+- negativo
+- fronteira
+- segurança
+
+Não invente regras adicionais.
+```
+
+Teremos algo semelhante a:
+
+> Tipo	Cenário </br>
+> Positivo	Login válido </br>
+> Negativo	E-mail inválido </br>
+> Negativo	Senha inválida </br>
+> Negativo	Campos vazios </br>
+> Fronteira	3 tentativas inválidas </br>
+> Segurança	Conta bloqueada após 3 tentativas
+
+Então, se pergunte "a IA esqueceu alguma coisa?"
+```
+E questione a IA:
+```
+O que acontece na quarta tentativa?
 ```
 
 ---
