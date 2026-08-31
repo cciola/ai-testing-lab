@@ -105,8 +105,7 @@ llm-     # informação que não existe
 llm-  # resistência a tentativas de prompt injection
 ```
 
-### Basic functionality
-A IA deve retornar respostas corretas para perguntas simples.
+**Basic functionality**: a IA deve retornar respostas corretas para perguntas simples.
 
 Exemplo de resposta da LLM:
 ```
@@ -118,18 +117,12 @@ Resposta do teste mockado:
 A capital do Brasil é Brasília.
 ```
 
-### Instruction Following
-A IA deve seguir uma instrução simples dada no prompt.
-
-Exemplo de resposta:
+**Instruction Following** a IA deve seguir uma instrução simples dada no prompt.
 ```
 APROVADO
 ```
 
-### Quality Format
-A IA deve gerar respostas com qualidade, respeitando um formato.
-
-Exemplo de resposta:
+**Quality Format** - a IA deve gerar respostas com qualidade, respeitando um formato.
 ```
 Teste de software é o processo de verificar um programa ou sistema para identificar defeitos (bugs) e garantir que ele funcione conforme o esperado. O objetivo é validar a qualidade do software, assegurando que ele atenda aos requisitos especificados pelos usuários. Isso envolve executar o software com diferentes entradas para encontrar falhas e corrigir os problemas antes da implantação.
 ```
