@@ -75,8 +75,8 @@ const BASE_URL = 'http://localhost:1234/v1';
 
 ## 🧪 Execução dos testes
 
-### ✨ AI-Testing
-> Utilize o model `google/gemma-4-e2b`
+## ✨ AI-Testing
+**(Utilize o model google/gemma-4-e2b)**
 
 O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
 
@@ -88,7 +88,7 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 * responde consistentemente
 * recusa solicitações inadequadas
 
-### Basic Functionality
+#### Basic Functionality
 A IA deve retornar respostas corretas para perguntas simples.
 ```bash
 npx playwright test tests/llm-api/llm-basic.spec.js
