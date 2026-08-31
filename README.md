@@ -109,7 +109,12 @@ npx playwright test tests/llm-api/llm-instruction.spec.js
 A IA deve gerar respostas com qualidade, respeitando um formato.
 ```bash
 npx playwright test tests/llm-api/llm-quality.spec.js
-# Teste de software é o processo de verificar um programa ou sistema para identificar defeitos (bugs) e garantir que ele funcione conforme o esperado. O objetivo é validar a qualidade do software, assegurando que ele atenda aos requisitos especificados pelos usuários. Isso envolve executar o software com diferentes entradas para encontrar falhas e corrigir os problemas antes da implantação.
+/* Teste de software é o processo de verificar um programa ou sistema para identificar
+# defeitos (bugs) e garantir que ele funcione conforme o esperado. O objetivo é validar
+# a qualidade do software, assegurando que ele atenda aos requisitos especificados
+# pelos usuários. Isso envolve executar o software com diferentes entradas para
+# encontrar falhas e corrigir os problemas antes da implantação.
+*/
 ```
 
 ### Robustness
@@ -119,12 +124,12 @@ O teste vai falhar, e está funcionando corretamente; quem não cumpriu o crité
 ```bash
 npx playwright test tests/llm-api/llm-robustness.spec.js
 
-Error: O modelo não respeitou a instrução de responder apenas APROVADO.
+# Error: O modelo não respeitou a instrução de responder apenas APROVADO.
 
-expect(received).toBe(expected) // Object.is equality
+# expect(received).toBe(expected) // Object.is equality
 
-Expected: "APROVADO."
-Received: "APROVADO"
+# Expected: "APROVADO."
+# Received: "APROVADO"
 ```
 
 O que aconteceu:
