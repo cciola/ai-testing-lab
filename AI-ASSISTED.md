@@ -32,7 +32,7 @@ QA ─────┼── IA analisa
 
 ## Ganho de produtividade
 
-### Análise de requisitos
+### 1. Análise de requisitos
 
 Pergunte para a IA:
 ```
@@ -55,7 +55,7 @@ Resposta:
 > - O cancelamento gera reembolso? </br>
 > - O usuário recebe alguma notificação?
 
-### Geração de Casos de Teste
+### 2. Geração de Casos de Teste
 
 Você fornece o **requisito** para a IA, e tem como resposta:
 > - Cenários </br>
@@ -63,21 +63,22 @@ Você fornece o **requisito** para a IA, e tem como resposta:
 > - Passos </br>
 > - Resultado esperado
 
-### Geração de Dados
+### 3. Geração de Dados
 
 Geração de massa de dados válidos/inválidos/valores limite para os testes:
 ```
 - Gere 20 e-mails válidos e 20 e-mails inválidos para testes
 - Gere dados para testar CPF, telefone, CEP e nome
+- Gere dados para testar os limites da regra de senha (deve possuir entre 8 e 20 caracteres)
 ```
 
-### Geração de automação
+### 4. Geração de automação
 Geração de código:
 ```
 Crie um teste Playwright para validar o login com usuário e senha.
 ```
 
-### Debug / Code Review
+### 5. Debug / Code Review
 
 Você fornece o erro da automação + código + contexto, e a IA pode ajudar a identificar:
 
@@ -88,7 +89,7 @@ Você fornece o erro da automação + código + contexto, e a IA pode ajudar a i
 - problema de espera
 - problema de ambiente
 
-```javascript
+```
 Erro:
 Timeout 30000ms exceeded.
 
@@ -225,19 +226,15 @@ No Hallucination, a IA apresenta uma informação **falsa** ou **não fundamenta
 No AI-Assisted Testing isso pode aparecer como:
 
 - **Regras inventadas** ("o sistema deve enviar e-mail", mas o requisito nunca mencionou isso)
-
 - **APIs inventadas** (`await page.loginAsAdmin();`, mas essa função não existe)
-
 - **Seletores inventados** (`page.getByTestId('user-profile')`, mas esse data-testid não existe)
-
 - **Comportamentos inventados** ("após três erros o sistema apresenta um CAPTCHA", mas ninguém disse isso)
 
 Uma técnica muito boa para combater é pedir:
 
 ```
-Para cada conclusão apresentada, indique qual informação fornecida no contexto a sustenta.
-
-Se não houver informação suficiente, responda "não informado".
+- Para cada conclusão apresentada, indique qual informação fornecida no contexto a sustenta.
+- Se não houver informação suficiente, responda "não informado".
 ```
 
 Isso força a IA a separar **FATO** de **SUPOSIÇÃO**.
