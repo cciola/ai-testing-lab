@@ -85,16 +85,16 @@ O que aconteceu:
 
 Portanto:
 - Comportamento observado: respondeu à instrução conflitante
-- Comportamento esperado: APROVADO.
+- Comportamento esperado: `APROVADO.`
 
 Isso é um exemplo de robustez a instruções conflitantes.
 
-Observação: não devemos assumir que a primeira instrução é necessariamente "a principal" só porque apareceu primeiro. Em sistemas de LLM reais, existe uma hierarquia de instruções, e o comportamento depende também de como a aplicação constrói o prompt. Neste teste estamos deliberadamente simplificando isso para estudar o conceito.
+**Observação:** não devemos assumir que a primeira instrução é necessariamente "a principal" só porque apareceu primeiro. Em sistemas de LLM reais, existe uma hierarquia de instruções, e o comportamento depende também de como a aplicação constrói o prompt. Neste teste estamos deliberadamente simplificando isso para estudar o conceito.
 
 ### 5. Consistency
 A IA deve responder de forma consistente ao mesmo prompt repetidas vezes (mesma entrada, mesmo resultado).
 
-Neste teste, existe um `for (let i = 0; i < 5; i++)`.
+Neste teste, existe um laço `for` para repetição de cinco vezes.
 
 ```bash
 npx playwright test tests/llm-api/llm-consistency.spec.js

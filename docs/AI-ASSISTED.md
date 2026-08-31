@@ -250,6 +250,14 @@ Geração de casos de teste pela IA, a partir de um requisito. A IA não deve in
 ```bash
 npx playwright test tests/ai-assisted/test-generation.spec.js
 ```
+> Prompt: </br>
+> *Gere casos de teste para o seguinte requisito:* </br>
+>
+> *Um usuário deve conseguir fazer login informando e-mail e senha válidos.* </br>
+>
+> *Inclua cenários positivos e negativos.* </br>
+> *Apresente os casos de teste de forma clara.* </br>
+>
 > Resposta em: `llm-results/ai-test-generation.spec.js`
 
 ### 2. Requirement Adherance
@@ -258,6 +266,16 @@ A IA deve respeitar o requisito fornecido, não extrapolando suas limitações,r
 ```bash
 npx playwright test tests/ai-assisted/requirement-adherance.spec.js
 ```
+> Prompt: </br>
+> *Analise o requisito abaixo e identifique quais regras de negócio estão explicitamente definidas.*
+>
+> *Gere casos de teste somente com base nas informações presentes no requisito.*
+>
+> *Não invente regras, valores, mensagens, limites, políticas de segurança ou comportamentos que não estejam especificados.*
+>
+> *Requisito:* </br>
+> *Um usuário deve conseguir fazer login informando e-mail e senha válidos.*
+>
 > *Resposta em: llm-results/ai-requirement-adherance.spec.js*
 
 Na resposta, a IA identificou corretamente que o requisito só define:
@@ -290,4 +308,13 @@ Neste teste não estamos exigindo que as duas respostas sejam idênticas; querem
 ```bash
 npx playwright test tests/ai-assisted/consistency.spec.js
 ```
+> Prompt: </br>
+> *Analise o seguinte requisito:*
+>
+> *Um usuário deve conseguir fazer login informando e-mail e senha válidos.*
+>
+> *Liste os principais cenários de teste que podem ser derivados exclusivamente desse requisito.*
+>
+> *Não invente regras que não estejam especificadas.*
+>
 > *Resposta em: llm-results/ai-consistency.spec.js*
