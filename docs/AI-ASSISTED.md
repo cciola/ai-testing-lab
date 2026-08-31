@@ -248,7 +248,7 @@ Isso força a IA a separar **FATO** de **SUPOSIÇÃO**.
 Geração de casos de teste pela IA, a partir de um requisito. A IA não deve inventar regras de negócio que não estão presentes no requisito fornecido.
 
 ```bash
-npx playwright test tests/ai-assisted/test-generation.spec.js
+npm run test:ai test-generation.spec.js
 ```
 > Prompt: </br>
 > *Gere casos de teste para o seguinte requisito:* </br>
@@ -264,7 +264,7 @@ npx playwright test tests/ai-assisted/test-generation.spec.js
 A IA deve respeitar o requisito fornecido, não extrapolando suas limitações,respeitando a fonte de verdade fornecida.
 
 ```bash
-npx playwright test tests/ai-assisted/requirement-adherance.spec.js
+npm run test:ai requirement-adherance.spec.js
 ```
 > Prompt: </br>
 > *Analise o requisito abaixo e identifique quais regras de negócio estão explicitamente definidas.*
@@ -306,15 +306,13 @@ A IA deve manter a mesma resposta essencial, quando fazemos a mesma pergunta dua
 Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual.
 
 ```bash
-npx playwright test tests/ai-assisted/consistency.spec.js
+npm run test:ai consistency.spec.js
 ```
 > Prompt: </br>
-> *Analise o seguinte requisito:*
->
+> *Analise o seguinte requisito:* </br>
 > *Um usuário deve conseguir fazer login informando e-mail e senha válidos.*
 >
-> *Liste os principais cenários de teste que podem ser derivados exclusivamente desse requisito.*
->
+> *Liste os principais cenários de teste que podem ser derivados exclusivamente desse requisito.* </br>
 > *Não invente regras que não estejam especificadas.*
 >
 > *Resposta em: llm-results/ai-consistency.spec.js*
