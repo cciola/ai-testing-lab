@@ -227,10 +227,8 @@ A IA deve respeitar o requisito fornecido, não extrapolando suas limitações,r
 ```bash
 npx playwright test tests/ai-assisted/requirement-adherance.spec.js
 ```
-```
-resposta
-```
-
+> *resposta em* </br>
+> *llm-results/ai-requirement-adherance.spec.js*
 
 Na resposta, a IA identificou corretamente que o requisito só define:
 - login com e-mail e senha válidos.
@@ -256,9 +254,16 @@ Isso é uma inferência. Depois ela mesma se corrige:
 Então temos uma resposta que termina corretamente, mas contém uma contradição interna.
 
 
+### Consistency
+A IA deve manter a mesma resposta essencial, quando fazemos a mesma pergunta duas vezes.
 
-consistency            # manter a mesma resposta essencial ao fazer a mesma pergunta duas vezes
+Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual.
+
+```bash
+npx playwright test tests/ai-assisted/consistency.spec.js
 ```
+> *resposta em* </br>
+> *llm-results/ai-consistency.spec.js*
 
 ---
 

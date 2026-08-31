@@ -1,9 +1,3 @@
-/*
-Consistency - A IA deve manter a mesma resposta essencial, quando fazemos a mesma pergunta duas vezes.
-
-Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual.
-*/
-
 const { test, expect } = require('@playwright/test');
 const { saveLLMResponse } = require('../../utils/llm-client');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
