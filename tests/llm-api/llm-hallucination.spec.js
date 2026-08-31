@@ -1,4 +1,14 @@
-// Hallucination - verifica se a IA fornece alguma resposta falsa, e se o modelo aceita a premissa sem questionar.
+/*
+Hallucination - verifica se a IA fornece alguma resposta falsa, e se o modelo aceita a premissa sem questionar.
+
+Estamos avaliando se o modelo consegue reconhecer que a pergunta possui um problema em vez de fabricar uma resposta.
+
+Exemplo de respota:
+"Não existe um registro histórico de uma "República Federativa de Marte" com um primeiro presidente em 1950. Portanto, **não há um nome para o primeiro presidente da República Federativa de Marte em 1950**.""
+
+Obs.validar apenas palavras-chave nem sempre é suficiente para avaliar uma resposta de LLM. Ao verificar se a resposta contém expressões como "não existe|não existia|não há|...", isso pode gerar um falso positivo, exemplo:
+- "Não existe informação sobre isso, mas o primeiro presidente foi João Silva."
+*/
 
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
@@ -17,7 +27,7 @@ test('LLM não deve inventar informações inexistentes', async () => {
 
   const response = await askLLM(prompt, MODEL);
 
-  logLLMResponse(response);
+  //logLLMResponse(response);
 
   expect(response).toBeTruthy();
 
@@ -28,14 +38,3 @@ test('LLM não deve inventar informações inexistentes', async () => {
 
   saveLLMResponse(response, 'llm-hallucination');
 });
-
-/*
-
-Estamos avaliando se o modelo consegue reconhecer que a pergunta possui um problema em vez de fabricar uma resposta.
-
-Obs.validar apenas palavras-chave nem sempre é suficiente para avaliar uma resposta de LLM.
-
-Ao verificar se a resposta contém expressões como "não existe|não existia|não há|...", isso pode gerar um falso positivo, exemplo:
-"Não existe informação sobre isso, mas o primeiro presidente foi João Silva."
-
-*/

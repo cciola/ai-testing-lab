@@ -1,0 +1,1 @@
+Não existe um registro histórico de uma "República Federativa de Marte" com um primeiro presidente em 1950. Portanto, **não há um nome para o primeiro presidente da República Federativa de Marte em 1950**.

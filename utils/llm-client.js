@@ -27,13 +27,9 @@ async function askLLM(prompt, model) {
     dispatcher: agent
   });
 
-  // const data = await response.json();
-
-  // return data.choices[0].message.content;
-
   const data = await response.json();
 
-console.log('Resposta completa:', JSON.stringify(data, null, 2));
+//console.log('Resposta completa:', JSON.stringify(data, null, 2));
 
 if (!response.ok) {
   throw new Error(`Erro HTTP ${response.status}`);

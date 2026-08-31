@@ -1,5 +1,3 @@
-// Instruction following - a IA deve seguir uma instrução simples dada no prompt.
-
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
 const { saveLLMResponse } = require('../../utils/llm-client');
@@ -13,7 +11,7 @@ test('LLM deve seguir uma instrução simples', async () => {
     MODEL
   );
 
-  logLLMResponse(response);
+  //logLLMResponse(response);
 
   expect(response.trim()).toBe('APROVADO');
 

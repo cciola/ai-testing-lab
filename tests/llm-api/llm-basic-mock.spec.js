@@ -1,5 +1,3 @@
-// (Teste com mock) Basic functionality - a IA deve retornar uma resposta correta para uma pergunta simples.
-
 const { test, expect } = require('@playwright/test');
 const { saveLLMResponse } = require('../../utils/llm-client');
 

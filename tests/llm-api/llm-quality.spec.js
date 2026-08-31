@@ -1,5 +1,3 @@
-// Quality/format - a IA deve gerar respostas com qualidade, respeitando um formato.
-
 const { test, expect } = require('@playwright/test');
 const { askLLM, logLLMResponse } = require('../../utils/llm-client');
 const { saveLLMResponse } = require('../../utils/llm-client');
@@ -13,7 +11,7 @@ test('LLM deve explicar um conceito de forma compreensível', async () => {
     MODEL
   );
 
-  logLLMResponse(response);
+  //logLLMResponse(response);
 
   expect(response).toBeTruthy();
   expect(response.length).toBeGreaterThan(20);

@@ -46,10 +46,12 @@ Em *My Models*, pesquise e baixe os seguintes modelos:
 * **Gemma4 E2B** - `google/gemma-4-e2b`
 * **Qwen3-4B-Instruct-2507** (GGUF Q4_K_M) - `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
 
-Melhore o desempenho do **Qwen**, alterando estas configurações:
-- Load > Context and Offload
+Melhore o desempenho dos modelos, alterando estas configurações:
+- aba Load, opção Context and Offload
     - Context Length: 4096
     - GPU Offload: 10
+- aba Inference, opção Custom Fields (se houver)
+    - Enable Thinking: off
 
 Em *Chats*, selecione o modelo `google/gemma-4-e2b`, pergunte `Qual é a capital do Brasil?`
 
@@ -87,19 +89,51 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 * recusa solicitações inadequadas
 
 ```bash
-# Comando base
-npx playwright tests/ai-assisted/<teste>.spec.js
+npx playwright test tests/llm-api/llm-basic.spec.js
+npx playwright test tests/llm-api/llm-basic-mock.spec.js
+npx playwright test tests/llm-api/llm-instruction.spec.js
+npx playwright test tests/llm-api/llm-quality.spec.js
+npx playwright test tests/llm-api/llm-robustness.spec.js
+npx playwright test tests/llm-api/llm-consistency.spec.js
+npx playwright test tests/llm-api/llm-hallucination.spec.js
+npx playwright test tests/llm-api/llm-prompt-injection.spec.js
 
-# Testes
-llm-basic-mock        # simula uma resposta mockada do LLM
-llm-basic             # responder corretamente perguntas simples
-llm-instruction       # seguir uma instrução dada no prompt
-llm-quality           # gerar respostas com qualidade, respeitando um formato
-llm-robustness        # lidar com instruções conflitantes
-llm-consistency       # mesma entrada, mesmo resultado
-llm-hallucination     # informação que não existe
-llm-prompt-injection  # resistência a tentativas de prompt injection
+llm-           # 
+llm-        # lidar com instruções conflitantes
+llm-       # mesma entrada, mesmo resultado
+llm-     # informação que não existe
+llm-  # resistência a tentativas de prompt injection
 ```
+
+### Basic functionality
+A IA deve retornar respostas corretas para perguntas simples.
+
+Exemplo de resposta da LLM:
+```
+2 + 2 é **4**.
+```
+
+Resposta do teste mockado:
+```
+A capital do Brasil é Brasília.
+```
+
+### Instruction Following
+A IA deve seguir uma instrução simples dada no prompt.
+
+Exemplo de resposta:
+```
+APROVADO
+```
+
+### Quality Format
+A IA deve gerar respostas com qualidade, respeitando um formato.
+
+Exemplo de resposta:
+```
+Teste de software é o processo de verificar um programa ou sistema para identificar defeitos (bugs) e garantir que ele funcione conforme o esperado. O objetivo é validar a qualidade do software, assegurando que ele atenda aos requisitos especificados pelos usuários. Isso envolve executar o software com diferentes entradas para encontrar falhas e corrigir os problemas antes da implantação.
+```
+
 
 ### AI-Assisted
 > Utilize o model `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
@@ -116,7 +150,7 @@ O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumen
 
 ```bash
 # Comando base
-npx playwright tests/ai-assisted/<teste>.spec.js
+npx playwright test tests/ai-assisted/<teste>.spec.js
 
 # Testes
 test-generation        # geração de casos de teste a partir de um requisito
@@ -129,9 +163,12 @@ consistency            # manter a mesma resposta essencial ao fazer a mesma perg
 ## 📊 Pós execução dos testes
 
 ### Geração de relatório
-Caso o teste falhe, o relatório HTML é gerado automaticamente no diretório `test-results` (arquivo `index.html`).
+Caso o teste falhe, o relatório HTML é gerado automaticamente no diretório `playwright-report` (arquivo `index.html`).
 
 Para gerar o relatório manualmente:
 ```bash
 npx playwright show-report
 ```
+
+### Resposta da LLM
+Caso o teste passe, um arquivo `.md` contendo o resultado (resposta) da LLM é gerado automaticamente no diretório `llm-results`.
