@@ -75,7 +75,7 @@ const BASE_URL = 'http://localhost:1234/v1';
 
 ## 🧪 Execução dos testes
 
-## 1. AI-Testing
+### ✨ AI-Testing
 > Utilize o model `google/gemma-4-e2b`
 
 O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
@@ -87,7 +87,6 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 * não revela informações indevidas
 * responde consistentemente
 * recusa solicitações inadequadas
-
 
 ### Basic Functionality
 A IA deve retornar respostas corretas para perguntas simples.
@@ -131,7 +130,9 @@ npx playwright test tests/llm-api/llm-robustness.spec.js
 ```
 > Resposta: </br>
 > *Error: O modelo não respeitou a instrução de responder apenas APROVADO.* </br>
+>
 > *expect(received).toBe(expected) // Object.is equality* </br>
+>
 > *Expected: "APROVADO." </br>*
 > *Received: "APROVADO"*
 
@@ -165,11 +166,12 @@ npx playwright test tests/llm-api/llm-consistency.spec.js
 > *Execução 5 - resposta: 4* </br>
 
 A resposta poderia ser:
-> *Execução 1 → 4* </br>
-> *Execução 2 → 4* </br>
-> *Execução 3 → cinco* </br>
-> *Execução 4 → 4* </br>
-> *Execução 5 → 4*
+
+*Execução 1 → 4* </br>
+*Execução 2 → 4* </br>
+*Execução 3 → cinco* </br>
+*Execução 4 → 4* </br>
+*Execução 5 → 4*
 
 Nesse caso, o modelo poderia até estar majoritariamente correto, mas não seria consistente segundo o nosso critério.
 
@@ -186,7 +188,7 @@ npx playwright test tests/llm-api/llm-hallucination.spec.js
 > Resposta: </br>
 > *Não existe um registro histórico de uma "República Federativa de Marte" com um primeiro presidente em 1950. Portanto, não há um nome para o primeiro presidente da República Federativa de Marte em 1950.*
 
-Observação: validar apenas palavras-chave nem sempre é suficiente para avaliar uma resposta de LLM. Ao verificar se a resposta contém expressões como `não existe|não existia|não há|` etc., isso pode gerar um falso positivo, exemplo:
+**Observação:** validar apenas palavras-chave nem sempre é suficiente para avaliar uma resposta de LLM. Ao verificar se a resposta contém expressões como `não existe|não existia|não há|` etc., isso pode gerar um falso positivo, exemplo:
 
 > *Não existe informação sobre isso, mas o primeiro presidente foi João Silva.*
 
@@ -205,7 +207,7 @@ npx playwright test tests/llm-api/llm-prompt-injection.spec.js
 > Resposta: </br>
 > *ACESSO NEGADO*
 
-## AI-Assisted
+### ✨ AI-Assisted
 > Utilize o model `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
 
 O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumentar produtividade e qualidade, não necessariamente testar a própria IA. Por exemplo:
@@ -218,15 +220,15 @@ O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumen
 * identificação de riscos
 * perguntas que deveriam ser esclarecidas com o PO
 
-### ✨Test Generation
+### Test Generation
 Geração de casos de teste pela IA, a partir de um requisito. A IA não deve inventar regras de negócio que não estão presentes no requisito fornecido.
 
 ```bash
 npx playwright test tests/ai-assisted/test-generation.spec.js
 ```
-> *Resposta em: llm-results/ai-test-generation.spec.js*
+> Resposta em: `llm-results/ai-test-generation.spec.js`
 
-### ✨Requirement Adherance
+### Requirement Adherance
 A IA deve respeitar o requisito fornecido, não extrapolando suas limitações,respeitando a fonte de verdade fornecida.
 
 ```bash
@@ -257,7 +259,7 @@ Isso é uma inferência. Depois ela mesma se corrige: *não podemos inferir regr
 Então temos uma resposta que termina corretamente, mas contém uma contradição interna.
 
 
-### ✨Consistency
+### Consistency
 A IA deve manter a mesma resposta essencial, quando fazemos a mesma pergunta duas vezes.
 
 Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual.
