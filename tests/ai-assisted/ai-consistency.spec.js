@@ -47,6 +47,6 @@ test('IA deve apresentar respostas consistentes para o mesmo requisito', async (
   expect(response1Lower).toContain('não');
   expect(response2Lower).toContain('não');
 
-  saveLLMResponse(response1, 'consistency_resp1');
-  saveLLMResponse(response2, 'consistency_resp2');
+  saveLLMResponse(response1, 'ai-consistency_resp1');
+  saveLLMResponse(response2, 'ai-consistency_resp2');
 });
