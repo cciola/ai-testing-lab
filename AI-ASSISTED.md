@@ -65,7 +65,7 @@ Você fornece o **requisito** para a IA, e tem como resposta:
 
 ### Geração de Dados
 
-Geração de massa para os testes:
+Geração de massa de dados válidos/inválidos/valores limite para os testes:
 ```
 - Gere 20 e-mails válidos e 20 e-mails inválidos para testes
 - Gere dados para testar CPF, telefone, CEP e nome
@@ -77,7 +77,7 @@ Geração de código:
 Crie um teste Playwright para validar o login com usuário e senha.
 ```
 
-### Debug
+### Debug / Code Review
 
 Você fornece o erro da automação + código + contexto, e a IA pode ajudar a identificar:
 
@@ -88,7 +88,30 @@ Você fornece o erro da automação + código + contexto, e a IA pode ajudar a i
 - problema de espera
 - problema de ambiente
 
-Bem como solicitar **Code Review**.
+```javascript
+Erro:
+Timeout 30000ms exceeded.
+
+Código:
+await page.getByTestId('btn-login').click();
+
+Contexto:
+O botão aparece visualmente na tela,
+mas o teste não consegue clicar.
+
+Analise este erro como um especialista em Playwright.
+
+Apresente:
+1. possíveis causas
+2. como investigar cada causa
+3. correções possíveis
+
+Não altere o código ainda.
+```
+
+O intuito é **entender** o problema, não apenas receber código.
+
+Também é possível solicitar **Code Review**.
 
 ## Onde NÃO confiar na IA
 
@@ -120,29 +143,31 @@ Formato esperado
 Exemplo:
 
 ```bash
-Atue como um QA especialista em aplicações web.  # quem a IA deve ser (QA)
+Atue como um QA especialista em aplicações web.     # quem a IA deve ser (QA)
 
-Analise o requisito abaixo:                      # qual informação utilizar (requisito)
+Analise o requisito abaixo:                         # qual informação utilizar (requisito)
 
-"O usuário deve conseguir realizar login utilizando e-mail e senha válidos."
+"O usuário deve conseguir realizar
+login utilizando e-mail e senha válidos."
 
-Gere:                                           # o que deve fazer (gerar testes)
+Gere:                                              # o que deve fazer (gerar testes)
 - cenários positivos
 - cenários negativos
 - cenários de fronteira
 
-Não invente regras.                             # o que não fazer (inventar regras)
-Caso alguma informação esteja ausente, liste-a como dúvida.
+Não invente regras.                                # o que não fazer (inventar regras)
+Caso alguma informação esteja ausente,
+liste-a como dúvida.
 
-Apresente o resultado em uma tabela contendo:   # com responder (tabela)
+Apresente o resultado em uma tabela contendo:      # como responder (tabela)
 ID | Cenário | Resultado esperado
 ```
 
 ## Análise dos casos de teste gerados a partir de requisitos
 Parq o requisito:
 ```
-O sistema deve permitir que o usuário faça login utilizando e-mail e senha.
-Após três tentativas inválidas, o acesso deve ser bloqueado.
+- O sistema deve permitir que o usuário faça login utilizando e-mail e senha.
+- Após três tentativas inválidas, o acesso deve ser bloqueado.
 ```
 
 Peça para a IA:
@@ -160,20 +185,62 @@ Não invente regras adicionais.
 
 Teremos algo semelhante a:
 
-> Tipo	Cenário </br>
-> Positivo	Login válido </br>
-> Negativo	E-mail inválido </br>
-> Negativo	Senha inválida </br>
-> Negativo	Campos vazios </br>
-> Fronteira	3 tentativas inválidas </br>
-> Segurança	Conta bloqueada após 3 tentativas
+> **Tipo - Cenário** </br>
+> Positivo - Login válido </br>
+> Negativo - E-mail inválido </br>
+> Negativo - Senha inválida </br>
+> Negativo - Campos vazios </br>
+> Fronteira - 3 tentativas inválidas </br>
+> Segurança - Conta bloqueada após 3 tentativas
 
-Então, se pergunte "a IA esqueceu alguma coisa?"
-```
-E questione a IA:
+Então, se pergunte: "a IA esqueceu alguma coisa?", e questione a IA:
 ```
 O que acontece na quarta tentativa?
 ```
+
+## Revisão dos casos de teste elaborados pelo QA
+
+Peça para a IA revisar seus testes, fornecendo **requisito + seus casos de teste**:
+
+```
+Revise estes casos de teste.
+
+Identifique:
+1. cobertura insuficiente
+2. testes redundantes
+3. resultados esperados incorretos
+4. casos que não derivam do requisito
+5. cenários de fronteira ausentes
+6. ambiguidades
+
+Não altere os testes ainda.
+Primeiro apresente somente a análise.
+```
+
+Isso inclusive evita que a IA reescreva tudo.
+
+## Como identificar Hallucination
+No Hallucination, a IA apresenta uma informação **falsa** ou **não fundamentada** como se fosse verdadeira.
+
+No AI-Assisted Testing isso pode aparecer como:
+
+- **Regras inventadas** ("o sistema deve enviar e-mail", mas o requisito nunca mencionou isso)
+
+- **APIs inventadas** (`await page.loginAsAdmin();`, mas essa função não existe)
+
+- **Seletores inventados** (`page.getByTestId('user-profile')`, mas esse data-testid não existe)
+
+- **Comportamentos inventados** ("após três erros o sistema apresenta um CAPTCHA", mas ninguém disse isso)
+
+Uma técnica muito boa para combater é pedir:
+
+```
+Para cada conclusão apresentada, indique qual informação fornecida no contexto a sustenta.
+
+Se não houver informação suficiente, responda "não informado".
+```
+
+Isso força a IA a separar **FATO** de **SUPOSIÇÃO**.
 
 ---
 
