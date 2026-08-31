@@ -1,4 +1,4 @@
-# AI-Assisted
+# 🧪 AI-Assisted
 
 O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumentar produtividade e qualidade, não necessariamente testar a própria IA. Por exemplo:
 
@@ -241,8 +241,8 @@ Isso força a IA a separar **FATO** de **SUPOSIÇÃO**.
 
 ---
 
-## Cenários automatizados
-**(Utilize o model `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF)**
+## ▶ Cenários automatizados
+**Utilize o model** `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
 
 ### 1. Test Generation
 Geração de casos de teste pela IA, a partir de um requisito. A IA não deve inventar regras de negócio que não estão presentes no requisito fornecido.

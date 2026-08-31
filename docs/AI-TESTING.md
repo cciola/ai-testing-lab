@@ -1,5 +1,4 @@
 # 🧪 AI-Testing
-**(Utilize o model google/gemma-4-e2b)**
 
 O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistemas de LLM, queremos validar propriedades da resposta, por exemplo:
 
@@ -10,6 +9,11 @@ O objetivo do AI-Testing é avaliar o comportamento de modelos de IA. Em sistema
 * não revela informações indevidas
 * responde consistentemente
 * recusa solicitações inadequadas
+
+---
+
+## ▶ Cenários automatizados
+**Utilize o model** `google/gemma-4-e2b`
 
 ### 1. Basic Functionality
 A IA deve retornar respostas corretas para perguntas simples.
