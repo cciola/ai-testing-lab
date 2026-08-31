@@ -77,9 +77,23 @@ const BASE_URL = 'http://localhost:1234/v1';
 ## 🧪 Execução dos testes
 
 > [AI-Assisted](./AI-ASSISTED.md)
+```bash
+npx playwright test tests/ai-assisted/test-generation.spec.js        # Geração de cenários de teste
+npx playwright test tests/ai-assisted/requirement-adherance.spec.js  # Aderência aos requisitos
+npx playwright test tests/ai-assisted/consistency.spec.js            # Consistência
+```
 
 > [AI-Testing](./AI-TESTING.md)
-
+```bash
+npx playwright test tests/llm-api/llm-basic.spec.js            # Basic Functionality
+npx playwright test tests/llm-api/llm-basic-mock.spec.js       # Basic Functionalitya (usando mock)
+npx playwright test tests/llm-api/llm-instruction.spec.js      # Instruction Following
+npx playwright test tests/llm-api/llm-quality.spec.js          # Quality Format
+npx playwright test tests/llm-api/llm-robustness.spec.js       # Robustness
+npx playwright test tests/llm-api/llm-consistency.spec.js      # Consistency
+npx playwright test tests/llm-api/llm-hallucination.spec.js    # Hallucination
+npx playwright test tests/llm-api/llm-prompt-injection.spec.js # Prompt-Injection
+```
 ---
 
 ## 📊 Pós execução dos testes
@@ -124,7 +138,7 @@ ai-testing-lab/
 │   ├── benefits-policy.md         # Política de benefícios
 │   ├── remote-work-policy.md      # Política de trabalho remoto
 │   ├── security-policy.md         # Política de segurança
-│   └── vacation-policy.md        # Política de férias
+│   └── vacation-policy.md         # Política de férias
 │
 ├── utils/
 │   ├── evaluators.js              # Funções de avaliação de respostas

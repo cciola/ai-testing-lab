@@ -120,23 +120,23 @@ Formato esperado
 Exemplo:
 
 ```
-Atue como um QA especialista em aplicações web.  #
+Atue como um QA especialista em aplicações web.  # quem a IA deve ser (QA)
 
-Analise o requisito abaixo:
+Analise o requisito abaixo:                      # qual informação utilizar (requisito)
 
 "O usuário deve conseguir realizar login
 utilizando e-mail e senha válidos."
 
-Gere:
+Gere:                                           # o que deve fazer (gerar testes)
 - cenários positivos;
 - cenários negativos;
 - cenários de fronteira.
 
-Não invente regras.
+Não invente regras.                             # o que não fazer (inventar regras)
 Caso alguma informação esteja ausente,
 liste-a como dúvida.
 
-Apresente o resultado em uma tabela contendo:
+Apresente o resultado em uma tabela contendo:   # com responder (tabela)
 ID | Cenário | Resultado esperado
 ```
 
@@ -192,18 +192,3 @@ Neste teste não estamos exigindo que as duas respostas sejam idênticas; querem
 npx playwright test tests/ai-assisted/consistency.spec.js
 ```
 > *Resposta em: llm-results/ai-consistency.spec.js*
-
----
-
-## 📊 Pós execução dos testes
-
-### Geração de relatório
-Caso o teste falhe, o relatório HTML é gerado automaticamente no diretório `playwright-report` (arquivo `index.html`).
-
-Para gerar o relatório manualmente:
-```bash
-npx playwright show-report
-```
-
-### Resposta da LLM
-Caso o teste passe, um arquivo `.md` contendo o resultado (resposta) da LLM é gerado automaticamente no diretório `llm-results`.
