@@ -20,7 +20,11 @@ O projeto foi criado para aprender, na prática, a diferença entre:
 - **LM Studio**
 - Um modelo compatível carregado no LM Studio
 
-Observação: o MCP Server/Playwright MCP é útil para outros estudos de automação com IA, mas **não é necessário para executar os testes deste laboratório**.
+**Observação:** </br>
+Neste laboratório, o MCP é necessário para os exercícios que envolvem a interação do Copilot com a aplicação, mas não é uma dependência dos testes automatizados executados pelo Playwright Test.
+
+- O **Playwright Test** é utilizado como framework para escrever e executar os testes deste laboratório.
+- O **Playwright MCP**, integrado ao **VS Code/Copilot**, atua como ferramenta de apoio, permitindo que a IA interaja com o navegador, analise a aplicação e auxilie na criação e investigação dos testes.
 
 ---
 
@@ -40,7 +44,7 @@ npm install undici@6
 npx playwright install chromium
 ```
 
-> O Node.js é um requisito do ambiente e não deve ser instalado como dependência do `package.json`.
+O Node.js é um requisito do ambiente, e não deve ser instalado como dependência do `package.json`.
 
 ---
 
@@ -49,12 +53,11 @@ npx playwright install chromium
 ### 1. Instale o LM Studio
 
 Baixe o LM Studio pelo site oficial:
-
 https://lmstudio.ai/download
 
 ### 2. Baixe um modelo
 
-Modelos utilizados atualmente:
+Modelos utilizados:
 
 - Gemma 4 E2B: `google/gemma-4-e2b`
 - Qwen3 4B Instruct (2507 GGUF Q4_K_M): `qwen.qwen3-4b-instruct-2507`
@@ -73,9 +76,9 @@ O ID usado no código deve ser **exatamente o mesmo ID disponibilizado pelo serv
 
 No LM Studio:
 
-1. carregue o modelo desejado;
-2. abra o servidor local em **Developer**;
-3. deixe o servidor com status **Running**.
+1. Carregue o modelo desejado
+2. Abra o servidor local em **Developer**
+3. Deixe o servidor com status **Running**
 
 A API utilizada pelo projeto é:
 
@@ -93,7 +96,7 @@ Antes de executar os testes, uma verificação simples é perguntar no chat do m
 Qual é a capital do Brasil?
 ```
 
-Isso confirma apenas que o modelo está carregado e respondendo. **Não substitui os testes automatizados.**
+Isso confirma apenas que o modelo está carregado e respondendo, **não substitui os testes automatizados.**
 
 ---
 
@@ -104,11 +107,11 @@ Isso confirma apenas que o modelo está carregado e respondendo. **Não substitu
 Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
 ```bash
-npm run test:ai -- ai-test-generation.spec.js # Geração de cenários de teste
-npm run test:ai -- ai-requirement-adherence.spec.js # Aderência aos requisitos
-npm run test:ai -- ai-consistency.spec.js # Consistência
-npm run test:ai -- ai-requirement-analysis.spec.js # Análise de Requisitos
-npm run test:ai -- ai-test-review.spec.js # Revisão dos testes
+npm run test:ai -- ai-test-generation.spec.js
+npm run test:ai -- ai-requirement-adherence.spec.js
+npm run test:ai -- ai-consistency.spec.js
+npm run test:ai -- ai-requirement-analysis.spec.js
+npm run test:ai -- ai-test-review.spec.js
 ```
 
 ### AI Testing / LLM API
@@ -116,15 +119,16 @@ npm run test:ai -- ai-test-review.spec.js # Revisão dos testes
 Aqui o objeto de teste é a própria resposta da LLM.
 
 ```bash
-npm run test:llm -- llm-basic.spec.js # Basic Functionality
-npm run test:llm -- llm-basic-mock.spec.js # Basic Functionality (usando mock)
-npm run test:llm -- llm-instruction.spec.js # Instruction Following
-npm run test:llm -- llm-quality.spec.js # Quality Format
-npm run test:llm -- llm-robustness.spec.js # Robustness
-npm run test:llm -- llm-consistency.spec.js # Consistency
-npm run test:llm -- llm-hallucination.spec.js # Hallucination
-npm run test:llm -- llm-prompt-injection.spec.js # Prompt-Injection
+npm run test:llm -- llm-basic.spec.js
+npm run test:llm -- llm-instruction.spec.js
+npm run test:llm -- llm-quality.spec.js
+npm run test:llm -- llm-robustness.spec.js
+npm run test:llm -- llm-consistency.spec.js
+npm run test:llm -- llm-hallucination.spec.js
+npm run test:llm -- llm-prompt-injection.spec.js
 ```
+
+**Observação:** o `llm-basic-mock.spec.js` não é um teste da inteligência ou do comportamento do modelo. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
 
 ### RAG
 
