@@ -1,193 +1,231 @@
-# AI-Testing-Lab
-Laboratório de estudos sobre utilização de IA no processo de QA.
+# AI Testing Lab
+
+Laboratório prático de estudos sobre **AI-Assisted Testing** e **AI Testing**, usando uma LLM local para exercitar técnicas de QA.
+
+O projeto foi criado para aprender, na prática, a diferença entre:
+
+- **AI-Assisted Testing:** usar IA como assistente do QA para analisar requisitos, gerar testes, revisar cobertura e apoiar atividades de qualidade.
+- **AI Testing:** testar o comportamento de um sistema que utiliza IA/LLM, avaliando propriedades como aderência a instruções, consistência, alucinação e segurança.
+
+> **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita.
 
 ---
 
 ## 📋 Requisitos
-* **NodeJS** (versão 24.20.0 ou superior)
-* **NPM** (versão 9.6.5 ou superior)
-* **MCP Server**
-* **Playwright**
-* **LM Studio**
+
+- **Node.js** 24.20.0 ou superior
+- **npm** 9.6.5 ou superior
+- **MCP Server**
+- **Playwright**
+- **LM Studio**
+- Um modelo compatível carregado no LM Studio
+
+Observação: o MCP Server/Playwright MCP é útil para outros estudos de automação com IA, mas **não é necessário para executar os testes deste laboratório**.
 
 ---
 
 ## 🛠 Instalação
+
 ```bash
 cd ai-testing-lab
 npm install
 ```
 
----
+Se estiver configurando o projeto do zero:
 
-## ⚙ Configurando do zero
-
-1. Crie um repositório
-
-2. Inicialize um pacote criando o arquivo `package.json`:
 ```bash
 npm init -y
-```
-
-3. Instale o Playwright, o Chromium e o client Undici (execute um comando por vez):
-```bash
-npm install -D @playwright/test
-npx playwright install
-npx playwright install chromium
+npm install -D @playwright/test playwright
 npm install undici@6
+npx playwright install chromium
 ```
 
-### Instalando o LLM local
+> O Node.js é um requisito do ambiente e não deve ser instalado como dependência do `package.json`.
 
-Baixe o LM Studio: https://lmstudio.ai/download
+---
 
-### Baixando e configurando os modelos
-Em My Models, pesquise e baixe os seguintes modelos:
+## 🤖 Configurando a LLM local
 
-* Gemma4 E2B - `google/gemma-4-e2b`
-* Qwen3-4B-Instruct-2507 (GGUF Q4_K_M) - `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
+### 1. Instale o LM Studio
+
+Baixe o LM Studio pelo site oficial:
+
+https://lmstudio.ai/download
+
+### 2. Baixe um modelo
+
+Modelos utilizados atualmente:
+
+- Gemma 4 E2B: `google/gemma-4-e2b`
+- Qwen3 4B Instruct (2507 GGUF Q4_K_M): `qwen.qwen3-4b-instruct-2507`
 
 Melhore o desempenho dos modelos, alterando estas configurações:
-- aba Load, opção Context and Offload
-    - Context Length: 4096
-    - GPU Offload: 10
-- aba Inference, opção Custom Fields (se houver)
-    - Enable Thinking: off
 
-Em Chats, selecione o modelo `google/gemma-4-e2b`, pergunte *Qual é a capital do Brasil?*
+- aba Load, opção Context and Offload, Context Length: 4096
+- aba Load, opção Context and Offload, GPU Offload: 10
+- aba Inference, opção Custom Fields, Enable Thinking: off  (se houver)
 
-Vamos validar que:
+O laboratório possui os IDs configurados em `config/models.js`.
 
-- o LM Studio está funcionando
-- o modelo Gemma foi carregado corretamente
-- conseguiu entender a pergunta e gerar uma resposta correta
-- a execução foi local, sem precisar da API da OpenAI
+O ID usado no código deve ser **exatamente o mesmo ID disponibilizado pelo servidor do LM Studio**.
 
-Deixe o modelo carregado e inicie o servidor local (menu *Developer*, alterar opção *Status* para *Running*).
+### 3. Carregue o modelo
 
-A URL local deve ser configurada no arquivo `utils/llm-client.js`:
-```javascript
-const BASE_URL = 'http://localhost:1234/v1';
+No LM Studio:
+
+1. carregue o modelo desejado;
+2. abra o servidor local em **Developer**;
+3. deixe o servidor com status **Running**.
+
+A API utilizada pelo projeto é:
+
+```text
+http://localhost:1234/v1
 ```
 
-**Importante:** Os IDs dos models informados em `models.js` devem ser iguais aos IDs exibidos no LM Studio.
+Esse endereço está configurado em `utils/llm-client.js`.
+
+### 4. Verificação manual
+
+Antes de executar os testes, uma verificação simples é perguntar no chat do modelo, no LM Studio:
+
+```text
+Qual é a capital do Brasil?
+```
+
+Isso confirma apenas que o modelo está carregado e respondendo. **Não substitui os testes automatizados.**
 
 ---
 
 ## 🧪 Execução dos testes
 
-### [**AI-Testing** [+]](docs/AI-TESTING.md)
+### AI-Assisted Testing
+
+Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
+
 ```bash
-npm run test:ai test-generation.spec.js           # Geração de cenários de teste
-npm run test:ai requirement-adherance.spec.js     # Aderência aos requisitos
-npm run test:ai consistency.spec.js               # Consistência
+npm run test:ai -- ai-test-generation.spec.js # Geração de cenários de teste
+npm run test:ai -- ai-requirement-adherence.spec.js # Aderência aos requisitos
+npm run test:ai -- ai-consistency.spec.js # Consistência
+npm run test:ai -- ai-requirement-analysis.spec.js # Análise de Requisitos
+npm run test:ai -- ai-test-review.spec.js # Revisão dos testes
 ```
 
-### [**AI-Assisted** [+]](docs/AI-ASSISTED.md)
+### AI Testing / LLM API
+
+Aqui o objeto de teste é a própria resposta da LLM.
+
 ```bash
-npm run test:llm llm-basic.spec.js                # Basic Functionality
-npm run test:llm llm-basic-mock.spec.js           # Basic Functionality (usando mock)
-npm run test:llm llm-instruction.spec.js          # Instruction Following
-npm run test:llm llm-quality.spec.js              # Quality Format
-npm run test:llm llm-robustness.spec.js           # Robustness
-npm run test:llm llm-consistency.spec.js          # Consistency
-npm run test:llm llm-hallucination.spec.js        # Hallucination
-npm run test:llm llm-prompt-injection.spec.js     # Prompt-Injection
+npm run test:llm -- llm-basic.spec.js # Basic Functionality
+npm run test:llm -- llm-basic-mock.spec.js # Basic Functionality (usando mock)
+npm run test:llm -- llm-instruction.spec.js # Instruction Following
+npm run test:llm -- llm-quality.spec.js # Quality Format
+npm run test:llm -- llm-robustness.spec.js # Robustness
+npm run test:llm -- llm-consistency.spec.js # Consistency
+npm run test:llm -- llm-hallucination.spec.js # Hallucination
+npm run test:llm -- llm-prompt-injection.spec.js # Prompt-Injection
 ```
+
+### RAG
+
+Testes relacionados à recuperação e fundamentação em documentos:
+
+```bash
+npm run test:rag # TODO
+```
+
+### Security
+
+Testes relacionados a prompt injection, jailbreak e vazamento de dados:
+
+```bash
+npm run test:sec # TODO
+```
+
+
+> TODO Os scripts `test:rag` e `test:sec` podem ser adicionados ao `package.json` quando esses cenários forem retomados. No estado atual, execute os arquivos diretamente com `npx playwright test` se necessário.
+
 ---
 
-## 📊 Pós execução dos testes
+## 📊 Resultados
 
-### Geração de relatório
-Caso o teste falhe, o relatório HTML é gerado automaticamente no diretório `playwright-report` (arquivo `index.html`).
+### Relatório Playwright
+
+Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwright-report`.
 
 Para gerar o relatório manualmente:
+
 ```bash
 npm run report
 ```
 
-### Resposta da LLM
-Caso o teste passe, um arquivo `.md` contendo o resultado (resposta) da LLM é gerado automaticamente no diretório `llm-results`.
+### Respostas da LLM
+
+Os testes salvam as respostas recebidas da LLM em `llm-results/` para permitir análise posterior.
+
+Isso é importante em AI Testing: **não devemos analisar somente PASS/FAIL; devemos também olhar a saída produzida pelo modelo.**
 
 ---
 
-## 📂 Estrutura do Projeto
-```
+## 📂 Estrutura principal
+
+```text
 ai-testing-lab/
 ├── README.md
-├── AI-ASSISTED.md
-├── AI-TESTING.md
 ├── package.json
 ├── playwright.config.ts
-├── .gitignore
-│
-├── docs/
-│   ├── business-rules.md          # Regras de negócio e critérios de validação
-│   ├── faq.md                     # Perguntas frequentes e dúvidas do projeto
-│   └── product-requirements.md    # Requisitos funcionais e não funcionais
 │
 ├── config/
-│   └── models.js                  # Modelos LLM configurados para testes
+│   └── models.js
+│
+├── docs/
+│   ├── AI-ASSISTED.md
+│   └── AI-TESTING.md
 │
 ├── prompts/
-│   ├── evaluation.md              # Prompt para avaliação de respostas
-│   ├── requirement-analysis.md    # Prompt para análise de requisitos
-│   └── test-case-generation.md    # Prompt para geração de casos de teste
+│   ├── evaluation.md
+│   ├── requirement-analysis.md
+│   └── test-case-generation.md
 │
 ├── knowledge-base/
-│   ├── benefits-policy.md         # Política de benefícios
-│   ├── remote-work-policy.md      # Política de trabalho remoto
-│   ├── security-policy.md         # Política de segurança
-│   └── vacation-policy.md         # Política de férias
+│   ├── benefits-policy.md
+│   ├── remote-work-policy.md
+│   ├── security-policy.md
+│   └── vacation-policy.md
 │
 ├── utils/
-│   ├── evaluators.js              # Funções de avaliação de respostas
-│   ├── llm-client.js              # Cliente para comunicação com LLM local
-│   ├── llm-output.js              # Tratamento e persistência de saídas
-│   └── test-data.js               # Dados e fixtures usados nos testes
+│   ├── evaluators.js
+│   ├── llm-client.js
+│   ├── llm-output.js
+│   └── test-data.js
 │
 ├── tests/
 │   ├── ai-assisted/
-│   │   ├── ai-consistency.spec.js
-│   │   ├── ai-requirement-adherence.spec.js
-│   │   └── ai-test-generation.spec.js
-│   │
 │   ├── llm-api/
-│   │   ├── llm-basic.spec.js
-│   │   ├── llm-basic-mock.spec.js
-│   │   ├── llm-consistency.spec.js
-│   │   ├── llm-hallucination.spec.js
-│   │   ├── llm-instruction.spec.js
-│   │   ├── llm-prompt-injection.spec.js
-│   │   ├── llm-quality.spec.js
-│   │   └── llm-robustness.spec.js
-│   │
 │   ├── rag/
-│   │   ├── document-content.spec.js
-│   │   ├── grounding.spec.js
-│   │   └── retrieval.spec.js
-│   │
 │   └── security/
-│       ├── data-leakage.spec.js
-│       ├── jailbreak.spec.js
-│       └── prompt-injection.spec.js
 │
-├── pages/
-│   └── # Páginas ou cenários front-end simulados para testes
-│
-├── test-results/
-│   └── # Saídas de execução dos testes
-│
-├── playwright-report/
-│   └── index.html                 # Relatório HTML gerado pelo Playwright
-│
-├── llm-results/
-│   ├── ai-consistency_20260828_15-4645.md
-│   ├── ai-requirement-adherence-2026-082814_3655.md
-│   ├── ai-test-generation_20260828_15-2942.md
-│   └── # Resultados e respostas geradas pela LLM
-│
-└── .github/
-    └── workflows/
-        └── # CI/CD e automação futura
+└── llm-results/
 ```
+
+---
+
+## 🎯 O que este laboratório pretende ensinar
+
+A evolução esperada é:
+
+```text
+Entender LLM
+    ↓
+Criar prompts melhores
+    ↓
+Usar IA como assistente do QA
+    ↓
+Definir critérios objetivos para avaliar respostas
+    ↓
+Automatizar esses critérios
+    ↓
+Aprender a testar sistemas que utilizam IA
+```
+
+O QA continua responsável pela decisão final. A IA pode acelerar o trabalho, mas **não substitui o julgamento crítico do QA**.

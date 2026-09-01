@@ -5,7 +5,9 @@
   "scripts": {
     "test:ai": "playwright test tests/ai-assisted",
     "test:llm": "playwright test tests/llm-api",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "test:rag": "playwright test tests/rag",
+    "test:sec": "playwright test tests/security"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
@@ -13,7 +15,6 @@
     "playwright": "^1.62.1"
   },
   "dependencies": {
-    "node": "^24.20.0",
     "undici": "^6.28.0"
   }
 }

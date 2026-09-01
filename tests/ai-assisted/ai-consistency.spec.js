@@ -1,46 +1,44 @@
 const { test, expect } = require('@playwright/test');
-const { saveLLMResponse } = require('../../utils/llm-client');
-const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { askLLM, saveLLMResponse } = require('../../utils/llm-client');
+const { buildRequirementSignature, assertCoreRequirement } = require('../../utils/evaluators');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-test('IA deve apresentar respostas consistentes para o mesmo requisito', async () => {
+// O teste compara pontos essenciais, porque duas respostas semanticamente
+// equivalentes podem usar palavras diferentes.
 
+test('IA deve manter os pontos essenciais ao analisar o mesmo requisito', async () => {
   const prompt = `
     Analise o seguinte requisito:
 
     "Um usuário deve conseguir fazer login informando
     e-mail e senha válidos."
 
-    Liste os principais cenários de teste que podem ser
-    derivados exclusivamente desse requisito.
-    Não invente regras que não estejam especificadas.
+    Liste os principais pontos que um QA deve considerar.
+    Separe:
+    1. regras definidas no requisito;
+    2. informações que não foram especificadas.
+
+    Não invente regras.
   `;
 
   const response1 = await askLLM(prompt, MODEL);
   const response2 = await askLLM(prompt, MODEL);
 
-  // logLLMResponse(response1);
-  // logLLMResponse(response2);
+  assertCoreRequirement(expect, response1);
+  assertCoreRequirement(expect, response2);
 
-  const response1Lower = response1.toLowerCase();
-  const response2Lower = response2.toLowerCase();
+  const signature1 = buildRequirementSignature(response1);
+  const signature2 = buildRequirementSignature(response2);
 
-  // As duas respostas devem abordar os elementos principais
-  expect(response1Lower).toContain('login');
-  expect(response2Lower).toContain('login');
+  expect(
+    signature2,
+    'A segunda resposta mudou os pontos essenciais em relação à primeira.'
+  ).toEqual(signature1);
 
-  expect(response1Lower).toContain('e-mail');
-  expect(response2Lower).toContain('e-mail');
-
-  expect(response1Lower).toContain('senha');
-  expect(response2Lower).toContain('senha');
-
-  // As duas respostas devem reconhecer a restrição do requisito
-  expect(response1Lower).toContain('não');
-  expect(response2Lower).toContain('não');
-
-  saveLLMResponse(response1, 'ai-consistency_resp1');
-  saveLLMResponse(response2, 'ai-consistency_resp2');
+  await saveLLMResponse(
+    `## Execução 1\n\n${response1}\n\n## Execução 2\n\n${response2}`,
+    'ai-consistency'
+  );
 });

@@ -1,27 +1,30 @@
 const { test, expect } = require('@playwright/test');
-const { askLLM, logLLMResponse } = require('../../utils/llm-client');
-const { saveLLMResponse } = require('../../utils/llm-client');
+const { askLLM, saveLLMResponse } = require('../../utils/llm-client');
+const { assertCoreRequirement, findUnsupportedClaims } = require('../../utils/evaluators');
 const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-test('IA não deve inventar regras não presentes no requisito', async () => {
+// O requisito é a fonte de verdade. O evaluator procura regras que a IA
+// tratou como fato sem que elas tenham sido informadas no requisito.
 
+test('IA deve separar regras explícitas de suposições', async () => {
   const requirement = `
     Um usuário deve conseguir fazer login informando
     e-mail e senha válidos.
   `;
 
   const prompt = `
-    Analise o requisito abaixo e identifique quais regras
-    de negócio estão explicitamente definidas.
+    Analise o requisito abaixo.
 
-    Gere casos de teste somente com base nas informações
-    presentes no requisito.
+    1. Liste somente as regras explicitamente definidas.
+    2. Liste informações que NÃO estão especificadas e que não podem
+       ser assumidas.
+    3. Não invente regras.
 
-    Não invente regras, valores, mensagens, limites,
-    políticas de segurança ou comportamentos que não
-    estejam especificados.
+    Para cada conclusão, diferencie claramente:
+    - DEFINIDO NO REQUISITO
+    - NÃO ESPECIFICADO
 
     Requisito:
     ${requirement}
@@ -29,21 +32,17 @@ test('IA não deve inventar regras não presentes no requisito', async () => {
 
   const response = await askLLM(prompt, MODEL);
 
-  //logLLMResponse(response);
+  expect(response).toBeTruthy();
+  assertCoreRequirement(expect, response);
+
+  const unsupportedClaims = findUnsupportedClaims(response);
+  expect(
+    unsupportedClaims,
+    `A IA tratou uma regra não especificada como fato: ${unsupportedClaims.join(' | ')}`
+  ).toEqual([]);
 
   const responseLower = response.toLowerCase();
+  expect(responseLower).toMatch(/não especific|nao especific|não informado|nao informado/);
 
-  // A resposta deve reconhecer os elementos realmente definidos
-  expect(responseLower).toContain('e-mail');
-  expect(responseLower).toContain('senha');
-  expect(responseLower).toContain('válid');
-
-  // Não deve assumir regras específicas não informadas
-  expect(responseLower).not.toContain('6 caracteres');
-  expect(responseLower).not.toContain('3 tentativas');
-  expect(responseLower).not.toContain('5 tentativas');
-  expect(responseLower).not.toContain('força bruta');
-  expect(responseLower).not.toContain('dashboard');
-
-  saveLLMResponse(response, 'ai-requirement-adherence');
+  await saveLLMResponse(response, 'ai-requirement-adherence');
 });

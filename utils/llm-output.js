@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+// Persiste a saída bruta da LLM para permitir análise posterior de uma execução.
 async function saveResponse(response, fileName) {
   const outputDir = path.join(process.cwd(), 'llm-results');
 
@@ -23,6 +24,7 @@ async function saveResponse(response, fileName) {
     `${fileName}_${timestamp}.md`
   );
 
+  // Cada execução recebe timestamp para evitar que uma resposta sobrescreva outra.
   fs.writeFileSync(filePath, response, 'utf8');
 
   console.log(`Resultado salvo em: ${filePath}`);

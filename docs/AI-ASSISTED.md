@@ -1,95 +1,216 @@
-# 🧪 AI-Assisted
+# 🧪 AI-Assisted Testing
 
-O objetivo do AI-Assisted Testing é usar a IA como assistente do QA, para aumentar produtividade e qualidade, não necessariamente testar a própria IA. Por exemplo:
+## O que é
 
-* geração de cenários positivos
-* geração de cenários negativos
-* regras de negócio implícitas
-* cenários de segurança
-* cenários de integração
-* identificação de riscos
-* perguntas que deveriam ser esclarecidas com o PO
+**AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA.
 
-## Diferença fundamental
+Nesse cenário, a IA **não é necessariamente o sistema que estamos testando**. Ela ajuda o QA a executar tarefas como:
+
+- analisar requisitos;
+- identificar ambiguidades;
+- gerar casos de teste;
+- sugerir dados de teste;
+- revisar casos de teste;
+- identificar riscos e lacunas de cobertura;
+- sugerir cenários de segurança e integração;
+- explicar erros de automação;
+- apoiar code review;
+- gerar ou adaptar código de teste.
+
+### Diferença fundamental
 
 **Teste tradicional**
+
+```text
+QA
+ ↓
+Analisa requisito
+ ↓
+Cria testes
+ ↓
+Implementa
+ ↓
+Executa
+ ↓
+Analisa resultado
 ```
-QA → Analisa requisito → Cria testes → Implementa → Executa → Analisa resultado
+
+**AI-Assisted Testing**
+
+```text
+             ┌── IA sugere
+             ├── IA analisa
+QA ──────────┼── IA gera
+             ├── IA revisa
+             └── IA explica
+                  ↓
+             QA valida a saída
 ```
 
-**AI-Assisted Tetsting**
+A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é **como o QA utiliza a IA e como valida o que ela produziu**.
+
+---
+
+## ⚠️ O principal risco
+
+A IA pode gerar uma resposta:
+
+- bem escrita;
+- coerente;
+- tecnicamente plausível;
+- aparentemente completa;
+
+...e ainda assim estar errada para aquele requisito.
+
+Por isso, não devemos pensar:
+
+> "A IA gerou os testes, então os testes estão corretos."
+
+A mentalidade correta é:
+
+> **"A IA gerou sugestões. Agora vou avaliá-las como QA."**
+
+Sempre questione:
+
+1. Isso veio do requisito?
+2. Isso veio do código ou do contexto fornecido?
+3. Isso é conhecimento geral?
+4. Ou a IA simplesmente assumiu?
+
+---
+
+## 1. Análise de requisitos
+
+Um bom uso da IA é procurar informações que podem passar despercebidas.
+
+Requisito:
+
+```text
+O usuário pode cancelar um pedido.
 ```
-        ┌── IA sugere
-QA ─────┼── IA analisa
-        ├── IA gera
-        └── IA explica
-```
 
-## O erro que queremos evitar
+Podemos perguntar:
 
-- Pensar "a IA gerou os testes, então os testes estão corretos"
-- Mentalidade correta: "a IA gerou **sugestões** de testes. Agora vou **avaliá-las como QA**"
+```text
+Analise o requisito abaixo como um QA.
 
-## Ganho de produtividade
+- identifique ambiguidades;
+- identifique informações ausentes;
+- sugira perguntas para o PO/negócio;
+- identifique cenários que precisam de esclarecimento.
 
-### 1. Análise de requisitos
+Não invente respostas para as perguntas.
 
-Pergunte para a IA:
-```
-Com relação ao seguinte requisito:
-
+Requisito:
 "O usuário pode cancelar um pedido."
-
-- identifique ambiguidades
-- encontre regras implícitas
-- sugira perguntas
-- identifique cenários esquecidos
-- transforme requisitos em critérios de aceite
 ```
 
-Resposta:
-> - Qualquer pedido pode ser cancelado? </br>
-> - Existe prazo? </br>
-> - Pedido já enviado pode ser cancelado? </br>
-> - Existe cobrança? </br>
-> - O cancelamento gera reembolso? </br>
-> - O usuário recebe alguma notificação?
+A IA pode levantar questões como:
 
-### 2. Geração de Casos de Teste
+- qualquer pedido pode ser cancelado?
+- existe prazo para cancelamento?
+- um pedido já enviado pode ser cancelado?
+- existe cobrança?
+- existe reembolso?
+- o usuário recebe uma notificação?
 
-Você fornece o **requisito** para a IA, e tem como resposta:
-> - Cenários </br>
-> - Pré-condições </br>
-> - Passos </br>
-> - Resultado esperado
+O valor para o QA está em **encontrar perguntas que precisam ser respondidas**, não em aceitar as respostas da IA como regras do sistema.
 
-### 3. Geração de Dados
+---
 
-Geração de massa de dados válidos/inválidos/valores limite para os testes:
+## 2. Geração de casos de teste
+
+Podemos fornecer um requisito e solicitar:
+
+- cenários positivos;
+- cenários negativos;
+- fronteiras;
+- pré-condições;
+- entradas;
+- resultados esperados.
+
+Exemplo:
+
+```text
+Atue como um QA.
+
+Gere casos de teste para o requisito abaixo.
+
+Inclua:
+- cenário;
+- entrada;
+- resultado esperado.
+
+Não invente regras que não estejam no requisito.
+Caso alguma informação esteja ausente, marque como NÃO ESPECIFICADO.
+
+Requisito:
+"O usuário deve conseguir fazer login utilizando e-mail e senha válidos."
 ```
-- Gere 20 e-mails válidos e 20 e-mails inválidos para testes
-- Gere dados para testar CPF, telefone, CEP e nome
-- Gere dados para testar os limites da regra de senha (deve possuir entre 8 e 20 caracteres)
+
+O QA deve revisar a saída e verificar se a IA não criou, por exemplo:
+
+- senha com exatamente 8 caracteres;
+- bloqueio após 3 tentativas;
+- CAPTCHA;
+- redirecionamento para dashboard;
+- mensagem específica de erro;
+- autenticação em dois fatores.
+
+Se essas regras não estiverem no requisito, são **suposições**, não fatos.
+
+---
+
+## 3. Geração de dados de teste
+
+A IA também pode acelerar a criação de massa:
+
+```text
+Gere 20 e-mails válidos e 20 e-mails inválidos para testes.
 ```
 
-### 4. Geração de automação
-Geração de código:
+Ou:
+
+```text
+Gere dados para testar os limites de uma senha que deve possuir
+entre 8 e 20 caracteres.
 ```
-Crie um teste Playwright para validar o login com usuário e senha.
+
+Aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
+
+---
+
+## 4. Geração de automação
+
+Podemos solicitar código de teste:
+
+```text
+Crie um teste Playwright para validar login com e-mail e senha.
 ```
 
-### 5. Debug / Code Review
+Mas o código gerado deve ser tratado como **código sugerido**.
 
-Você fornece o erro da automação + código + contexto, e a IA pode ajudar a identificar:
+O QA deve verificar:
 
-- timeout
-- locator incorreto
-- race condition
-- elemento invisível
-- problema de espera
-- problema de ambiente
+- locator;
+- sincronização;
+- assertions;
+- tratamento de erros;
+- manutenção;
+- dados utilizados;
+- aderência ao padrão do projeto.
 
-```
+**Não copie** automaticamente um teste gerado pela IA para a suíte.
+
+---
+
+## 5. Debug e Code Review
+
+A IA pode ajudar a investigar uma falha de automação.
+
+Exemplo:
+
+```text
 Erro:
 Timeout 30000ms exceeded.
 
@@ -100,36 +221,45 @@ Contexto:
 O botão aparece visualmente na tela,
 mas o teste não consegue clicar.
 
-Analise este erro como um especialista em Playwright.
+Analise este problema como um especialista em Playwright.
 
 Apresente:
-1. possíveis causas
-2. como investigar cada causa
-3. correções possíveis
+1. possíveis causas;
+2. como investigar cada causa;
+3. possíveis correções.
 
 Não altere o código ainda.
 ```
 
-O intuito é **entender** o problema, não apenas receber código.
+O objetivo é usar a IA para **aumentar a capacidade de investigação do QA**, não simplesmente substituir o raciocínio pelo código gerado.
 
-Também é possível solicitar **Code Review**.
+---
 
-## Onde NÃO confiar na IA
+## 6. Como avaliar criticamente a saída da IA
 
-- A IA pode produzir uma resposta bem escrita, coerente e tecnicamente plausível, e ainda assim estar errada
-- Código aparentemente correto
+Uma técnica simples é procurar a origem de cada afirmação.
 
-Sempre questione:
-1. Isso veio do requisito?
-2. Isso veio do código?
-3. Isso é conhecimento geral?
-4. Ou a IA simplesmente assumiu?
-
-## Prompt Engineering para QA
-
-Forneça contexto suficiente para a IA trabalhar corretamente:
-
+```text
+REQUISITO
+   ↓
+O que está explicitamente definido?
+   ↓
+O que não está definido?
+   ↓
+A IA adicionou alguma regra?
+   ↓
+Se adicionou, ela deixou claro que é uma suposição?
 ```
+
+Essa habilidade é fundamental para AI-Assisted Testing.
+
+---
+
+## 7. Prompt Engineering para QA
+
+Um prompt útil normalmente contém:
+
+```text
 Contexto
 +
 Objetivo
@@ -143,176 +273,96 @@ Formato esperado
 
 Exemplo:
 
-```bash
-Atue como um QA especialista em aplicações web.     # quem a IA deve ser (QA)
+```text
+Atue como um QA especialista em aplicações web.
 
-Analise o requisito abaixo:                         # qual informação utilizar (requisito)
+Analise o requisito abaixo.
 
-"O usuário deve conseguir realizar
-login utilizando e-mail e senha válidos."
+Requisito:
+"O usuário deve conseguir realizar login utilizando e-mail e senha válidos."
 
-Gere:                                              # o que deve fazer (gerar testes)
-- cenários positivos
-- cenários negativos
-- cenários de fronteira
+Gere:
+- cenários positivos;
+- cenários negativos justificáveis pelo requisito;
+- cenários de fronteira, somente quando houver uma fronteira definida.
 
-Não invente regras.                                # o que não fazer (inventar regras)
-Caso alguma informação esteja ausente,
-liste-a como dúvida.
+Não invente regras.
+Quando uma informação não estiver especificada,
+marque-a como NÃO ESPECIFICADO.
 
-Apresente o resultado em uma tabela contendo:      # como responder (tabela)
-ID | Cenário | Resultado esperado
+Formato:
+ID | Tipo | Cenário | Resultado esperado
 ```
 
-## Análise dos casos de teste gerados a partir de requisitos
-Parq o requisito:
-```
-- O sistema deve permitir que o usuário faça login utilizando e-mail e senha.
-- Após três tentativas inválidas, o acesso deve ser bloqueado.
-```
-
-Peça para a IA:
-```
-Gere casos de teste para este requisito.
-
-Classifique cada caso como:
-- positivo
-- negativo
-- fronteira
-- segurança
-
-Não invente regras adicionais.
-```
-
-Teremos algo semelhante a:
-
-> **Tipo - Cenário** </br>
-> Positivo - Login válido </br>
-> Negativo - E-mail inválido </br>
-> Negativo - Senha inválida </br>
-> Negativo - Campos vazios </br>
-> Fronteira - 3 tentativas inválidas </br>
-> Segurança - Conta bloqueada após 3 tentativas
-
-Então, se pergunte: "a IA esqueceu alguma coisa?", e questione a IA:
-```
-O que acontece na quarta tentativa?
-```
-
-## Revisão dos casos de teste elaborados pelo QA
-
-Peça para a IA revisar seus testes, fornecendo **requisito + seus casos de teste**:
-
-```
-Revise estes casos de teste.
-
-Identifique:
-1. cobertura insuficiente
-2. testes redundantes
-3. resultados esperados incorretos
-4. casos que não derivam do requisito
-5. cenários de fronteira ausentes
-6. ambiguidades
-
-Não altere os testes ainda.
-Primeiro apresente somente a análise.
-```
-
-Isso inclusive evita que a IA reescreva tudo.
-
-## Como identificar Hallucination
-No Hallucination, a IA apresenta uma informação **falsa** ou **não fundamentada** como se fosse verdadeira.
-
-No AI-Assisted Testing isso pode aparecer como:
-
-- **Regras inventadas** ("o sistema deve enviar e-mail", mas o requisito nunca mencionou isso)
-- **APIs inventadas** (`await page.loginAsAdmin();`, mas essa função não existe)
-- **Seletores inventados** (`page.getByTestId('user-profile')`, mas esse data-testid não existe)
-- **Comportamentos inventados** ("após três erros o sistema apresenta um CAPTCHA", mas ninguém disse isso)
-
-Uma técnica muito boa para combater é pedir:
-
-```
-- Para cada conclusão apresentada, indique qual informação fornecida no contexto a sustenta.
-- Se não houver informação suficiente, responda "não informado".
-```
-
-Isso força a IA a separar **FATO** de **SUPOSIÇÃO**.
+Quanto mais claro for o critério, mais fácil será para o QA avaliar a resposta.
 
 ---
 
-## ▶ Cenários automatizados
-**Utilize o model** `lmstudio-community/Qwen3-4B-Instruct-2507-GGUF`
+## 8. Revisão dos casos de teste pelo próprio QA + IA
 
-### 1. Test Generation
-Geração de casos de teste pela IA, a partir de um requisito. A IA não deve inventar regras de negócio que não estão presentes no requisito fornecido.
+Podemos fornecer requisito + testes já criados:
 
-```bash
-npm run test:ai test-generation.spec.js
+```text
+Revise estes casos de teste.
+
+Identifique:
+1. cobertura insuficiente;
+2. testes redundantes;
+3. resultados esperados incorretos;
+4. casos que não derivam do requisito;
+5. cenários de fronteira ausentes;
+6. ambiguidades.
+
+Não reescreva os testes.
+Primeiro apresente somente a análise.
 ```
-> Prompt: </br>
-> *Gere casos de teste para o seguinte requisito:* </br>
->
-> *Um usuário deve conseguir fazer login informando e-mail e senha válidos.* </br>
->
-> *Inclua cenários positivos e negativos.* </br>
-> *Apresente os casos de teste de forma clara.* </br>
->
-> Resposta em: `llm-results/ai-test-generation.spec.js`
 
-### 2. Requirement Adherance
-A IA deve respeitar o requisito fornecido, não extrapolando suas limitações,respeitando a fonte de verdade fornecida.
+Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
 
-```bash
-npm run test:ai requirement-adherance.spec.js
+---
+
+## 9. O que os testes deste laboratório validam
+
+Os testes em `tests/ai-assisted/` transformam esses conceitos em verificações automatizadas.
+
+### `ai-test-generation.spec.js`
+
+Avalia se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos.
+
+### `ai-requirement-adherence.spec.js`
+
+Avalia se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas.
+
+### `ai-consistency.spec.js`
+
+Executa a mesma solicitação duas vezes e compara os **pontos essenciais**, em vez de exigir igualdade textual.
+
+### `ai-requirement-analysis.spec.js`
+
+Avalia se a IA identifica ambiguidades e transforma lacunas do requisito em perguntas para o negócio.
+
+### `ai-test-review.spec.js`
+
+Fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
+
+---
+
+## 🎯 Ideia central
+
+O objetivo não é provar que a IA é "inteligente".
+
+O objetivo é aprender a construir um processo em que:
+
+```text
+IA produz uma sugestão
+        ↓
+QA define critérios
+        ↓
+Evaluator verifica a saída
+        ↓
+QA analisa o resultado
+        ↓
+Decisão de qualidade
 ```
-> Prompt: </br>
-> *Analise o requisito abaixo e identifique quais regras de negócio estão explicitamente definidas.*
->
-> *Gere casos de teste somente com base nas informações presentes no requisito.*
->
-> *Não invente regras, valores, mensagens, limites, políticas de segurança ou comportamentos que não estejam especificados.*
->
-> *Requisito:* </br>
-> *Um usuário deve conseguir fazer login informando e-mail e senha válidos.*
->
-> *Resposta em: llm-results/ai-requirement-adherance.spec.js*
 
-Na resposta, a IA identificou corretamente que o requisito só define:
-*login com e-mail e senha válidos*
-
-E explicitamente reconheceu que não temos informação suficiente sobre:
-- tamanho da senha
-- formato exato do e-mail
-- mensagens de erro
-- limite de tentativas
-- 2FA
-- política de segurança
-
-Isso é um comportamento que queremos de uma IA em um cenário de QA.
-
-Mas encontramos um problema interessante:
-
-- ela primeiro disse *válidos*: isso que o e-mail deve seguir o formato esperado
-- depois disso *a senha deve atender aos critérios de validade (como tamanho mínimo...)*
-
-Isso é uma inferência. Depois ela mesma se corrige: *não podemos inferir regras adicionais*.
-
-Então temos uma resposta que termina corretamente, mas contém uma contradição interna.
-
-### 3. Consistency
-A IA deve manter a mesma resposta essencial, quando fazemos a mesma pergunta duas vezes.
-
-Neste teste não estamos exigindo que as duas respostas sejam idênticas; queremos verificar consistência sem exigir igualdade textual.
-
-```bash
-npm run test:ai consistency.spec.js
-```
-> Prompt: </br>
-> *Analise o seguinte requisito:* </br>
-> *Um usuário deve conseguir fazer login informando e-mail e senha válidos.*
->
-> *Liste os principais cenários de teste que podem ser derivados exclusivamente desse requisito.* </br>
-> *Não invente regras que não estejam especificadas.*
->
-> *Resposta em: llm-results/ai-consistency.spec.js*
+**A responsabilidade pela qualidade continua sendo do QA.**
