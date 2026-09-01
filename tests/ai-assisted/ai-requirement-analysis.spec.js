@@ -14,8 +14,8 @@ test('IA deve identificar ambiguidades e perguntas de negócio', async () => {
   `;
 
   const prompt = `
-    Atue como um QA analisando requisitos.
 
+    Atue como um QA analisando requisitos.
     Analise:
     ${requirement}
 
@@ -37,5 +37,9 @@ test('IA deve identificar ambiguidades e perguntas de negócio', async () => {
   expect(responseLower).toContain('senha');
   expect(responseLower).toMatch(/pergunta|dúvida|duvida|não especific|nao especific/);
 
-  await saveLLMResponse(response, 'ai-requirement-analysis');
+  await saveLLMResponse(
+    response,
+    'ai-requirement-analysis',
+    prompt
+  );
 });

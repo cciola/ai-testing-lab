@@ -55,7 +55,16 @@ Exemplos:
 
 Neste laboratório começamos com evaluators simples e determinísticos para facilitar o aprendizado.
 
-**Utilize o model** `google/gemma-4-e2b`
+## Falhas nos testes
+Os testes envolvendo LLM podem falhar propositalmente quando o modelo
+apresenta comportamento inconsistente, assume informações não especificadas
+ou adiciona regras que não estão presentes no requisito.
+
+Nesse laboratório, uma falha pode representar justamente a detecção de um
+comportamento indesejado da IA, e não necessariamente um defeito no teste.
+
+
+> **Utilize o model** `google/gemma-4-e2b`
 
 ---
 

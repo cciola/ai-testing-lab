@@ -15,6 +15,7 @@ test('IA deve gerar casos de teste sem inventar regras', async () => {
   `;
 
   const prompt = `
+
     Atue como um QA.
 
     Gere casos de teste para o requisito abaixo.
@@ -54,5 +55,9 @@ test('IA deve gerar casos de teste sem inventar regras', async () => {
     `A IA inventou regras: ${unsupportedClaims.join(' | ')}`
   ).toEqual([]);
 
-  await saveLLMResponse(response, 'ai-test-generation');
+  await saveLLMResponse(
+    response,
+    'ai-test-generation',
+    prompt
+  );
 });

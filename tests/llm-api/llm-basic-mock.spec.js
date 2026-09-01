@@ -9,5 +9,8 @@ test('LLM deve responder a uma pergunta simples', async () => {
 
   expect(response).toContain('Brasília');
 
-  saveLLMResponse(response, 'llm-basic-mock');
+  saveLLMResponse(
+    response,
+    'llm-basic-mock',
+    prompt);
 });

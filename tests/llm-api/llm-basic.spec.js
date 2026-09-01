@@ -8,9 +8,11 @@ const MODEL = MODELS.GEMMA;
 test('LLM deve responder corretamente a uma pergunta simples', async () => {
   const response = await askLLM('Quanto é 2 + 2?', MODEL);
 
-  //logLLMResponse(response);
-
   expect(response).toContain('4');
 
-  saveLLMResponse(response, 'llm-basic');
+  await saveLLMResponse(
+    response,
+    'llm-basic',
+    'Quanto é 2 + 2?'
+  );
 });

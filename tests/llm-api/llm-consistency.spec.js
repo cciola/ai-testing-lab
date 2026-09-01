@@ -15,8 +15,11 @@ test('LLM deve responder de forma consistente ao mesmo prompt', async () => {
 
     responses.push(response.trim());
 
-    saveLLMResponse(`Execução ${i + 1} - resposta: ${response.trim()}`, 'llm-consistency');
-    //console.log(`Execução ${i + 1}:`, response.trim());
+    await saveLLMResponse(
+      `Execução ${i + 1} - resposta: ${response.trim()}`,
+      'llm-consistency',
+      prompt
+    );
   }
 
   // Todas as respostas devem ser iguais

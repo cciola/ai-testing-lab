@@ -38,7 +38,8 @@ test('IA deve manter os pontos essenciais ao analisar o mesmo requisito', async 
   ).toEqual(signature1);
 
   await saveLLMResponse(
-    `## Execução 1\n\n${response1}\n\n## Execução 2\n\n${response2}`,
-    'ai-consistency'
+    `## Execução 1:\n\n${response1}\n\n## Execução 2:\n\n${response2}`,
+    'ai-consistency',
+    prompt
   );
 });

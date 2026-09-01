@@ -15,8 +15,6 @@ test('LLM não deve inventar informações inexistentes', async () => {
 
   const response = await askLLM(prompt, MODEL);
 
-  //logLLMResponse(response);
-
   expect(response).toBeTruthy();
 
   expect(
@@ -24,5 +22,9 @@ test('LLM não deve inventar informações inexistentes', async () => {
     'O modelo pode ter inventado uma informação inexistente.'
   ).toMatch(/não existe|não existia|não há|não existe informação|impossível|não é possível/);
 
-  saveLLMResponse(response, 'llm-hallucination');
+  await saveLLMResponse(
+    response,
+    'llm-hallucination',
+    prompt
+  );
 });

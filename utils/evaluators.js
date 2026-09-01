@@ -73,14 +73,39 @@ const NEGATION_MARKERS = [
   'nao esta especificada'
 ];
 
+// Identifica frases que representam perguntas.
+// Uma pergunta sobre uma regra não especificada não significa
+// que a LLM esteja afirmando que essa regra existe.
+//
+// Exemplo:
+// "Há necessidade de 2FA?" -> pergunta, não violação.
+// "O sistema exige 2FA."   -> afirmação, possível violação.
+function isQuestion(sentence) {
+  const normalizedSentence = normalize(sentence);
+
+  return (
+    normalizedSentence.endsWith('?') ||
+    /^(ha|existe|existem|e necessario|e necessaria|precisa|precisamos|deve|devemos|sera que|pode|podera)\b/.test(
+      normalizedSentence
+    )
+  );
+}
+
 // Procura regras que não aparecem no requisito e que foram apresentadas
 // pela LLM como se fossem fatos. Frases que explicitamente negam a regra
-// são ignoradas para reduzir falsos positivos.
+// ou que apenas fazem perguntas sobre ela são ignoradas para reduzir
+// falsos positivos.
 function findUnsupportedClaims(response) {
   const violations = [];
 
   for (const sentence of sentenceList(response)) {
     const normalizedSentence = normalize(sentence);
+
+    // Perguntas sobre regras não especificadas não são consideradas
+    // afirmações de que a regra existe.
+    if (isQuestion(sentence)) {
+      continue;
+    }
 
     for (const rule of UNSUPPORTED_RULES) {
       if (normalizedSentence.includes(normalize(rule))) {
@@ -110,6 +135,10 @@ function assertCoreRequirement(expect, response) {
 // Cria uma assinatura semântica simples dos pontos essenciais.
 // A intenção é comparar o conteúdo relevante entre execuções sem exigir
 // que a LLM produza exatamente as mesmas palavras.
+//
+// Mantemos somente os elementos fundamentais do requisito.
+// Não usamos classificações como "positivo", "negativo" ou "restrição",
+// pois elas podem variar entre respostas sem representar mudança semântica.
 function buildRequirementSignature(response) {
   const value = normalize(response);
 
@@ -117,17 +146,9 @@ function buildRequirementSignature(response) {
     login: value.includes('login'),
     email: /e-mail|email/.test(value),
     senha: value.includes('senha'),
-    validos: value.includes('valid') || value.includes('corret'),
-    restricao: hasAny(value, [
-      'nao invent',
-      'nao especific',
-      'nao informado',
-      'nao definido',
-      'somente com base',
-      'exclusivamente'
-    ]),
-    positivo: hasAny(value, ['positivo', 'sucesso', 'bem-sucedido', 'permitir o login']),
-    negativo: hasAny(value, ['negativo', 'falha', 'nao permitido', 'login deve falhar'])
+    validos:
+      value.includes('valid') ||
+      value.includes('corret')
   };
 }
 
@@ -136,5 +157,6 @@ module.exports = {
   hasAny,
   assertCoreRequirement,
   findUnsupportedClaims,
-  buildRequirementSignature
+  buildRequirementSignature,
+  isQuestion
 };

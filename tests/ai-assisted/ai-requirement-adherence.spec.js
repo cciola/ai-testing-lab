@@ -44,5 +44,9 @@ test('IA deve separar regras explícitas de suposições', async () => {
   const responseLower = response.toLowerCase();
   expect(responseLower).toMatch(/não especific|nao especific|não informado|nao informado/);
 
-  await saveLLMResponse(response, 'ai-requirement-adherence');
+  await saveLLMResponse(
+    response,
+    'ai-requirement-adherence',
+    prompt
+  );
 });

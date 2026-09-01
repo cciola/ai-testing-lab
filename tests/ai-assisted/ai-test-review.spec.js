@@ -54,5 +54,9 @@ test('IA deve identificar problemas em casos de teste criados pelo QA', async ()
   expect(responseLower).toMatch(/dashboard/);
   expect(responseLower).toMatch(/não especific|nao especific|não informado|nao informado|suposi/);
 
-  await saveLLMResponse(response, 'ai-test-review');
+  await saveLLMResponse(
+    response,
+    'ai-test-review',
+    prompt
+  );
 });

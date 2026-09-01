@@ -90,13 +90,23 @@ Esse endereço está configurado em `utils/llm-client.js`.
 
 ### 4. Verificação manual
 
-Antes de executar os testes, uma verificação simples é perguntar no chat do modelo, no LM Studio:
+Antes de executar os testes, faça uma verificação simples perguntando no chat do modelo, no LM Studio:
 
 ```text
 Qual é a capital do Brasil?
 ```
 
-Isso confirma apenas que o modelo está carregado e respondendo, **não substitui os testes automatizados.**
+Isso confirma apenas que o modelo está carregado e respondendo. **Essa verificação não substitui os testes automatizados.**
+
+Para validar o funcionamento do cliente/API `llm-client.js`, execute o comando abaixo no terminal do projeto:
+
+```bash
+npm run test:llm -- llm-basic-mock.spec.js
+```
+
+Este cenário **não testa a inteligência ou o comportamento do modelo**. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
+
+Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relacionados ao comportamento e às respostas do modelo.
 
 ---
 
@@ -114,12 +124,15 @@ npm run test:ai -- ai-requirement-analysis.spec.js
 npm run test:ai -- ai-test-review.spec.js
 ```
 
+> [AI-ASSISTED](/docs/AI-ASSISTED.md)
+
 ### AI Testing / LLM API
 
 Aqui o objeto de teste é a própria resposta da LLM.
 
 ```bash
 npm run test:llm -- llm-basic.spec.js
+npm run test:llm -- llm-basic-mock.spec.js
 npm run test:llm -- llm-instruction.spec.js
 npm run test:llm -- llm-quality.spec.js
 npm run test:llm -- llm-robustness.spec.js
@@ -128,22 +141,24 @@ npm run test:llm -- llm-hallucination.spec.js
 npm run test:llm -- llm-prompt-injection.spec.js
 ```
 
+> [AI-TESTING](/docs/AI-TESTING.md)
+
 **Observação:** o `llm-basic-mock.spec.js` não é um teste da inteligência ou do comportamento do modelo. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
 
-### RAG
+### RAG TODO
 
 Testes relacionados à recuperação e fundamentação em documentos:
 
 ```bash
-npm run test:rag # TODO
+npm run test:rag
 ```
 
-### Security
+### Security TODO
 
 Testes relacionados a prompt injection, jailbreak e vazamento de dados:
 
 ```bash
-npm run test:sec # TODO
+npm run test:sec
 ```
 
 
