@@ -59,18 +59,20 @@ https://lmstudio.ai/download
 
 Modelos utilizados:
 
-- Gemma 4 E2B: `google/gemma-4-e2b`
-- Qwen3 4B Instruct (2507 GGUF Q4_K_M): `qwen.qwen3-4b-instruct-2507`
+- **Gemma 4 E2B:** `google/gemma-4-e2b`
+  - utilizado nos exercícios de AI Testing / LLM
+- **Qwen3 4B Instruct** (2507 GGUF Q4_K_M): `qwen.qwen3-4b-instruct-2507`
+  - utilizado nos exercícios de AI-Assisted Testing
 
-Melhore o desempenho dos modelos, alterando estas configurações:
+Altere estas configurações em ambos modelos para melhorar o desempenho:
 
-- aba Load, opção Context and Offload, Context Length: 4096
-- aba Load, opção Context and Offload, GPU Offload: 10
-- aba Inference, opção Custom Fields, Enable Thinking: off  (se houver)
+- aba Load, opção Context and Offload
+  - Context Length: 4096
+  - GPU Offload: 10
+- aba Inference, opção Custom Fields
+  - Enable Thinking: off (se houver)
 
-O laboratório possui os IDs configurados em `config/models.js`.
-
-O ID usado no código deve ser **exatamente o mesmo ID disponibilizado pelo servidor do LM Studio**.
+O laboratório possui os IDs configurados em `config/models.js`. O ID usado no código deve ser **exatamente o mesmo ID disponibilizado pelo servidor do LM Studio**.
 
 ### 3. Carregue o modelo
 
@@ -80,13 +82,7 @@ No LM Studio:
 2. Abra o servidor local em **Developer**
 3. Deixe o servidor com status **Running**
 
-A API utilizada pelo projeto é:
-
-```text
-http://localhost:1234/v1
-```
-
-Esse endereço está configurado em `utils/llm-client.js`.
+A API utilizada pelo projeto é `http://localhost:1234/v1`. Esse endereço está configurado em `utils/llm-client.js`.
 
 ### 4. Verificação manual
 
@@ -116,6 +112,8 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 
 Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
+**Modelo:** `Qwen`
+
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
 npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
@@ -129,6 +127,8 @@ npx playwright test tests/ai-assisted/ai-test-review.spec.js
 ### AI Testing / LLM API
 
 Aqui o objeto de teste é a própria resposta da LLM.
+
+**Modelo:** `Gemma`
 
 ```bash
 npx playwright test tests/llm-api/llm-basic.spec.js

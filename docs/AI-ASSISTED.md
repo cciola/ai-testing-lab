@@ -325,25 +325,74 @@ Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revis�
 
 Os testes em `tests/ai-assisted/` transformam esses conceitos em verificações automatizadas.
 
-### `ai-test-generation.spec.js`
+### Test generation
 
 Avalia se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos.
 
-### `ai-requirement-adherence.spec.js`
+```bash
+npx playwright test tests/ai-assisted/ai-test-generation.spec.js
+```
+
+**Análise do resultado**: TODO
+
+### Requirement adherance
 
 Avalia se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas.
 
-### `ai-consistency.spec.js`
+```bash
+npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
+```
 
+**Análise do resultado**: TODO
+
+### Consistency
 Executa a mesma solicitação duas vezes e compara os **pontos essenciais**, em vez de exigir igualdade textual.
 
-### `ai-requirement-analysis.spec.js`
+Consistência não significa respostas textualmente iguais: o objetivo é avaliar se a LLM mantém os mesmos critérios, fatos e restrições essenciais entre execuções.
+
+```bash
+npx playwright test tests/ai-assisted/ai-consistency.spec.js
+```
+
+**Análise do resultado**: `ai-consistency_20260902_114333.md`
+
+A Execução 1 identifica lacunas sem tentar definir o que "válido" significa.
+
+A Execução 2 identifica a mesma lacuna, mas depois tenta preenchê-la por inferência. **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que ela considera provável ou comum.
+
+Neste teste, o requisito diz apenas:
+
+```text
+Um usuário deve conseguir fazer login informando e-mail e senha válidos.
+```
+
+O requisito não explica o que significa "válidos". A LLM poderia simplesmente dizer:
+
+```text
+O requisito não especifica quais critérios determinam se o e-mail e a senha são válidos.
+```
+
+Isso sim é correto. Portanto, a LLM pode produzir uma análise aparentemente correta, mas em uma execução diferente, ultrapassar uma restrição explícita do prompt.
+
+### Requirement analysis
 
 Avalia se a IA identifica ambiguidades e transforma lacunas do requisito em perguntas para o negócio.
 
-### `ai-test-review.spec.js`
+```bash
+npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
+```
+
+**Análise do resultado:** TODO
+
+### Test review
 
 Fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
+
+```bash
+npx playwright test tests/ai-assisted/ai-test-review.spec.js
+```
+
+**Análise do resultado:** TODO
 
 ---
 
