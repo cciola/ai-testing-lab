@@ -2,9 +2,7 @@
 
 ## O que é
 
-**AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA.
-
-Nesse cenário, a IA **não é necessariamente o sistema que estamos testando**. Ela ajuda o QA a executar tarefas.
+**AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA. Nesse cenário, a IA **não é necessariamente o sistema que estamos testando**. Ela ajuda o QA a executar tarefas.
 
 **Teste tradicional**
 
@@ -46,7 +44,7 @@ Por isso, não devemos pensar:
 
 A mentalidade correta é:
 
-> "A IA gerou **sugestões**. Agora vou **avaliá-las como QA**."**
+> "A IA gerou **sugestões**. Agora vou **avaliá-las como QA**."
 
 Sempre questione:
 
@@ -64,12 +62,6 @@ A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é 
 ### 1. Análise de requisitos
 
 Um bom uso da IA é procurar informações que podem passar despercebidas.
-
-Requisito:
-
-```text
-O usuário pode cancelar um pedido.
-```
 
 Podemos perguntar:
 
@@ -148,13 +140,9 @@ Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 A IA também pode acelerar a criação de massa:
 
 ```text
-Gere 20 e-mails válidos e 20 e-mails inválidos para testes.
-```
+- Gere 20 e-mails válidos e 20 e-mails inválidos para testes.
 
-Ou:
-
-```text
-Gere dados para testar os limites de uma senha que deve possuir
+- Gere dados para testar os limites de uma senha que deve possuir
 entre 8 e 20 caracteres.
 ```
 
