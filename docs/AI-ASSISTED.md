@@ -4,20 +4,7 @@
 
 **AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA.
 
-Nesse cenário, a IA **não é necessariamente o sistema que estamos testando**. Ela ajuda o QA a executar tarefas como:
-
-- analisar requisitos;
-- identificar ambiguidades;
-- gerar casos de teste;
-- sugerir dados de teste;
-- revisar casos de teste;
-- identificar riscos e lacunas de cobertura;
-- sugerir cenários de segurança e integração;
-- explicar erros de automação;
-- apoiar code review;
-- gerar ou adaptar código de teste.
-
-### Diferença fundamental
+Nesse cenário, a IA **não é necessariamente o sistema que estamos testando**. Ela ajuda o QA a executar tarefas.
 
 **Teste tradicional**
 
@@ -47,20 +34,11 @@ QA ──────────┼── IA gera
              QA valida a saída
 ```
 
-A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é **como o QA utiliza a IA e como valida o que ela produziu**.
-
 ---
 
-## ⚠️ O principal risco
+## O principal risco
 
-A IA pode gerar uma resposta:
-
-- bem escrita;
-- coerente;
-- tecnicamente plausível;
-- aparentemente completa;
-
-...e ainda assim estar errada para aquele requisito.
+A IA pode gerar uma resposta bem escrita, coerente, tecnicamente plausível, aparentemente completa, e ainda assim estar errada para aquele requisito.
 
 Por isso, não devemos pensar:
 
@@ -68,18 +46,22 @@ Por isso, não devemos pensar:
 
 A mentalidade correta é:
 
-> **"A IA gerou sugestões. Agora vou avaliá-las como QA."**
+> "A IA gerou **sugestões**. Agora vou **avaliá-las como QA**."**
 
 Sempre questione:
 
-1. Isso veio do requisito?
-2. Isso veio do código ou do contexto fornecido?
-3. Isso é conhecimento geral?
-4. Ou a IA simplesmente assumiu?
+- Isso veio do requisito?
+- Isso veio do código ou do contexto fornecido?
+- Isso é conhecimento geral?
+- Ou a IA simplesmente assumiu?
+
+A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é **como o QA utiliza a IA e como valida o que ela produziu**.
 
 ---
 
-## 1. Análise de requisitos
+## ✨ Como a IA ajuda o QA
+
+### 1. Análise de requisitos
 
 Um bom uso da IA é procurar informações que podem passar despercebidas.
 
@@ -118,7 +100,7 @@ O valor para o QA está em **encontrar perguntas que precisam ser respondidas**,
 
 ---
 
-## 2. Geração de casos de teste
+### 2. Geração de casos de teste
 
 Podemos fornecer um requisito e solicitar:
 
@@ -161,7 +143,7 @@ Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 
 ---
 
-## 3. Geração de dados de teste
+### 3. Geração de dados de teste
 
 A IA também pode acelerar a criação de massa:
 
@@ -180,7 +162,7 @@ Aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode in
 
 ---
 
-## 4. Geração de automação
+### 4. Geração de automação
 
 Podemos solicitar código de teste:
 
@@ -204,7 +186,7 @@ O QA deve verificar:
 
 ---
 
-## 5. Debug e Code Review
+### 5. Debug e Code Review
 
 A IA pode ajudar a investigar uma falha de automação.
 
@@ -235,27 +217,7 @@ O objetivo é usar a IA para **aumentar a capacidade de investigação do QA**, 
 
 ---
 
-## 6. Como avaliar criticamente a saída da IA
-
-Uma técnica simples é procurar a origem de cada afirmação.
-
-```text
-REQUISITO
-   ↓
-O que está explicitamente definido?
-   ↓
-O que não está definido?
-   ↓
-A IA adicionou alguma regra?
-   ↓
-Se adicionou, ela deixou claro que é uma suposição?
-```
-
-Essa habilidade é fundamental para AI-Assisted Testing.
-
----
-
-## 7. Prompt Engineering para QA
+## 6. Prompt Engineering para QA
 
 Um prompt útil normalmente contém:
 
@@ -296,9 +258,25 @@ ID | Tipo | Cenário | Resultado esperado
 
 Quanto mais claro for o critério, mais fácil será para o QA avaliar a resposta.
 
+Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar a origem de cada afirmação.
+
+```text
+REQUISITO
+   ↓
+O que está explicitamente definido?
+   ↓
+O que não está definido?
+   ↓
+A IA adicionou alguma regra?
+   ↓
+Se adicionou, ela deixou claro que é uma suposição?
+```
+
+Essa habilidade é fundamental para AI-Assisted Testing.
+
 ---
 
-## 8. Revisão dos casos de teste pelo próprio QA + IA
+### 7. Revisão dos casos de teste pelo próprio QA + IA
 
 Podemos fornecer requisito + testes já criados:
 
@@ -321,7 +299,7 @@ Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revis�
 
 ---
 
-## 9. O que os testes deste laboratório validam
+## 🔎 O que os testes deste laboratório validam
 
 Os testes em `tests/ai-assisted/` transformam esses conceitos em verificações automatizadas.
 
@@ -335,6 +313,8 @@ npx playwright test tests/ai-assisted/ai-test-generation.spec.js
 
 **Análise do resultado**: TODO
 
+---
+
 ### Requirement adherance
 
 Avalia se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas.
@@ -344,6 +324,8 @@ npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
 ```
 
 **Análise do resultado**: TODO
+
+---
 
 ### Consistency
 Executa a mesma solicitação duas vezes e compara os **pontos essenciais**, em vez de exigir igualdade textual.
@@ -374,6 +356,8 @@ O requisito não especifica quais critérios determinam se o e-mail e a senha s�
 
 Isso sim é correto. Portanto, a LLM pode produzir uma análise aparentemente correta, mas em uma execução diferente, ultrapassar uma restrição explícita do prompt.
 
+---
+
 ### Requirement analysis
 
 Avalia se a IA identifica ambiguidades e transforma lacunas do requisito em perguntas para o negócio.
@@ -383,6 +367,8 @@ npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 ```
 
 **Análise do resultado:** TODO
+
+---
 
 ### Test review
 
