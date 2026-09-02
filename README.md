@@ -112,7 +112,7 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 
 Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
-**Modelo:** `Qwen`
+**Utilize o modelo `Qwen` no LM Studio.**
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
@@ -126,9 +126,9 @@ npx playwright test tests/ai-assisted/ai-test-review.spec.js
 
 ### AI Testing / LLM API
 
-Aqui o objeto de teste é a própria resposta da LLM.
+Aqui tem como objeto de teste a própria resposta da LLM.
 
-**Modelo:** `Gemma`
+**Utilize o modelo `Gemma` no LM Studio.**
 
 ```bash
 npx playwright test tests/llm-api/llm-basic.spec.js

@@ -63,12 +63,12 @@ ou adiciona regras que não estão presentes no requisito.
 Nesse laboratório, uma falha pode representar justamente a detecção de um
 comportamento indesejado da IA, e não necessariamente um defeito no teste.
 
-
-> **Utilize o model** `google/gemma-4-e2b`
-
 ---
 
-## 1. Basic Functionality
+## 🔎 O que os testes deste laboratório validam
+Os testes em tests/llm-api/ transformam esses conceitos em verificações automatizadas.
+
+### Basic Functionality
 
 Verifica se a API local responde e se o modelo consegue produzir uma resposta esperada para uma pergunta simples.
 
@@ -94,7 +94,7 @@ Teste → API local → modelo → resposta
 
 ---
 
-## 2. Instruction Following
+### Instruction Following
 
 Verifica se o modelo segue uma instrução explícita dada no prompt.
 
@@ -112,7 +112,7 @@ O critério pode ser uma comparação exata com `APROVADO`.
 
 ---
 
-## 3. Quality / Format
+### Quality / Format
 
 Avalia se a resposta respeita uma restrição de formato ou tamanho.
 
@@ -132,7 +132,7 @@ Aqui não basta a resposta ser correta: ela também precisa respeitar o formato 
 
 ---
 
-## 4. Robustness
+### Robustness
 
 Avalia como o modelo reage quando recebe instruções conflitantes ou conteúdo que tenta desviá-lo da tarefa.
 
@@ -151,7 +151,7 @@ O comportamento esperado depende da arquitetura e da hierarquia de instruções 
 
 ---
 
-## 5. Consistency
+### Consistency
 
 Avalia se o modelo mantém comportamento estável diante da mesma entrada (mesma entrada, mesmo resultado).
 
@@ -174,15 +174,13 @@ Essas propriedades são diferentes.
 
 Uma IA pode responder corretamente em 4 de 5 execuções e, mesmo assim, falhar em um teste que exige consistência em 100% das execuções.
 
-### Temperatura
-
 No laboratório, uma temperatura baixa `temperature: 0` tende a reduzir a variabilidade. Isso não significa que toda LLM será deterministicamente igual em todas as condições.
 
 ---
 
-## 6. Hallucination
+### Hallucination
 
-**Hallucination** ocorre quando o modelo apresenta informação falsa, inventada ou sem fundamento como se fosse verdadeira.
+Hallucination ocorre quando o modelo apresenta informação falsa, inventada ou sem fundamento como se fosse verdadeira.
 
 ```bash
 npx playwright test tests/llm-api/llm-hallucination.spec.js
@@ -198,9 +196,7 @@ Se essa informação não existir, diga claramente que não existe.
 
 Esperamos que o modelo reconheça que a informação não existe, em vez de inventar um nome.
 
-### Cuidado com palavras-chave
-
-Uma validação como:
+**Cuidado com palavras-chave**: uma validação como
 
 ```javascript
 expect(response).toMatch(/não existe|não existia|não há|não existe informação|impossível|não é possível/);
@@ -218,7 +214,7 @@ Por isso, uma evolução natural deste laboratório será melhorar os evaluators
 
 ---
 
-## 7. Prompt Injection
+### Prompt Injection
 
 Avalia se uma entrada maliciosa consegue alterar uma instrução que deveria permanecer válida.
 
@@ -242,7 +238,7 @@ Esperamos que a aplicação preserve a instrução que deveria ter prioridade.
 
 ---
 
-## 8. O papel dos evaluators
+## O papel dos evaluators
 
 Nos testes tradicionais, frequentemente fazemos:
 
@@ -275,7 +271,7 @@ Um bom evaluator deve ser:
 
 ---
 
-## 9. Resultados da LLM
+## Resultados da LLM
 
 As respostas são salvas em `llm-results/`.
 

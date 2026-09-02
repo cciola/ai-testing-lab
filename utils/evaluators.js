@@ -82,7 +82,7 @@ function isQuestion(sentence) {
   const normalizedSentence = normalize(sentence);
 
   return (
-    normalizedSentence.endsWith('?') ||
+    normalizedSentence.includes('?') ||
     /^(ha|existe|existem|e necessario|e necessaria|precisa|precisamos|deve|devemos|sera que|pode|podera)\b/.test(
       normalizedSentence
     )

@@ -299,7 +299,7 @@ Avalia se a IA consegue gerar casos de teste sem transformar regras inexistentes
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
 ```
 
-**Análise do resultado**: TODO
+**Análise do resultado do teste**: TODO
 
 ---
 
@@ -311,7 +311,11 @@ Avalia se a IA diferencia informações explicitamente presentes no requisito, d
 npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
 ```
 
-**Análise do resultado**: TODO
+**Análise do resultado do teste:** No arquivo `ai-requirement-adherence_20260902_144502.md`, a LLM fez corretamente a separação entre fato e lacuna do requisito:
+
+- Preservou as três informações realmente existentes no requisito, atendendo ao `assertCoreRequirement()`
+- Não transformou suposições em fatos, atendendo ao `assertCoreRequirement()`
+- Reconheceu lacunas mas não inventou regras, classificando informações como **NÃO ESPECIFICADO**
 
 ---
 
@@ -324,7 +328,7 @@ Consistência não significa respostas textualmente iguais: o objetivo é avalia
 npx playwright test tests/ai-assisted/ai-consistency.spec.js
 ```
 
-**Análise do resultado**: `ai-consistency_20260902_114333.md`
+**Análise do resultado do teste:** No arquivo `ai-consistency_20260902_114333.md`:
 
 A Execução 1 identifica lacunas sem tentar definir o que "válido" significa.
 
@@ -354,7 +358,7 @@ Avalia se a IA identifica ambiguidades e transforma lacunas do requisito em perg
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 ```
 
-**Análise do resultado:** TODO
+**Análise do resultado do teste:** No arquivo ``, 
 
 ---
 
@@ -366,7 +370,7 @@ Fornece casos de teste deliberadamente problemáticos e verifica se a IA identif
 npx playwright test tests/ai-assisted/ai-test-review.spec.js
 ```
 
-**Análise do resultado:** TODO
+**Análise do resultado do teste:** TODO
 
 ---
 
