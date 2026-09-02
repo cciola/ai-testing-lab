@@ -11,8 +11,7 @@ const agent = new Agent({
   connectTimeout: 30000
 });
 
-// Envia um prompt ao modelo informado e retorna somente o conteúdo da resposta.
-// O status HTTP e o formato da resposta são validados antes do retorno.
+// Envia um prompt ao modelo informado e retorna somente o conteúdo da resposta. O status HTTP e o formato da resposta são validados antes do retorno.
 async function askLLM(prompt, model) {
   const response = await fetch(`${BASE_URL}/chat/completions`, {
     method: 'POST',
@@ -33,9 +32,6 @@ async function askLLM(prompt, model) {
 
   const data = await response.json();
 
-  // Log detalhado mantido comentado para evitar poluir o terminal durante os testes.
-  // console.log('Resposta completa:', JSON.stringify(data, null, 2));
-
 if (!response.ok) {
   throw new Error(`Erro HTTP ${response.status}`);
 }
@@ -52,8 +48,8 @@ function logLLMResponse(response) {
   console.log('Resposta do modelo:', response);
 }
 
-async function saveLLMResponse(response, fileName) {
-  await saveResponse(response, fileName);
+async function saveLLMResponse(response, fileName, path) {
+  await saveResponse(response, fileName, path);
 }
 
 module.exports = {

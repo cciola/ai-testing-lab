@@ -101,7 +101,7 @@ Isso confirma apenas que o modelo está carregado e respondendo. **Essa verifica
 Para validar o funcionamento do cliente/API `llm-client.js`, execute o comando abaixo no terminal do projeto:
 
 ```bash
-npm run test:llm -- llm-basic-mock.spec.js
+npx playwright test tests/llm-api/llm-basic-mock.spec.js
 ```
 
 Este cenário **não testa a inteligência ou o comportamento do modelo**. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
@@ -117,11 +117,11 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
 ```bash
-npm run test:ai -- ai-test-generation.spec.js
-npm run test:ai -- ai-requirement-adherence.spec.js
-npm run test:ai -- ai-consistency.spec.js
-npm run test:ai -- ai-requirement-analysis.spec.js
-npm run test:ai -- ai-test-review.spec.js
+npx playwright test tests/ai-assisted/ai-test-generation.spec.js
+npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
+npx playwright test tests/ai-assisted/ai-consistency.spec.js
+npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
+npx playwright test tests/ai-assisted/ai-test-review.spec.js
 ```
 
 > [AI-ASSISTED](/docs/AI-ASSISTED.md)
@@ -131,14 +131,14 @@ npm run test:ai -- ai-test-review.spec.js
 Aqui o objeto de teste é a própria resposta da LLM.
 
 ```bash
-npm run test:llm -- llm-basic.spec.js
-npm run test:llm -- llm-basic-mock.spec.js
-npm run test:llm -- llm-instruction.spec.js
-npm run test:llm -- llm-quality.spec.js
-npm run test:llm -- llm-robustness.spec.js
-npm run test:llm -- llm-consistency.spec.js
-npm run test:llm -- llm-hallucination.spec.js
-npm run test:llm -- llm-prompt-injection.spec.js
+npx playwright test tests/llm-api/llm-basic.spec.js
+npx playwright test tests/llm-api/llm-basic-mock.spec.js
+npx playwright test tests/llm-api/llm-instruction.spec.js
+npx playwright test tests/llm-api/llm-quality.spec.js
+npx playwright test tests/llm-api/llm-robustness.spec.js
+npx playwright test tests/llm-api/llm-consistency.spec.js
+npx playwright test tests/llm-api/llm-hallucination.spec.js
+npx playwright test tests/llm-api/llm-prompt-injection.spec.js
 ```
 
 > [AI-TESTING](/docs/AI-TESTING.md)
@@ -150,7 +150,7 @@ npm run test:llm -- llm-prompt-injection.spec.js
 Testes relacionados à recuperação e fundamentação em documentos:
 
 ```bash
-npm run test:rag
+npx playwright test tests/rag/.spec.js
 ```
 
 ### Security TODO
@@ -158,11 +158,8 @@ npm run test:rag
 Testes relacionados a prompt injection, jailbreak e vazamento de dados:
 
 ```bash
-npm run test:sec
+npx playwright test tests/security/.spec.js
 ```
-
-
-> TODO Os scripts `test:rag` e `test:sec` podem ser adicionados ao `package.json` quando esses cenários forem retomados. No estado atual, execute os arquivos diretamente com `npx playwright test` se necessário.
 
 ---
 
@@ -175,7 +172,7 @@ Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwri
 Para gerar o relatório manualmente:
 
 ```bash
-npm run report
+npx playwright report
 ```
 
 ### Respostas da LLM

@@ -5,8 +5,7 @@ const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-// O requisito é a fonte de verdade. O evaluator procura regras que a IA
-// tratou como fato sem que elas tenham sido informadas no requisito.
+// O requisito é a fonte de verdade. O evaluator procura regras que a IA tratou como fato sem que elas tenham sido informadas no requisito
 
 test('IA deve separar regras explícitas de suposições', async () => {
   const requirement = `

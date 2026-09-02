@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { askLLM, logLLMResponse } = require('../../utils/llm-client');
+const { askLLM } = require('../../utils/llm-client');
 const { saveLLMResponse } = require('../../utils/llm-client');
 const MODELS = require('../../config/models');
 

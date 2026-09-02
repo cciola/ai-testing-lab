@@ -10,32 +10,30 @@ async function saveResponse(response, fileName, prompt) {
   }
 
   const now = new Date();
+  const ano = `${now.getFullYear()}`;
+  const mes = `${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const dia = `${String(now.getDate()).padStart(2, '0')}`;
+  const hora = `${String(now.getHours()).padStart(2, '0')}`;
+  const minuto = `${String(now.getMinutes()).padStart(2, '0')}`;
+  const segundo = `${String(now.getSeconds()).padStart(2, '0')}`;
 
-  const timestamp =
-    `${now.getFullYear()}` +
-    `${String(now.getMonth() + 1).padStart(2, '0')}` +
-    `${String(now.getDate()).padStart(2, '0')}_` +
-    `${String(now.getHours()).padStart(2, '0')}` +
-    `${String(now.getMinutes()).padStart(2, '0')}` +
-    `${String(now.getSeconds()).padStart(2, '0')}`;
+  const timestamp = `${ano}${mes}${dia}_${hora}${minuto}${segundo}`;
 
   const filePath = path.join(
     outputDir,
     `${fileName}_${timestamp}.md`
   );
 
-  const content = `# ${fileName}
+  const content = `
+  ## ${fileName}
+  ${ano}-${mes}-${dia}, ${hora}:${minuto}
 
-## Prompt enviado à LLM
+  ### Prompt enviado à LLM
+    ${prompt}
 
-\`\`\`text
-${prompt}
-\`\`\`
-
-## Resposta da LLM
-
-${response}
-`;
+  ### Resposta da LLM
+    ${response}
+  `;
 
   // Cada execução recebe timestamp para evitar que uma resposta sobrescreva outra
   fs.writeFileSync(filePath, content, 'utf8');

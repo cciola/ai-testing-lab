@@ -1,5 +1,4 @@
-// Normaliza texto para que as avaliações não dependam de maiúsculas,
-// acentuação ou diferenças simples de espaçamento.
+// Normaliza texto para que as avaliações não dependam de maiúsculas,acentuação ou diferenças simples de espaçamento.
 function normalize(text) {
   return text
     .toLowerCase()
@@ -74,8 +73,7 @@ const NEGATION_MARKERS = [
 ];
 
 // Identifica frases que representam perguntas.
-// Uma pergunta sobre uma regra não especificada não significa
-// que a LLM esteja afirmando que essa regra existe.
+// Uma pergunta sobre uma regra não especificada não significa que a LLM   esteja afirmando que essa regra existe.
 //
 // Exemplo:
 // "Há necessidade de 2FA?" -> pergunta, não violação.
@@ -91,18 +89,14 @@ function isQuestion(sentence) {
   );
 }
 
-// Procura regras que não aparecem no requisito e que foram apresentadas
-// pela LLM como se fossem fatos. Frases que explicitamente negam a regra
-// ou que apenas fazem perguntas sobre ela são ignoradas para reduzir
-// falsos positivos.
+// Procura regras que não aparecem no requisito e que foram apresentadas pela LLM como se fossem fatos. Frases que explicitamente negam a regra ou que apenas fazem perguntas sobre ela são ignoradas para reduzir falsos positivos.
 function findUnsupportedClaims(response) {
   const violations = [];
 
   for (const sentence of sentenceList(response)) {
     const normalizedSentence = normalize(sentence);
 
-    // Perguntas sobre regras não especificadas não são consideradas
-    // afirmações de que a regra existe.
+    // Perguntas sobre regras não especificadas não são consideradas afirmações de que a regra existe.
     if (isQuestion(sentence)) {
       continue;
     }
@@ -133,12 +127,10 @@ function assertCoreRequirement(expect, response) {
 }
 
 // Cria uma assinatura semântica simples dos pontos essenciais.
-// A intenção é comparar o conteúdo relevante entre execuções sem exigir
-// que a LLM produza exatamente as mesmas palavras.
-//
+// A intenção é comparar o conteúdo relevante entre execuções sem exigir que a LLM produza exatamente as mesmas palavras.
+
 // Mantemos somente os elementos fundamentais do requisito.
-// Não usamos classificações como "positivo", "negativo" ou "restrição",
-// pois elas podem variar entre respostas sem representar mudança semântica.
+// Não usamos classificações como "positivo", "negativo" ou "restrição", pois elas podem variar entre respostas sem representar mudança semântica.
 function buildRequirementSignature(response) {
   const value = normalize(response);
 

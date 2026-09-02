@@ -5,8 +5,7 @@ const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-// O teste compara pontos essenciais, porque duas respostas semanticamente
-// equivalentes podem usar palavras diferentes.
+// O teste compara pontos essenciais, porque duas respostas semanticamente equivalentes podem usar palavras diferentes
 
 test('IA deve manter os pontos essenciais ao analisar o mesmo requisito', async () => {
   const prompt = `

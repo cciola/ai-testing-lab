@@ -4,8 +4,7 @@ const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-// O objetivo é identificar lacunas e perguntas, não preencher lacunas
-// com regras inventadas pela IA.
+// O objetivo é identificar lacunas e perguntas, não preencher lacunas com regras inventadas pela IA
 
 test('IA deve identificar ambiguidades e perguntas de negócio', async () => {
   const requirement = `

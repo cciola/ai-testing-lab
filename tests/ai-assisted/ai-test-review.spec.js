@@ -4,8 +4,7 @@ const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-// Os casos abaixo são propositalmente problemáticos. O teste verifica se a IA
-// consegue reconhecê-los em vez de simplesmente aceitá-los como válidos.
+// Os casos abaixo são propositalmente problemáticos. O teste verifica se a IA consegue reconhecê-los em vez de simplesmente aceitá-los como válidos
 
 test('IA deve identificar problemas em casos de teste criados pelo QA', async () => {
   const requirement = `

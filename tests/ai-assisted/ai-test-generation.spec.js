@@ -5,8 +5,7 @@ const MODELS = require('../../config/models');
 
 const MODEL = MODELS.QWEN;
 
-// Aqui avaliamos a sugestão da IA como QA: gerar testes não basta;
-// os cenários também precisam estar apoiados pelo requisito.
+// Aqui avaliamos a sugestão da IA como QA: gerar testes não basta; os cenários também precisam estar apoiados pelo requisito
 
 test('IA deve gerar casos de teste sem inventar regras', async () => {
   const requirement = `

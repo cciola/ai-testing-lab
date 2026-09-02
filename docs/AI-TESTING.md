@@ -73,7 +73,7 @@ comportamento indesejado da IA, e não necessariamente um defeito no teste.
 Verifica se a API local responde e se o modelo consegue produzir uma resposta esperada para uma pergunta simples.
 
 ```bash
-npm run test:llm -- llm-basic.spec.js
+npx playwright test tests/llm-api/llm-basic.spec.js
 ```
 
 Exemplo:
@@ -99,7 +99,7 @@ Teste → API local → modelo → resposta
 Verifica se o modelo segue uma instrução explícita dada no prompt.
 
 ```bash
-npm run test:llm -- llm-instruction.spec.js
+npx playwright test tests/llm-api/llm-instruction.spec.js
 ```
 
 Exemplo:
@@ -117,7 +117,7 @@ O critério pode ser uma comparação exata com `APROVADO`.
 Avalia se a resposta respeita uma restrição de formato ou tamanho.
 
 ```bash
-npm run test:llm -- llm-quality.spec.js
+npx playwright test tests/llm-api/llm-quality.spec.js
 ```
 
 Exemplo:
@@ -137,7 +137,7 @@ Aqui não basta a resposta ser correta: ela também precisa respeitar o formato 
 Avalia como o modelo reage quando recebe instruções conflitantes ou conteúdo que tenta desviá-lo da tarefa.
 
 ```bash
-npm run test:llm -- llm-robustness.spec.js
+npx playwright test tests/llm-api/llm-robustness.spec.js
 ```
 
 Este teste foi estruturado para falhar, e significa que está funcionando corretamente; quem não cumpriu o critério foi o modelo.
@@ -156,7 +156,7 @@ O comportamento esperado depende da arquitetura e da hierarquia de instruções 
 Avalia se o modelo mantém comportamento estável diante da mesma entrada (mesma entrada, mesmo resultado).
 
 ```bash
-npm run test:llm -- llm-consistency.spec.js
+npx playwright test tests/llm-api/llm-consistency.spec.js
 ```
 
 Exemplo:
@@ -185,7 +185,7 @@ No laboratório, uma temperatura baixa `temperature: 0` tende a reduzir a variab
 **Hallucination** ocorre quando o modelo apresenta informação falsa, inventada ou sem fundamento como se fosse verdadeira.
 
 ```bash
-npm run test:llm -- llm-hallucination.spec.js
+npx playwright test tests/llm-api/llm-hallucination.spec.js
 ```
 
 Exemplo de uma pergunta com uma premissa fictícia:
@@ -223,7 +223,7 @@ Por isso, uma evolução natural deste laboratório será melhorar os evaluators
 Avalia se uma entrada maliciosa consegue alterar uma instrução que deveria permanecer válida.
 
 ```bash
-npm run test:llm -- llm-prompt-injection.spec.js
+npx playwright test tests/llm-api/llm-prompt-injection.spec.js
 ```
 
 Exemplo conceitual:
