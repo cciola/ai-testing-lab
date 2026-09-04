@@ -5,6 +5,7 @@ Laboratório prático de estudos sobre **AI-Assisted Testing** e **AI Testing**,
 O projeto foi criado para aprender, na prática, a diferença entre:
 
 - **AI-Assisted Testing:** usar IA como assistente do QA para analisar requisitos, gerar testes, revisar cobertura e apoiar atividades de qualidade.
+
 - **AI Testing:** testar o comportamento de um sistema que utiliza IA/LLM, avaliando propriedades como aderência a instruções, consistência, alucinação e segurança.
 
 > **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita.
@@ -29,6 +30,8 @@ Neste laboratório, o MCP é necessário para os exercícios que envolvem a inte
 ---
 
 ## 🛠 Instalação
+
+Clone ou disponibilize o projeto no ambiente de execução e instale as dependências:
 
 ```bash
 cd ai-testing-lab
@@ -112,7 +115,7 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 
 Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
-**Utilize o modelo `Qwen` no LM Studio.**
+> **Utilize o modelo `Qwen` no LM Studio.**
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
@@ -122,13 +125,13 @@ npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 npx playwright test tests/ai-assisted/ai-test-review.spec.js
 ```
 
-> [AI-ASSISTED](/docs/AI-ASSISTED.md)
+> 📖 [**AI-ASSISTED**](/docs/AI-ASSISTED.md)
 
 ### AI Testing / LLM API
 
 Aqui tem como objeto de teste a própria resposta da LLM.
 
-**Utilize o modelo `Gemma` no LM Studio.**
+> **Utilize o modelo `Gemma` no LM Studio.**
 
 ```bash
 npx playwright test tests/llm-api/llm-basic.spec.js
@@ -141,7 +144,7 @@ npx playwright test tests/llm-api/llm-hallucination.spec.js
 npx playwright test tests/llm-api/llm-prompt-injection.spec.js
 ```
 
-> [AI-TESTING](/docs/AI-TESTING.md)
+> 📖 [**AI-TESTING**](/docs/AI-TESTING.md)
 
 **Observação:** o `llm-basic-mock.spec.js` não é um teste da inteligência ou do comportamento do modelo. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
 
