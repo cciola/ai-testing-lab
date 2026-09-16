@@ -1,10 +1,8 @@
-# 🧪 AI-Assisted Testing
+# AI-Assisted Testing
 
-## O que é
+**AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA.
 
-**AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA. Nesse cenário, a IA **não é necessariamente o sistema que estamos testando**. Ela ajuda o QA a executar tarefas.
-
-**Teste tradicional**
+No teste tradicional:
 
 ```text
 QA
@@ -20,7 +18,7 @@ Executa
 Analisa resultado
 ```
 
-**AI-Assisted Testing**
+Na AI-Assisted Testing:
 
 ```text
              ┌── IA sugere
@@ -32,11 +30,7 @@ QA ──────────┼── IA gera
              QA valida a saída
 ```
 
----
-
-## O principal risco
-
-A IA pode gerar uma resposta bem escrita, coerente, tecnicamente plausível, aparentemente completa, e ainda assim estar errada para aquele requisito.
+O principal risco é que a IA pode gerar uma resposta bem escrita, coerente, tecnicamente plausível, aparentemente completa... e ainda assim **estar errada** para aquele requisito.
 
 Por isso, não devemos pensar:
 
@@ -57,13 +51,11 @@ A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é 
 
 ---
 
-## ✨ Como a IA ajuda o QA
+## Como a IA ajuda o QA
 
 ### 1. Análise de requisitos
 
-Um bom uso da IA é procurar informações que podem passar despercebidas.
-
-Podemos perguntar:
+Um bom uso da IA é procurar informações que podem passar despercebidas. Podemos perguntar:
 
 ```text
 Analise o requisito abaixo como um QA.
@@ -103,8 +95,6 @@ Podemos fornecer um requisito e solicitar:
 - entradas;
 - resultados esperados.
 
-Exemplo:
-
 ```text
 Atue como um QA.
 
@@ -137,7 +127,7 @@ Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 
 ### 3. Geração de dados de teste
 
-A IA também pode acelerar a criação de massa:
+A IA pode acelerar a criação de massa:
 
 ```text
 - Gere 20 e-mails válidos e 20 e-mails inválidos para testes.
@@ -146,7 +136,7 @@ A IA também pode acelerar a criação de massa:
 entre 8 e 20 caracteres.
 ```
 
-Aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
+> 💡 Observação: aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
 
 ---
 
@@ -160,7 +150,7 @@ Crie um teste Playwright para validar login com e-mail e senha.
 
 Mas o código gerado deve ser tratado como **código sugerido**.
 
-O QA deve verificar:
+**Não copie automaticamente um teste gerado pela IA para a suíte**; verifique:
 
 - locator;
 - sincronização;
@@ -170,15 +160,11 @@ O QA deve verificar:
 - dados utilizados;
 - aderência ao padrão do projeto.
 
-**Não copie** automaticamente um teste gerado pela IA para a suíte.
-
 ---
 
 ### 5. Debug e Code Review
 
-A IA pode ajudar a investigar uma falha de automação.
-
-Exemplo:
+A IA pode ajudar a investigar uma falha de automação:
 
 ```text
 Erro:
@@ -209,19 +195,13 @@ O objetivo é usar a IA para **aumentar a capacidade de investigação do QA**, 
 
 Um prompt útil normalmente contém:
 
-```text
-Contexto
-+
-Objetivo
-+
-Restrições
-+
-Entrada
-+
-Formato esperado
-```
+* Contexto
+* Objetivo
+* Restrições
+* Entrada
+* Formato esperado
 
-Exemplo:
+Quanto mais claro for o critério, mais fácil será para o QA avaliar a resposta.
 
 ```text
 Atue como um QA especialista em aplicações web.
@@ -244,29 +224,18 @@ Formato:
 ID | Tipo | Cenário | Resultado esperado
 ```
 
-Quanto mais claro for o critério, mais fácil será para o QA avaliar a resposta.
+Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar a **origem** de cada afirmação. Essa habilidade é **fundamental** para AI-Assisted Testing.
 
-Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar a origem de cada afirmação.
-
-```text
-REQUISITO
-   ↓
-O que está explicitamente definido?
-   ↓
-O que não está definido?
-   ↓
-A IA adicionou alguma regra?
-   ↓
-Se adicionou, ela deixou claro que é uma suposição?
-```
-
-Essa habilidade é fundamental para AI-Assisted Testing.
+* O que está explicitamente definido?
+* O que não está definido?
+* A IA adicionou alguma regra?
+* Se adicionou, ela deixou claro que é uma suposição?
 
 ---
 
 ### 7. Revisão dos casos de teste pelo próprio QA + IA
 
-Podemos fornecer requisito + testes já criados:
+Podemos fornecer para a IA requisito + testes já criados. Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
 
 ```text
 Revise estes casos de teste.
@@ -283,13 +252,11 @@ Não reescreva os testes.
 Primeiro apresente somente a análise.
 ```
 
-Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
-
 ---
 
-## 🔎 O que os testes deste laboratório validam
+## O que os testes deste laboratório validam
 
-Os testes em `tests/ai-assisted/` transformam esses conceitos em verificações automatizadas.
+Os testes em `tests/ai-assisted/` transformam os conceitos acima em verificações automatizadas.
 
 ### Test generation
 
@@ -303,7 +270,11 @@ npx playwright test tests/ai-assisted/ai-test-generation.spec.js
 
 **Análise do resultado do teste**:
 
-No arquivo `ai-test-generation_20260904_151133.md`, o modelo demonstrou que entendeu a regra conceitualmente, mas não a aplicou integralmente na geração do caso de teste:
+```bash
+ai-test-generation_20260904_151133.md
+```
+
+O modelo demonstrou que entendeu a regra conceitualmente, mas não a aplicou integralmente na geração do caso de teste:
 
 * Em alguns pontos, a LLM questionou coisas que não estão no requisito (ok):
 
@@ -344,7 +315,11 @@ npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
 
 **Análise do resultado:**
 
-No arquivo `ai-requirement-adherence_20260902_144502.md`, a LLM fez corretamente a separação entre fato e lacuna do requisito:
+```bash
+ai-requirement-adherence_20260902_144502.md
+```
+
+A LLM fez corretamente a separação entre fato e lacuna do requisito:
 
 - Preservou as três informações realmente existentes no requisito, atendendo ao `assertCoreRequirement()`
 - Não transformou suposições em fatos, atendendo ao `assertCoreRequirement()`
@@ -365,9 +340,13 @@ npx playwright test tests/ai-assisted/ai-consistency.spec.js
 
 **Análise do resultado do teste:**
 
-No arquivo `ai-consistency_20260902_114333.md`, a Execução 1 identifica lacunas sem tentar definir o que "válido" significa.
+```bash
+ai-consistency_20260902_114333.md
+```
 
-A Execução 2 identifica a mesma lacuna, mas depois tenta preenchê-la por inferência. **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que ela considera provável ou comum.
+A **Execução 1** identifica lacunas sem tentar definir o que "válido" significa.
+
+A **Execução 2** identifica a mesma lacuna, mas depois tenta preenchê-la por inferência. **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que ela considera provável ou comum.
 
 Neste teste, o requisito diz apenas *"Um usuário deve conseguir fazer login informando e-mail e senha válidos."*, mas não explica o que significa "válidos". A LLM poderia simplesmente dizer:
 
@@ -391,9 +370,11 @@ npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 
 **Análise do resultado do teste:**
 
-No arquivo `ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou **informação ausente** com **detalhes técnicos** que não necessariamente precisam ser definidos pelo requisito.
+```bash
+ai-requirement-analysis_20260902_151242.md
+```
 
-Por exemplo:
+A LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou **informação ausente** com **detalhes técnicos** que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
 
 ```text
 “O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
@@ -401,9 +382,7 @@ Por exemplo:
 “Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
 ```
 
-Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio.
-
-Portanto, percebemos que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
+Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio. Portanto, percebemos que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
 
 ---
 
@@ -419,15 +398,17 @@ npx playwright test tests/ai-assisted/ai-test-review.spec.js
 
 **Análise do resultado do teste:**
 
-No arquivo `ai-test-review_202609_.md`, 
+```bash
+ai-test-review_20260902_151242.md
+```
+
+TODO
 
 ---
 
-## 🎯 Ideia central
+## Ideia central
 
-O objetivo não é provar que a IA é "inteligente".
-
-O objetivo é aprender a construir um processo em que:
+O objetivo não é provar que a IA é "inteligente". O objetivo é aprender a construir um processo em que:
 
 ```text
 IA produz uma sugestão
