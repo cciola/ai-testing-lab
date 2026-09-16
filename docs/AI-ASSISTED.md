@@ -246,7 +246,7 @@ O objetivo é usar a IA para **aumentar a capacidade de investigação do QA**, 
 
 ---
 
-## 6. Prompt Engineering para QA
+### 6. Prompt Engineering para QA
 
 Um prompt útil normalmente contém:
 
@@ -292,11 +292,8 @@ O laboratório utiliza essa abordagem de definição de contexto, objetivo, rest
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
-
 npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
-
 npx playwright test tests/ai-assisted/ai-consistency.spec.js
-
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 ```
 
@@ -393,156 +390,6 @@ Neste teste, o requisito diz apenas: *"Um usuário deve conseguir fazer login in
 A LLM poderia simplesmente dizer: *"O requisito não especifica quais critérios determinam se o e-mail e a senha são válidos."*. Isso é consistente com o requisito.
 
 Portanto, uma resposta pode ser aparentemente correta em uma execução e, em outra, ultrapassar uma restrição explícita do prompt.
-
-
-
-
-
----
-
-## O que os testes deste laboratório validam
-
-Os testes em `tests/ai-assisted/` transformam os conceitos acima em verificações automatizadas.
-
-### Test generation
-
-Avalia se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos.
-
-```bash
-npx playwright test tests/ai-assisted/ai-test-generation.spec.js
-```
-
-**Análise do resultado do teste**: `ai-test-generation_20260904_151133.md`
-
-O modelo demonstrou que entendeu a regra conceitualmente, mas não a aplicou integralmente na geração do caso de teste:
-
-* Em alguns pontos, a LLM questionou coisas que não estão no requisito (ok):
-
-  No cenário negativo, a LLM percebeu que não deveria inventar:
-
-        senha inválida;
-        e-mail inválido;
-        mensagens de erro;
-        limite de tentativas;
-        regras de segurança;
-        validações específicas.
-
-  E concluiu: "não é possível justificar um cenário negativo baseado apenas no requisito fornecido".
-
-* Em outros pontos, incorporou incorretamente informações não especificadas no caso de teste (nok):
-
-  No cenário positivo, fez preenchimento por inferência apesar do prompt dizer explicitamente "NÃO ESPECIFICADO" em vez de assumir um valor. Entradas inventadas:
-
-  ```text
-  * E-mail: "usuario@exemplo.com", Senha: "senha123" (o requisito só diz "e-mail e senha válidos", não fornece nenhum valor concreto)
-
-  * "O usuário é redirecionado para a tela principal ou para a página indicada após autenticação." (o requisito não diz nada sobre redirecionamento).
-  ```
-
-Sendo assim, não basta a LLM dizer "não devemos assumir informações"; precisamos verificar se ela **realmente** não assume efetivamente essas informações no artefato gerado.
-
----
-
-### Requirement adherance
-
-Valida se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas.
-
-**Execução:**
-
-```bash
-npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
-```
-
-**Análise do resultado:**
-
-```bash
-ai-requirement-adherence_20260902_144502.md
-```
-
-A LLM fez corretamente a separação entre fato e lacuna do requisito:
-
-- Preservou as três informações realmente existentes no requisito, atendendo ao `assertCoreRequirement()`
-- Não transformou suposições em fatos, atendendo ao `assertCoreRequirement()`
-- Reconheceu lacunas mas não inventou regras, classificando informações como "não especificado".
-
----
-
-### Consistency
-Valida se a IA mantém a mesma interpretação ao repetir a análise (ou seja, se executa a mesma solicitação duas vezes e compara os **pontos essenciais**, em vez de exigir igualdade textual).
-
-No entanto, note que **consistência** não significa respostas textualmente iguais: o objetivo é avaliar se a LLM **mantém** os mesmos **critérios**, **fatos** e **restrições essenciais** entre execuções.
-
-**Execução:**
-
-```bash
-npx playwright test tests/ai-assisted/ai-consistency.spec.js
-```
-
-**Análise do resultado do teste:**
-
-```bash
-ai-consistency_20260902_114333.md
-```
-
-A **Execução 1** identifica lacunas sem tentar definir o que "válido" significa.
-
-A **Execução 2** identifica a mesma lacuna, mas depois tenta preenchê-la por inferência. **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que ela considera provável ou comum.
-
-Neste teste, o requisito diz apenas *"Um usuário deve conseguir fazer login informando e-mail e senha válidos."*, mas não explica o que significa "válidos". A LLM poderia simplesmente dizer:
-
-```text
-O requisito não especifica quais critérios determinam se o e-mail e a senha são válidos.
-```
-
-Isso sim é correto. Portanto, a LLM pode produzir uma análise aparentemente correta, mas em uma execução diferente, ultrapassar uma restrição explícita do prompt.
-
----
-
-### Requirement analysis
-
-Valida se a IA identifica ambiguidades e transforma lacunas do requisito em perguntas úteis para o QA/PO.
-
-**Execução:**
-
-```bash
-npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
-```
-
-**Análise do resultado do teste:**
-
-```bash
-ai-requirement-analysis_20260902_151242.md
-```
-
-A LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou **informação ausente** com **detalhes técnicos** que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
-
-```text
-“O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
-
-“Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
-```
-
-Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio. Portanto, percebemos que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
-
----
-
-### Test review
-
-Fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
-
-**Execução:**
-
-```bash
-npx playwright test tests/ai-assisted/ai-test-review.spec.js
-```
-
-**Análise do resultado do teste:**
-
-```bash
-ai-test-review_20260902_151242.md
-```
-
-TODO
 
 ---
 
