@@ -32,13 +32,9 @@ QA ──────────┼── IA gera
 
 O principal risco é que a IA pode gerar uma resposta bem escrita, coerente, tecnicamente plausível, aparentemente completa... e ainda assim **estar errada** para aquele requisito.
 
-Por isso, não devemos pensar:
+Por isso, não devemos pensar: *"A IA gerou os testes, então os testes estão corretos."*
 
-> "A IA gerou os testes, então os testes estão corretos."
-
-A mentalidade correta é:
-
-> "A IA gerou **sugestões**. Agora vou **avaliá-las como QA**."
+A mentalidade correta é: *"A IA gerou **sugestões**. Agora vou **avaliá-las como QA**."*
 
 Sempre questione:
 
@@ -82,9 +78,7 @@ A IA pode levantar questões como:
 
 O valor para o QA está em **encontrar perguntas que precisam ser respondidas**, não em aceitar as respostas da IA como regras do sistema.
 
-### Execução automatizada
-
-Esse conceito é demonstrado pelo teste `ai-requirement-analysis`, que valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO.
+* **Execução automatizada** - Esse conceito é demonstrado pelo teste `ai-requirement-analysis`, que valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO:
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
@@ -93,9 +87,8 @@ npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 No resultado observado no arquivo`ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou informação ausente com detalhes técnicos que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
 
 ```text
-“O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
-
-“Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
+- “O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
+- “Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
 ```
 
 Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio.
