@@ -1,6 +1,8 @@
 # AI-Assisted Testing
 
-**AI-Assisted Testing** Aqui a IA é usada como assistente nas atividades de QA. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
+## Conceito
+
+No **AI-Assisted Testing** a IA é usada como assistente nas atividades de QA. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
 No teste tradicional, temos:
 
@@ -51,7 +53,7 @@ A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é 
 
 ---
 
-## Como a IA ajuda o QA
+## Onde a IA ajuda o QA?
 
 ### 🚀 1. Análise de requisitos
 
@@ -82,13 +84,13 @@ A IA pode levantar questões como:
 
 O valor para o QA está em **encontrar perguntas que precisam ser respondidas**, não em aceitar as respostas da IA como regras do sistema.
 
-### Execução automatizada
-
-Esse conceito é demonstrado pelo teste `ai-requirement-analysis`, que valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO:
+### Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 ```
+
+O teste `ai-requirement-analysis` valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO.
 
 No resultado observado no arquivo`ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou informação ausente com detalhes técnicos que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
 
@@ -135,13 +137,13 @@ O QA deve revisar a saída e verificar se a IA não criou, por exemplo:
 
 Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 
-### Execução automatizada
-
-Esse conceito é demonstrado pelo teste `ai-test-generation`, que valida se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos:
+### Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
 ```
+
+O teste `ai-test-generation` valida se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos.
 
 No resultado observado no arquivo`ai-test-generation_20260904_151133.md`, o modelo demonstrou que entendeu a regra conceitualmente, mas não a aplicou integralmente na geração do caso de teste:
 
@@ -195,9 +197,7 @@ Podemos solicitar código de teste:
 Crie um teste Playwright para validar login com e-mail e senha.
 ```
 
-Mas o código gerado deve ser tratado como **código sugerido**.
-
-**Não copie automaticamente um teste gerado pela IA para a suíte**; verifique:
+Mas o código gerado deve ser tratado como **código sugerido**. **Não copie automaticamente um teste gerado pela IA para a suíte**; verifique:
 
 - locator;
 - sincronização;
@@ -278,7 +278,7 @@ Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar
 * A IA adicionou alguma regra?
 * Se adicionou, ela deixou claro que é uma suposição?
 
-### Execuções automatizadas relacionadas
+### Testes automatizados relacionados
 
 O laboratório utiliza essa abordagem de definição de contexto, objetivo, restrições e formato nos prompts dos testes de AI-Assisted Testing. Os principais exemplos são:
 
@@ -293,7 +293,7 @@ Esses testes demonstram, na prática, que o prompt não serve apenas para solici
 
 ---
 
-### 🚀 7. Revisão dos casos de teste pelo próprio QA + IA
+### ⚠ TODO 🚀 7. Revisão dos casos de teste pelo próprio QA + IA
 
 Podemos fornecer para a IA requisito + testes já criados. Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
 
@@ -312,13 +312,13 @@ Não reescreva os testes.
 Primeiro apresente somente a análise.
 ```
 
-### Execução automatizada
-
-Esse conceito é demonstrado pelo teste `ai-test-review`, que valida se a IA fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
+### Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-review.spec.js
 ```
+
+O teste `ai-test-review` valida se a IA fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
 
 No resultado observado no arquivo`ai-test-review_20260902_151242.md`, ⚠ TODO
 
@@ -339,13 +339,13 @@ Analise o requisito abaixo.
 Para cada conclusão, explique sua origem.
 ```
 
-### Execução automatizada
-
-Esse conceito é demonstrado pelo teste `ai-requirement-adherence`, que valida se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas:
+### Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
 ```
+
+O teste `ai-requirement-adherence` valida se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas.
 
 No resultado observado no arquivo `ai-requirement-adherence_20260902_144502.md`, a LLM fez corretamente a separação entre fato e lacuna do requisito:
 
@@ -361,13 +361,13 @@ Outro aspecto importante é verificar se a IA mantém a mesma interpretação qu
 
 Consistência não significa respostas textualmente iguais. O objetivo é avaliar se a LLM mantém os mesmos critérios, fatos e restrições essenciais entre execuções.
 
-### Execução automatizada
-
-Esse conceito é demonstrado pelo teste `ai-consistency`, que valida se a IA mantém a mesma interpretação ao repetir a análise, comparando os pontos essenciais, em vez de exigir igualdade textual:
+### Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-consistency.spec.js
 ```
+
+O teste `ai-consistency` valida se a IA mantém a mesma interpretação ao repetir a análise, comparando os pontos essenciais, em vez de exigir igualdade textual.
 
 No resultado observado no arquivo `ai-consistency_20260902_114333.md`, a Execução 1 identifica lacunas sem tentar definir o que "válido" significa. A Execução 2 identifica a mesma lacuna, mas depois tenta preenchê-la por inferência.
 

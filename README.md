@@ -98,23 +98,17 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 
 ## 🧪 Execução automatizada dos testes
 
+Os tópicos abaixo abordam cada um dos conceitos, e analisam o resultado da LLM gerado após a execução do teste automatizado:
+
 * [**AI-Assisted Testing**](/docs/AI-ASSISTED.md)
 
 * [**AI Testing / LLM API**](/docs/AI-TESTING.md)
-
-### RAG TODO ⚠
-
-Testes relacionados à recuperação e fundamentação em documentos:
-
-### Security TODO ⚠
-
-Testes relacionados a prompt injection, jailbreak e vazamento de dados:
 
 ---
 
 ## 📊 Resultados
 
-Os testes automatizados salvam as respostas recebidas da LLM na pasta `llm-results/` para permitir análise posterior, uma vez que não devemos analisar somente PASS/FAIL, mas sim, também **analisar a saída produzida pelo modelo**.
+Os testes automatizados salvam as respostas recebidas da LLM na pasta `llm-results/`.
 
 Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwright-report`. Para gerar o relatório manualmente, utilize o comando:
 

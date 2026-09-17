@@ -1,8 +1,8 @@
-# 🧪 AI Testing
+# AI Testing
 
-## O que é
+## Conceito
 
-Na **AI Testing** temos como objeto de teste a própria resposta do modelo da LLM. Exemplos de propriedades que podemos avaliar:
+No **AI Testing** temos como objeto de teste a própria resposta do modelo da LLM. Exemplos de propriedades que podemos avaliar:
 
 - correção;
 - aderência às instruções;
@@ -15,30 +15,9 @@ Na **AI Testing** temos como objeto de teste a própria resposta do modelo da LL
 
 ---
 
-## AI-Assisted x AI Testing
-
-| Conceito | O que está sendo feito? |
-|---|---|
-| **AI-Assisted Testing** | A IA ajuda o QA a testar um sistema. |
-| **AI Testing** | O QA testa o comportamento do sistema de IA. |
-
-Exemplo:
-
-```text
-AI-Assisted:
-IA → gera casos de teste → QA revisa
-
-AI Testing:
-Prompt → LLM → resposta → evaluator → PASS/FAIL
-```
-
----
-
 ## Um cuidado importante: testar LLM não é apenas comparar strings
 
-Uma resposta de LLM pode variar na redação e continuar correta.
-
-Por isso, diferentes propriedades precisam de diferentes estratégias de avaliação.
+Uma resposta de LLM pode variar na redação e continuar correta. Por isso, diferentes propriedades precisam de diferentes estratégias de avaliação.
 
 Exemplos:
 
@@ -51,13 +30,10 @@ Exemplos:
 
 Neste laboratório começamos com evaluators simples e determinísticos para facilitar o aprendizado.
 
-## Falhas nos testes
-Os testes envolvendo LLM podem falhar propositalmente quando o modelo
-apresenta comportamento inconsistente, assume informações não especificadas
-ou adiciona regras que não estão presentes no requisito.
+### Falhas nos testes
+Os testes envolvendo LLM podem falhar propositalmente quando o modelo apresenta comportamento inconsistente, assume informações não especificadas ou adiciona regras que não estão presentes no requisito.
 
-Nesse laboratório, uma falha pode representar justamente a detecção de um
-comportamento indesejado da IA, e não necessariamente um defeito no teste.
+Nesse laboratório, uma falha pode representar justamente a detecção de um comportamento indesejado da IA, e não necessariamente um defeito no teste.
 
 ---
 
@@ -267,23 +243,7 @@ Um bom evaluator deve ser:
 
 ---
 
-## Resultados da LLM
-
-As respostas são salvas em `llm-results/`.
-
-Isso permite investigar uma falha posteriormente.
-
-Ao analisar um teste de IA, faça três perguntas:
-
-1. O modelo realmente falhou?
-2. O critério do teste está correto?
-3. O evaluator é forte o suficiente para distinguir PASS de FAIL?
-
-Essa terceira pergunta é especialmente importante em AI Testing.
-
----
-
-## TODO 🎯 Próximas evoluções
+## ⚠ TODO 🎯 Próximas evoluções
 
 Depois dos testes básicos, o laboratório pode evoluir para:
 
