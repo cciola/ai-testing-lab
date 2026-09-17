@@ -53,7 +53,7 @@ A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é 
 
 ## Como a IA ajuda o QA
 
-### 1. Análise de requisitos
+### 🚀 1. Análise de requisitos
 
 Um bom uso da IA é procurar informações que podem passar despercebidas. Podemos perguntar:
 
@@ -82,7 +82,7 @@ A IA pode levantar questões como:
 
 O valor para o QA está em **encontrar perguntas que precisam ser respondidas**, não em aceitar as respostas da IA como regras do sistema.
 
-### 🚀 Execução automatizada
+### Execução automatizada
 
 Esse conceito é demonstrado pelo teste `ai-requirement-analysis`, que valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO:
 
@@ -103,7 +103,7 @@ Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pod
 
 ---
 
-### 2. Geração de casos de teste
+### 🚀 2. Geração de casos de teste
 
 Podemos fornecer um requisito e solicitar cenários positivos, negativos, fronteiras, pré-condições, entradas,  resultados esperados:
 
@@ -135,7 +135,7 @@ O QA deve revisar a saída e verificar se a IA não criou, por exemplo:
 
 Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 
-### 🚀 Execução automatizada
+### Execução automatizada
 
 Esse conceito é demonstrado pelo teste `ai-test-generation`, que valida se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos:
 
@@ -172,7 +172,7 @@ Sendo assim, não basta a LLM dizer "não devemos assumir informações"; precis
 
 ---
 
-### 3. Geração de dados de teste
+### 🚀 3. Geração de dados de teste
 
 A IA pode acelerar a criação de massa:
 
@@ -187,7 +187,7 @@ entre 8 e 20 caracteres.
 
 ---
 
-### 4. Geração de automação
+### 🚀 4. Geração de automação
 
 Podemos solicitar código de teste:
 
@@ -209,7 +209,7 @@ Mas o código gerado deve ser tratado como **código sugerido**.
 
 ---
 
-### 5. Debug e Code Review
+### 🚀 5. Debug e Code Review
 
 A IA pode ajudar a investigar uma falha de automação:
 
@@ -238,7 +238,7 @@ O objetivo é usar a IA para **aumentar a capacidade de investigação do QA**, 
 
 ---
 
-### 6. Prompt Engineering para QA
+### 🚀 6. Prompt Engineering para QA
 
 Um prompt útil normalmente contém:
 
@@ -278,7 +278,7 @@ Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar
 * A IA adicionou alguma regra?
 * Se adicionou, ela deixou claro que é uma suposição?
 
-### 🚀 Execuções automatizadas relacionadas
+### Execuções automatizadas relacionadas
 
 O laboratório utiliza essa abordagem de definição de contexto, objetivo, restrições e formato nos prompts dos testes de AI-Assisted Testing. Os principais exemplos são:
 
@@ -293,7 +293,7 @@ Esses testes demonstram, na prática, que o prompt não serve apenas para solici
 
 ---
 
-### 7. Revisão dos casos de teste pelo próprio QA + IA
+### 🚀 7. Revisão dos casos de teste pelo próprio QA + IA
 
 Podemos fornecer para a IA requisito + testes já criados. Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
 
@@ -312,7 +312,7 @@ Não reescreva os testes.
 Primeiro apresente somente a análise.
 ```
 
-### 🚀 Execução automatizada
+### Execução automatizada
 
 Esse conceito é demonstrado pelo teste `ai-test-review`, que valida se a IA fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
 
@@ -324,7 +324,7 @@ No resultado observado no arquivo`ai-test-review_20260902_151242.md`, ⚠ TODO
 
 ---
 
-### 8. Verificação de aderência ao requisito
+### 🚀 8. Verificação de aderência ao requisito
 
 Além de gerar e revisar testes, podemos utilizar a IA para verificar se uma resposta permanece fiel ao requisito original.
 
@@ -339,7 +339,7 @@ Analise o requisito abaixo.
 Para cada conclusão, explique sua origem.
 ```
 
-### 🚀 Execução automatizada
+### Execução automatizada
 
 Esse conceito é demonstrado pelo teste `ai-requirement-adherence`, que valida se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas:
 
@@ -355,13 +355,13 @@ No resultado observado no arquivo `ai-requirement-adherence_20260902_144502.md`,
 
 ---
 
-### 9. Consistência
+### 🚀 9. Consistência
 
 Outro aspecto importante é verificar se a IA mantém a mesma interpretação quando recebe a mesma solicitação mais de uma vez.
 
 Consistência não significa respostas textualmente iguais. O objetivo é avaliar se a LLM mantém os mesmos critérios, fatos e restrições essenciais entre execuções.
 
-### 🚀 Execução automatizada
+### Execução automatizada
 
 Esse conceito é demonstrado pelo teste `ai-consistency`, que valida se a IA mantém a mesma interpretação ao repetir a análise, comparando os pontos essenciais, em vez de exigir igualdade textual:
 
