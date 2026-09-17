@@ -1,6 +1,6 @@
 # AI Testing Lab
 
-Laboratório prático de estudos sobre **AI-Assisted Testing** e **AI Testing**, usando uma LLM local para exercitar técnicas de QA.
+Laboratório prático de estudos sobre **AI-Assisted Testing** e **AI Testing** para exercitar técnicas de QA, usando uma LLM local e automação com Playwright e MCP Server.
 
 ---
 
@@ -114,13 +114,9 @@ Testes relacionados a prompt injection, jailbreak e vazamento de dados:
 
 ## 📊 Resultados
 
-Os testes salvam as respostas recebidas da LLM em `llm-results/` para permitir análise posterior.
+Os testes automatizados salvam as respostas recebidas da LLM na pasta `llm-results/` para permitir análise posterior, uma vez que não devemos analisar somente PASS/FAIL, mas sim, também **analisar a saída produzida pelo modelo**.
 
-Isso é importante em AI Testing: **não devemos analisar somente PASS/FAIL; devemos também olhar a saída produzida pelo modelo.**
-
-Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwright-report`.
-
-Para gerar o relatório manualmente:
+Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwright-report`. Para gerar o relatório manualmente, utilize o comando:
 
 ```bash
 npx playwright report
