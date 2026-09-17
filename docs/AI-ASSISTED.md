@@ -32,9 +32,7 @@ QA ──────────┼── IA gera
 
 O principal risco é que a IA pode gerar uma resposta bem escrita, coerente, tecnicamente plausível, aparentemente completa... e ainda assim **estar errada** para aquele requisito.
 
-Por isso, não devemos pensar: *"A IA gerou os testes, então os testes estão corretos."*
-
-A mentalidade correta é: *"A IA gerou **sugestões**. Agora vou **avaliá-las como QA**."*
+Por isso, não devemos pensar *"a IA gerou os testes, então os testes estão corretos"*. A mentalidade correta é: *"a IA gerou **sugestões**. Agora vou **avaliá-las como QA**."*
 
 Sempre questione:
 
@@ -78,7 +76,9 @@ A IA pode levantar questões como:
 
 O valor para o QA está em **encontrar perguntas que precisam ser respondidas**, não em aceitar as respostas da IA como regras do sistema.
 
-* **Execução automatizada** - Esse conceito é demonstrado pelo teste `ai-requirement-analysis`, que valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO:
+#### 🚀 Execução automatizada
+
+Esse conceito é demonstrado pelo teste `ai-requirement-analysis`, que valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO:
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
@@ -99,14 +99,7 @@ Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pod
 
 ### 2. Geração de casos de teste
 
-Podemos fornecer um requisito e solicitar:
-
-- cenários positivos;
-- cenários negativos;
-- fronteiras;
-- pré-condições;
-- entradas;
-- resultados esperados.
+Podemos fornecer um requisito e solicitar cenários positivos, negativos, fronteiras, pré-condições, entradas,  resultados esperados:
 
 ```text
 Atue como um QA.
@@ -136,9 +129,9 @@ O QA deve revisar a saída e verificar se a IA não criou, por exemplo:
 
 Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 
-### Execução automatizada
+#### 🚀 Execução automatizada
 
-Esse conceito é demonstrado pelo teste `ai-test-generation`, que valida se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos.
+Esse conceito é demonstrado pelo teste `ai-test-generation`, que valida se a IA consegue gerar casos de teste sem transformar regras inexistentes em fatos:
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
@@ -146,7 +139,7 @@ npx playwright test tests/ai-assisted/ai-test-generation.spec.js
 
 No resultado observado no arquivo`ai-test-generation_20260904_151133.md`, o modelo demonstrou que entendeu a regra conceitualmente, mas não a aplicou integralmente na geração do caso de teste:
 
-* Em alguns pontos, a LLM questionou coisas que não estão no requisito (ok):
+* **Em alguns pontos, a LLM questionou coisas que não estão no requisito (ok)**
 
   No cenário negativo, a LLM percebeu que não deveria inventar:
 
@@ -159,7 +152,7 @@ No resultado observado no arquivo`ai-test-generation_20260904_151133.md`, o mode
 
   E concluiu: "não é possível justificar um cenário negativo baseado apenas no requisito fornecido".
 
-* Em outros pontos, incorporou incorretamente informações não especificadas no caso de teste (nok):
+* **Em outros pontos, incorporou incorretamente informações não especificadas no caso de teste (nok)**
 
   No cenário positivo, fez preenchimento por inferência apesar do prompt dizer explicitamente "NÃO ESPECIFICADO" em vez de assumir um valor. Entradas inventadas:
 
@@ -279,7 +272,7 @@ Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar
 * A IA adicionou alguma regra?
 * Se adicionou, ela deixou claro que é uma suposição?
 
-### Execuções automatizadas relacionadas
+#### 🚀 Execuções automatizadas relacionadas
 
 O laboratório utiliza essa abordagem de definição de contexto, objetivo, restrições e formato nos prompts dos testes de AI-Assisted Testing. Os principais exemplos são:
 
@@ -313,7 +306,7 @@ Não reescreva os testes.
 Primeiro apresente somente a análise.
 ```
 
-### Execução automatizada
+#### 🚀 Execução automatizada
 
 Esse conceito é demonstrado pelo teste `ai-test-review`, que valida se a IA fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
 
@@ -333,18 +326,16 @@ Além de gerar e revisar testes, podemos utilizar a IA para verificar se uma res
 Analise o requisito abaixo.
 
 1. Liste somente as regras explicitamente definidas.
-
 2. Liste informações que NÃO estão especificadas e que não podem
    ser assumidas.
-
 3. Não invente regras.
 
 Para cada conclusão, explique sua origem.
 ```
 
-### Execução automatizada
+#### 🚀 Execução automatizada
 
-Esse conceito é demonstrado pelo teste `ai-requirement-adherence`, que valida se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas.
+Esse conceito é demonstrado pelo teste `ai-requirement-adherence`, que valida se a IA diferencia informações explicitamente presentes no requisito, de informações não especificadas:
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
@@ -364,23 +355,21 @@ Outro aspecto importante é verificar se a IA mantém a mesma interpretação qu
 
 Consistência não significa respostas textualmente iguais. O objetivo é avaliar se a LLM mantém os mesmos critérios, fatos e restrições essenciais entre execuções.
 
-### Execução automatizada
+#### 🚀 Execução automatizada
 
-Esse conceito é demonstrado pelo teste `ai-consistency`, que valida se a IA mantém a mesma interpretação ao repetir a análise, comparando os pontos essenciais, em vez de exigir igualdade textual.
+Esse conceito é demonstrado pelo teste `ai-consistency`, que valida se a IA mantém a mesma interpretação ao repetir a análise, comparando os pontos essenciais, em vez de exigir igualdade textual:
 
 ```bash
 npx playwright test tests/ai-assisted/ai-consistency.spec.js
 ```
 
-No resultado observado no arquivo `ai-consistency_20260902_114333.md`, a **Execução 1** identifica lacunas sem tentar definir o que "válido" significa.
+No resultado observado no arquivo `ai-consistency_20260902_114333.md`, a Execução 1 identifica lacunas sem tentar definir o que "válido" significa. A Execução 2 identifica a mesma lacuna, mas depois tenta preenchê-la por inferência.
 
-A **Execução 2** identifica a mesma lacuna, mas depois tenta preenchê-la por inferência.
+> 💡 **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que considera provável ou comum.
 
-**Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que considera provável ou comum.
+Neste teste, o requisito diz apenas *"um usuário deve conseguir fazer login informando e-mail e senha válidos."*, mas não explica o que significa "válidos".
 
-Neste teste, o requisito diz apenas: *"Um usuário deve conseguir fazer login informando e-mail e senha válidos."*, mas não explica o que significa "válidos".
-
-A LLM poderia simplesmente dizer: *"O requisito não especifica quais critérios determinam se o e-mail e a senha são válidos."*. Isso é consistente com o requisito.
+A LLM poderia simplesmente dizer *"o requisito não especifica quais critérios determinam se o e-mail e a senha são válidos."*. Isso é consistente com o requisito.
 
 Portanto, uma resposta pode ser aparentemente correta em uma execução e, em outra, ultrapassar uma restrição explícita do prompt.
 
