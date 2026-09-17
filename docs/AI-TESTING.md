@@ -2,11 +2,7 @@
 
 ## O que é
 
-**AI Testing** é o teste de sistemas cujo comportamento depende de IA, como aplicações que utilizam LLMs.
-
-Neste caso, a própria saída do modelo faz parte do objeto de teste.
-
-Exemplos de propriedades que podemos avaliar:
+Na **AI Testing** temos como objeto de teste a própria resposta do modelo da LLM. Exemplos de propriedades que podemos avaliar:
 
 - correção;
 - aderência às instruções;

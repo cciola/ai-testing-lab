@@ -1,8 +1,8 @@
 # AI-Assisted Testing
 
-**AI-Assisted Testing** é o uso de IA como assistente nas atividades de QA.
+**AI-Assisted Testing** Aqui a IA é usada como assistente nas atividades de QA. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
 
-No teste tradicional:
+No teste tradicional, temos:
 
 ```text
 QA
