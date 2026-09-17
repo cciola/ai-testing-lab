@@ -21,11 +21,7 @@ O projeto foi criado para aprender, na prática, a diferença entre:
 - **LM Studio**
 - Um modelo compatível carregado no LM Studio
 
-**Observação:** </br>
-Neste laboratório, o MCP é necessário para os exercícios que envolvem a interação do Copilot com a aplicação, mas não é uma dependência dos testes automatizados executados pelo Playwright Test.
-
-- O **Playwright Test** é utilizado como framework para escrever e executar os testes deste laboratório.
-- O **Playwright MCP**, integrado ao **VS Code/Copilot**, atua como ferramenta de apoio, permitindo que a IA interaja com o navegador, analise a aplicação e auxilie na criação e investigação dos testes.
+> 💡 **Observação:** Neste laboratório, o MCP é necessário para os exercícios que envolvem a interação do Copilot com a aplicação, mas não é uma dependência dos testes automatizados executados pelo Playwright Test. <p> - O **Playwright Test** é utilizado como framework para escrever e executar os testes deste laboratório. </br> <p> - O **Playwright MCP**, integrado ao **VS Code/Copilot**, atua como ferramenta de apoio, permitindo que a IA interaja com o navegador, analise a aplicação e auxilie na criação e investigação dos testes.</p>
 
 ---
 
@@ -109,60 +105,30 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 
 ---
 
-## 🧪 Execução dos testes
+## 🧪 Testes
 
 ### AI-Assisted Testing
 
+📖 [**AI-ASSISTED**](/docs/AI-ASSISTED.md)
+
 Aqui a IA atua como **assistente do QA**. O objetivo é avaliar se ela consegue apoiar atividades de teste sem transformar suposições em requisitos.
-
-> **Utilize o modelo `Qwen` no LM Studio.**
-
-```bash
-npx playwright test tests/ai-assisted/ai-test-generation.spec.js
-npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
-npx playwright test tests/ai-assisted/ai-consistency.spec.js
-npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
-npx playwright test tests/ai-assisted/ai-test-review.spec.js
-```
-
-> 📖 [**AI-ASSISTED**](/docs/AI-ASSISTED.md)
 
 ### AI Testing / LLM API
 
+📖 [**AI-TESTING**](/docs/AI-TESTING.md)
+
 Aqui tem como objeto de teste a própria resposta da LLM.
 
-> **Utilize o modelo `Gemma` no LM Studio.**
+> **Observação:** o `llm-basic-mock.spec.js` não é um teste da inteligência ou do comportamento do modelo. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
 
-```bash
-npx playwright test tests/llm-api/llm-basic.spec.js
-npx playwright test tests/llm-api/llm-basic-mock.spec.js
-npx playwright test tests/llm-api/llm-instruction.spec.js
-npx playwright test tests/llm-api/llm-quality.spec.js
-npx playwright test tests/llm-api/llm-robustness.spec.js
-npx playwright test tests/llm-api/llm-consistency.spec.js
-npx playwright test tests/llm-api/llm-hallucination.spec.js
-npx playwright test tests/llm-api/llm-prompt-injection.spec.js
-```
-
-> 📖 [**AI-TESTING**](/docs/AI-TESTING.md)
-
-**Observação:** o `llm-basic-mock.spec.js` não é um teste da inteligência ou do comportamento do modelo. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
-
-### RAG TODO
+### RAG TODO ⚠
 
 Testes relacionados à recuperação e fundamentação em documentos:
 
-```bash
-npx playwright test tests/rag/.spec.js
-```
 
-### Security TODO
+### Security TODO ⚠
 
 Testes relacionados a prompt injection, jailbreak e vazamento de dados:
-
-```bash
-npx playwright test tests/security/.spec.js
-```
 
 ---
 
