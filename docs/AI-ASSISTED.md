@@ -55,7 +55,7 @@ A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é 
 
 ## Onde a IA ajuda o QA?
 
-### 🚀 1. Análise de requisitos
+### 1. Análise de requisitos
 
 Um bom uso da IA é procurar informações que podem passar despercebidas. Podemos perguntar:
 
@@ -105,7 +105,7 @@ Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pod
 
 ---
 
-### 🚀 2. Geração de casos de teste
+### 2. Geração de casos de teste
 
 Podemos fornecer um requisito e solicitar cenários positivos, negativos, fronteiras, pré-condições, entradas,  resultados esperados:
 
@@ -174,7 +174,7 @@ Sendo assim, não basta a LLM dizer "não devemos assumir informações"; precis
 
 ---
 
-### 🚀 3. Geração de dados de teste
+### 3. Geração de dados de teste
 
 A IA pode acelerar a criação de massa:
 
@@ -189,7 +189,7 @@ entre 8 e 20 caracteres.
 
 ---
 
-### 🚀 4. Geração de automação
+### 4. Geração de automação
 
 Podemos solicitar código de teste:
 
@@ -209,7 +209,7 @@ Mas o código gerado deve ser tratado como **código sugerido**. **Não copie au
 
 ---
 
-### 🚀 5. Debug e Code Review
+### 5. Debug e Code Review
 
 A IA pode ajudar a investigar uma falha de automação:
 
@@ -238,7 +238,7 @@ O objetivo é usar a IA para **aumentar a capacidade de investigação do QA**, 
 
 ---
 
-### 🚀 6. Prompt Engineering para QA
+### 6. Prompt Engineering para QA
 
 Um prompt útil normalmente contém:
 
@@ -293,7 +293,7 @@ Esses testes demonstram, na prática, que o prompt não serve apenas para solici
 
 ---
 
-### ⚠ TODO 🚀 7. Revisão dos casos de teste pelo próprio QA + IA
+### ⚠ TODO 7. Revisão dos casos de teste pelo próprio QA + IA
 
 Podemos fornecer para a IA requisito + testes já criados. Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
 
@@ -324,7 +324,7 @@ No resultado observado no arquivo`ai-test-review_20260902_151242.md`, ⚠ TODO
 
 ---
 
-### 🚀 8. Verificação de aderência ao requisito
+### 8. Verificação de aderência ao requisito
 
 Além de gerar e revisar testes, podemos utilizar a IA para verificar se uma resposta permanece fiel ao requisito original.
 
@@ -355,7 +355,7 @@ No resultado observado no arquivo `ai-requirement-adherence_20260902_144502.md`,
 
 ---
 
-### 🚀 9. Consistência
+### 9. Consistência
 
 Outro aspecto importante é verificar se a IA mantém a mesma interpretação quando recebe a mesma solicitação mais de uma vez.
 
@@ -371,30 +371,10 @@ O teste `ai-consistency` valida se a IA mantém a mesma interpretação ao repet
 
 No resultado observado no arquivo `ai-consistency_20260902_114333.md`, a Execução 1 identifica lacunas sem tentar definir o que "válido" significa. A Execução 2 identifica a mesma lacuna, mas depois tenta preenchê-la por inferência.
 
-> 💡 **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que considera provável ou comum.
+> **Preenchimento por inferência** é quando a LLM encontra uma informação que não está escrita no requisito e tenta completá-la usando aquilo que considera provável ou comum.
 
 Neste teste, o requisito diz apenas *"um usuário deve conseguir fazer login informando e-mail e senha válidos."*, mas não explica o que significa "válidos".
 
 A LLM poderia simplesmente dizer *"o requisito não especifica quais critérios determinam se o e-mail e a senha são válidos."*. Isso é consistente com o requisito.
 
 Portanto, uma resposta pode ser aparentemente correta em uma execução e, em outra, ultrapassar uma restrição explícita do prompt.
-
----
-
-## Ideia central
-
-O objetivo não é provar que a IA é "inteligente". O objetivo é aprender a construir um processo em que:
-
-```text
-IA produz uma sugestão
-        ↓
-QA define critérios
-        ↓
-Evaluator verifica a saída
-        ↓
-QA analisa o resultado
-        ↓
-Decisão de qualidade
-```
-
-**A responsabilidade pela qualidade continua sendo do QA.**

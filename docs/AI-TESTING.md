@@ -39,10 +39,12 @@ Resposta 2:
 Usuário autenticado com sucesso.
 ```
 
-## Falhas nos testes
+### Falhas nos testes
 Uma falha do teste não significa automaticamente que o teste está errado. Os testes envolvendo LLM podem falhar **propositalmente** quando o modelo apresenta comportamento inconsistente, assume informações não especificadas ou adiciona regras que não estão presentes no requisito.
 
 Nesse laboratório, uma falha pode representar justamente a detecção de um comportamento indesejado da IA, e não necessariamente um defeito no teste.
+
+---
 
 ## O que os testes deste laboratório validam
 Os testes em `tests/llm-api/` transformam instruções textuais (prompts) relativas aos conceitos de AI-Testing abordados, em verificações automatizadas. A maioria dos testes utiliza a LLM real disponibilizada pelo LM Studio.
@@ -71,7 +73,7 @@ E verifica se a resposta contém:
 
 ---
 
-## 2. Instruction Following
+### 2. Instruction Following
 
 Verifica se o modelo segue uma instrução explícita dada no prompt.
 
@@ -93,7 +95,9 @@ APROVADO
 
 No código, utilizamos a comparação exata `expect(response.trim()).toBe('APROVADO');`, porque a instrução determina uma saída específica. Estamos avaliando se o modelo seguiu a instrução, respeitou a restrição de responder apenas com aquela palavra, e  não adicionou conteúdo adicional.
 
-## 3. Quality / Format
+---
+
+### 3. Quality / Format
 
 Avalia se a resposta respeita uma restrição de formato ou tamanho.
 
@@ -118,6 +122,8 @@ expect(
   response.split(/[.!?]+/).filter(Boolean).length
 ).toBeLessThanOrEqual(3);
 ```
+
+---
 
 ### 4. Consistency
 
@@ -168,6 +174,8 @@ Execução 4 → 4
 Execução 5 → 4
 ```
 
+---
+
 ### 5. Robustness
 
 Avalia a capacidade do modelo de manter o comportamento esperado quando recebe entradas inesperadas, conflitantes ou conteúdo que tenta desviá-lo da instrução principal.
@@ -209,6 +217,8 @@ Se essa informação não existir, diga claramente que não existe.
 ```
 
 O resultado esperado é que o modelo reconheça que a informação não existe, em vez de inventar uma resposta.
+
+---
 
 ### 7. Prompt Injection
 
