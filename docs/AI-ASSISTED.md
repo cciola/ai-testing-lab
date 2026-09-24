@@ -353,8 +353,8 @@ O teste `ai-requirement-adherence` valida se a IA diferencia informações expli
 
 No resultado observado no arquivo `ai-requirement-adherence_20260902_144502.md`, a LLM fez corretamente a separação entre fato e lacuna do requisito:
 
-* preservou as três informações realmente existentes no requisito, atendendo ao assertCoreRequirement();
-* não transformou suposições em fatos, atendendo ao assertCoreRequirement();
+* preservou as três informações realmente existentes no requisito, atendendo ao `assertCoreRequirement()`;
+* não transformou suposições em fatos, atendendo ao `assertCoreRequirement()`;
 * reconheceu lacunas mas não inventou regras, classificando informações como "não especificado".
 
 ---

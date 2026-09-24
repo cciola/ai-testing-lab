@@ -238,6 +238,8 @@ O resultado de um teste de LLM não deve ser analisado isoladamente. Uma anális
   * o comportamento esperado estava mal definido
 - **O que deve ser melhorado?** A evolução pode estar em prompt, evaluator, modelo, parâmetros, dados, arquitetura, teste.
 
+---
+
 ## ⚠ Limitações atuais do laboratório
 
 Os testes atuais são exercícios **introdutórios** e não representam uma estratégia completa de qualidade para sistemas baseados em IA.
