@@ -2,7 +2,32 @@
 
 Laboratório prático de estudos sobre **AI-Assisted Testing** e **AI Testing** para exercitar técnicas de QA, usando uma LLM local e automação com Playwright e MCP Server.
 
----
+## 🎯 O que este laboratório pretende ensinar
+
+O projeto foi criado para aprender, na prática, a diferença entre:
+
+- **AI-Assisted Testing:** usar IA como assistente do QA para analisar requisitos, gerar testes, revisar cobertura e apoiar atividades de qualidade.
+
+- **AI Testing:** testar o comportamento de um sistema que utiliza IA/LLM, avaliando propriedades como aderência a instruções, consistência, alucinação e segurança.
+
+A evolução esperada é:
+
+```text
+Entender LLM
+    ↓
+Criar prompts melhores
+    ↓
+Usar IA como assistente do QA
+    ↓
+Definir critérios objetivos para avaliar respostas
+    ↓
+Automatizar esses critérios
+    ↓
+Aprender a testar sistemas que utilizam IA
+```
+
+> **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita. O QA continua responsável pela decisão final. A IA pode acelerar o trabalho, mas **não substitui o julgamento crítico do QA**.
+
 
 ## 📋 Requisitos
 
@@ -90,7 +115,7 @@ Para validar o funcionamento do cliente/API `llm-client.js`, execute o comando a
 npx playwright test tests/llm-api/llm-basic-mock.spec.js
 ```
 
-> 💡 **Observação:** este cenário **não testa a inteligência ou o comportamento do modelo**. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
+> **Observação:** este cenário **não testa a inteligência ou o comportamento do modelo**. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
 
 Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relacionados ao comportamento e às respostas do modelo.
 
@@ -101,10 +126,7 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 Os tópicos abaixo abordam cada um dos conceitos, e analisam o resultado da LLM gerado após a execução do teste automatizado:
 
 * [**AI-Assisted Testing**](/docs/AI-ASSISTED.md)
-
 * [**AI Testing / LLM API**](/docs/AI-TESTING.md)
-
----
 
 ## 📊 Resultados
 
@@ -115,31 +137,3 @@ Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwri
 ```bash
 npx playwright report
 ```
-
----
-
-## 🎯 O que este laboratório pretende ensinar
-
-O projeto foi criado para aprender, na prática, a diferença entre:
-
-- **AI-Assisted Testing:** usar IA como assistente do QA para analisar requisitos, gerar testes, revisar cobertura e apoiar atividades de qualidade.
-
-- **AI Testing:** testar o comportamento de um sistema que utiliza IA/LLM, avaliando propriedades como aderência a instruções, consistência, alucinação e segurança.
-
-A evolução esperada é:
-
-```text
-Entender LLM
-    ↓
-Criar prompts melhores
-    ↓
-Usar IA como assistente do QA
-    ↓
-Definir critérios objetivos para avaliar respostas
-    ↓
-Automatizar esses critérios
-    ↓
-Aprender a testar sistemas que utilizam IA
-```
-
-> 📌 **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita. O QA continua responsável pela decisão final. A IA pode acelerar o trabalho, mas **não substitui o julgamento crítico do QA**.
