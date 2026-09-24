@@ -28,7 +28,6 @@ Aprender a testar sistemas que utilizam IA
 
 > **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita. O QA continua responsável pela decisão final. A IA pode acelerar o trabalho, mas **não substitui o julgamento crítico do QA**.
 
-
 ## 📋 Requisitos
 
 - **Node.js** 24.20.0 ou superior
@@ -101,7 +100,7 @@ A API utilizada pelo projeto é `http://localhost:1234/v1`. Esse endereço está
 
 ### 4. Verificação manual
 
-Antes de executar os testes, faça uma verificação simples perguntando no chat do modelo, no LM Studio:
+Antes de executar os testes automatizados, faça uma verificação simples perguntando no chat do modelo, no LM Studio:
 
 ```text
 Qual é a capital do Brasil?
@@ -123,10 +122,226 @@ Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relaciona
 
 ## 🧪 Execução automatizada dos testes
 
-Os tópicos abaixo abordam cada um dos conceitos, e analisam o resultado da LLM gerado após a execução do teste automatizado:
+Nos tópicos abaixo, temos uma relação do conteúdo teórico com exercícios executáveis. Também analisamos o resultado da LLM gerado após a execução do teste automatizado:
 
 * [**AI-Assisted Testing**](/docs/AI-ASSISTED.md)
 * [**AI Testing / LLM API**](/docs/AI-TESTING.md)
+
+
+
+# 🧩 O papel dos evaluators
+
+Os critérios de avaliação dos testes estão centralizados em `utils/evaluators.js`. O arquivo possui funções auxiliares para avaliar diferentes propriedades das respostas. A ideia é separar:
+
+```text
+LLM
+ ↓
+Resposta
+ ↓
+Evaluator
+ ↓
+Critério de qualidade
+```
+
+do código responsável pela comunicação com o modelo. Isso permite evoluir os critérios de avaliação sem precisar modificar a lógica de comunicação com a LLM.
+
+---
+
+## 🔎 Avaliação determinística x avaliação semântica
+
+Os evaluators atuais utilizam principalmente regras determinísticas.
+
+Por exemplo:
+
+```javascript
+expect(response).toContain('4');
+```
+
+ou:
+
+```javascript
+expect(response.trim()).toBe('APROVADO');
+```
+
+Essa abordagem possui uma vantagem importante:
+
+> O critério é claro e reproduzível.
+
+Por outro lado, ela apresenta limitações quando a resposta pode variar na forma sem variar no significado.
+
+Podemos representar essa evolução:
+
+```text
+Nível 1
+Comparação exata
+       ↓
+Nível 2
+Palavras-chave
+       ↓
+Nível 3
+Regras estruturais
+       ↓
+Nível 4
+Avaliação semântica
+       ↓
+Nível 5
+LLM-as-a-Judge
+```
+
+O laboratório começa pelos níveis mais simples para permitir que o QA compreenda primeiro **como transformar uma expectativa em um critério automatizado**.
+
+---
+
+
+
+
+
+---
+
+
+
+Uma análise adequada deve responder:
+
+### 1. O que foi enviado?
+
+Verificar o prompt utilizado.
+
+### 2. O que a LLM respondeu?
+
+Analisar a resposta real, e não apenas o status `FAIL`.
+
+### 3. Qual era o comportamento esperado?
+
+Identificar o critério definido pelo teste.
+
+### 4. Por que falhou?
+
+Determinar se:
+
+* a LLM não seguiu a instrução;
+* a resposta estava incorreta;
+* houve variação entre execuções;
+* o evaluator foi inadequado;
+* o prompt não era suficientemente claro;
+* o comportamento esperado estava mal definido.
+
+### 5. O que deve ser melhorado?
+
+A evolução pode estar em:
+
+```text
+Prompt
+Evaluator
+Modelo
+Parâmetros
+Dados
+Arquitetura
+Teste
+```
+
+Por isso, o resultado de um teste de LLM não deve ser analisado isoladamente.
+
+---
+
+# 🧠 O papel do QA no AI Testing
+
+No AI Testing, o QA deixa de validar somente:
+
+```text
+Entrada → Saída
+```
+
+e passa a considerar também:
+
+```text
+Entrada
+   ↓
+Contexto
+   ↓
+Prompt
+   ↓
+Modelo
+   ↓
+Parâmetros
+   ↓
+Resposta
+   ↓
+Evaluator
+   ↓
+Resultado
+```
+
+Isso muda a natureza de algumas atividades de teste.
+
+O QA precisa ser capaz de:
+
+* definir o comportamento esperado;
+* identificar riscos específicos de IA;
+* escolher critérios de avaliação;
+* reconhecer limitações dos evaluators;
+* analisar respostas não determinísticas;
+* diferenciar erro do modelo de erro do teste;
+* avaliar falsos positivos e falsos negativos;
+* evoluir os critérios de avaliação.
+
+A responsabilidade pela decisão de qualidade continua sendo do QA.
+
+---
+
+# ⚠ Limitações atuais do laboratório
+
+Os testes atuais são exercícios introdutórios e não representam uma estratégia completa de qualidade para sistemas baseados em IA.
+
+Entre as limitações:
+
+* alguns critérios utilizam palavras-chave;
+* algumas validações utilizam comparação textual;
+* a consistência atual exige igualdade exata das respostas;
+* o teste de hallucination utiliza uma heurística;
+* os testes de robustness e prompt injection utilizam cenários simples;
+* ainda não existe avaliação semântica;
+* ainda não existe LLM-as-a-Judge;
+* ainda não existe dataset de avaliação;
+* ainda não existe comparação sistemática entre modelos;
+* ainda não existe execução de regressão de prompts em CI/CD.
+
+Essas limitações são intencionais nesta etapa do laboratório.
+
+O objetivo inicial é compreender os fundamentos antes de introduzir estratégias de avaliação mais sofisticadas.
+
+---
+
+
+## 🎯 Ideia central
+
+O objetivo deste laboratório não é provar que uma LLM é "inteligente".
+
+O objetivo é aprender a construir um processo de avaliação:
+
+```text
+Entrada
+   ↓
+LLM
+   ↓
+Resposta
+   ↓
+Critério definido pelo QA
+   ↓
+Evaluator
+   ↓
+PASS / FAIL
+   ↓
+Análise crítica
+```
+
+A principal habilidade desenvolvida é entender que:
+
+> **Uma resposta de IA não é automaticamente uma resposta correta.**
+
+O QA precisa definir **o que deve ser considerado correto**, transformar esse critério em uma avaliação e analisar criticamente o resultado.
+
+Essa é a base para evoluir de testes simples de LLM para estratégias mais completas de **AI Testing**.
+
 
 ## 📊 Resultados
 

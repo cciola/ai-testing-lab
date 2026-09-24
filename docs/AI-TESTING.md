@@ -247,35 +247,6 @@ O objetivo é demonstrar, de forma simples, o conceito de resistência a uma ins
 
 ## O papel dos evaluators
 
-Nos testes tradicionais, frequentemente fazemos:
-
-```javascript
-expect(response).toBe('APROVADO');
-```
-
-Em LLMs, muitas vezes precisamos de critérios mais flexíveis.
-
-O arquivo `utils/evaluators.js` concentra parte desses critérios.
-
-Exemplo conceitual:
-
-```text
-Resposta da LLM
-       ↓
-   Evaluator
-       ↓
- ┌─────┴─────┐
- PASS       FAIL
-```
-
-Um bom evaluator deve ser:
-
-- claro;
-- justificável;
-- reproduzível;
-- o mais determinístico possível;
-- alinhado ao requisito.
-
 ---
 
 ## ⚠ TODO 🎯 Próximas evoluções
