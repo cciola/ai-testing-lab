@@ -51,8 +51,6 @@ Sempre questione:
 
 A diferença não é simplesmente "usar ChatGPT/Copilot". O ponto importante é **como o QA utiliza a IA e como valida o que ela produziu**.
 
----
-
 ## Onde a IA ajuda o QA?
 
 ### 1. Análise de requisitos
@@ -90,18 +88,16 @@ O valor para o QA está em **encontrar perguntas que precisam ser respondidas**,
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 ```
 
-O teste `ai-requirement-analysis` valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO.
-
-No resultado observado no arquivo`ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou informação ausente com detalhes técnicos que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
-
-```text
-- “O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
-- “Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
-```
-
-Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio.
-
-Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
+> O teste `ai-requirement-analysis` valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO.
+> 
+> No resultado observado no arquivo`ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou informação ausente com detalhes técnicos que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
+>
+> - “O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
+> - “Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
+>
+> Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio.
+> 
+> Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
 
 ---
 
