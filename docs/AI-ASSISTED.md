@@ -82,22 +82,24 @@ A IA pode levantar questões como:
 
 O valor para o QA está em **encontrar perguntas que precisam ser respondidas**, não em aceitar as respostas da IA como regras do sistema.
 
-### Teste automatizado - execução e análise do resultado
+#### 🧪 Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-analysis.spec.js
 ```
 
-> O teste `ai-requirement-analysis` valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO.
-> 
-> No resultado observado no arquivo`ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou informação ausente com detalhes técnicos que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
->
-> - “O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
-> - “Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
->
-> Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio.
-> 
-> Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
+O teste `ai-requirement-analysis` valida se a IA consegue identificar ambiguidades e transformar lacunas do requisito em perguntas úteis para o QA/PO.
+
+No resultado observado no arquivo`ai-requirement-analysis_20260902_151242.md`, a LLM percebeu que o requisito é insuficiente para definir uma cobertura de testes completa, mas misturou informação ausente com detalhes técnicos que não necessariamente precisam ser definidos pelo requisito. Por exemplo:
+
+```text
+- “O sistema valida o e-mail e senha no banco de dados, ou usa um serviço externo (ex: SSO, API)?”
+- “Sistema de autenticação utilizado: Login com hash, token JWT, autenticação via backend?”
+```
+
+Essas são perguntas tecnicamente plausíveis, mas não necessariamente são lacunas do requisito de negócio.
+
+Portanto, a execução demonstra que a LLM consegue identificar lacunas, mas pode transformar uma análise de requisitos em uma lista excessivamente ampla de possibilidades.
 
 ---
 
@@ -133,7 +135,7 @@ O QA deve revisar a saída e verificar se a IA não criou, por exemplo:
 
 Se essas regras não estiverem no requisito, são **suposições**, não fatos.
 
-### Teste automatizado - execução e análise do resultado
+#### 🧪 Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-generation.spec.js
@@ -308,7 +310,7 @@ Não reescreva os testes.
 Primeiro apresente somente a análise.
 ```
 
-### Teste automatizado - execução e análise do resultado
+#### 🧪 Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-test-review.spec.js
@@ -335,7 +337,7 @@ Analise o requisito abaixo.
 Para cada conclusão, explique sua origem.
 ```
 
-### Teste automatizado - execução e análise do resultado
+#### 🧪 Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-requirement-adherence.spec.js
@@ -357,7 +359,7 @@ Outro aspecto importante é verificar se a IA mantém a mesma interpretação qu
 
 Consistência não significa respostas textualmente iguais. O objetivo é avaliar se a LLM mantém os mesmos critérios, fatos e restrições essenciais entre execuções.
 
-### Teste automatizado - execução e análise do resultado
+#### 🧪 Teste automatizado - execução e análise do resultado
 
 ```bash
 npx playwright test tests/ai-assisted/ai-consistency.spec.js
