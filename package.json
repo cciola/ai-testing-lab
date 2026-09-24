@@ -1,7 +1,7 @@
 {
   "name": "ai-testing-lab",
   "version": "1.0.0",
-  "description": "Laboratório para estudos de testes de sistemas de IA e LLMs",
+  "description": "Laboratório para estudos básicos de testes de sistemas de IA e LLMs",
   "scripts": {
     "test": "playwright test"
   },
