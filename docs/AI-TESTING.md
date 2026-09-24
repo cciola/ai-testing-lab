@@ -244,23 +244,3 @@ expect(response.trim().toLowerCase())
 O objetivo é demonstrar, de forma simples, o conceito de resistência a uma instrução maliciosa inserida na entrada.
 
 > Em uma aplicação real, prompt injection não deve ser tratado apenas como um problema de prompt. Dependendo da arquitetura, a LLM pode ter acesso a dados, documentos, APIs, ferramentas, bancos de dados, sistemas externos, etc. Nesse contexto, uma proteção baseada somente em instruções no prompt não deve ser considerada uma barreira de segurança completa.
-
-## O papel dos evaluators
-
----
-
-## ⚠ TODO 🎯 Próximas evoluções
-
-Depois dos testes básicos, o laboratório pode evoluir para:
-
-- avaliação semântica;
-- métricas de qualidade;
-- testes com diferentes temperaturas;
-- comparação entre modelos;
-- testes de contexto;
-- RAG e grounding;
-- avaliação de segurança;
-- testes de regressão de prompts;
-- LLM-as-a-judge;
-- datasets de avaliação;
-- execução em CI/CD.

@@ -28,6 +28,8 @@ Aprender a testar sistemas que utilizam IA
 
 > **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita. O QA continua responsável pela decisão final. A IA pode acelerar o trabalho, mas **não substitui o julgamento crítico do QA**.
 
+
+
 ## 📋 Requisitos
 
 - **Node.js** 24.20.0 ou superior
@@ -127,9 +129,21 @@ Nos tópicos abaixo, temos uma relação do conteúdo teórico com exercícios e
 * [**AI-Assisted Testing**](/docs/AI-ASSISTED.md)
 * [**AI Testing / LLM API**](/docs/AI-TESTING.md)
 
+## 📊 Resultados
 
+Os testes automatizados salvam as respostas recebidas da LLM na pasta `llm-results/`.
 
-# 🧩 O papel dos evaluators
+Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwright-report`. Para gerar o relatório manualmente, utilize o comando:
+
+```bash
+npx playwright report
+```
+
+---
+
+## 📚 Conceitos
+
+### O papel dos evaluators
 
 Os critérios de avaliação dos testes estão centralizados em `utils/evaluators.js`. O arquivo possui funções auxiliares para avaliar diferentes propriedades das respostas. A ideia é separar:
 
@@ -145,31 +159,16 @@ Critério de qualidade
 
 do código responsável pela comunicação com o modelo. Isso permite evoluir os critérios de avaliação sem precisar modificar a lógica de comunicação com a LLM.
 
----
+### Avaliação determinística x avaliação semântica
 
-## 🔎 Avaliação determinística x avaliação semântica
-
-Os evaluators atuais utilizam principalmente regras determinísticas.
-
-Por exemplo:
+Os evaluators atuais utilizam principalmente regras determinísticas. Essa abordagem possui uma vantagem importante: **o critério é claro e reproduzível**. Exemplo:
 
 ```javascript
 expect(response).toContain('4');
-```
-
-ou:
-
-```javascript
 expect(response.trim()).toBe('APROVADO');
 ```
 
-Essa abordagem possui uma vantagem importante:
-
-> O critério é claro e reproduzível.
-
-Por outro lado, ela apresenta limitações quando a resposta pode variar na forma sem variar no significado.
-
-Podemos representar essa evolução:
+Por outro lado, ela apresenta limitações quando a resposta pode variar na forma sem variar no significado. Podemos representar essa evolução:
 
 ```text
 Nível 1
@@ -190,68 +189,9 @@ LLM-as-a-Judge
 
 O laboratório começa pelos níveis mais simples para permitir que o QA compreenda primeiro **como transformar uma expectativa em um critério automatizado**.
 
----
+### O papel do QA no AI Testing
 
-
-
-
-
----
-
-
-
-Uma análise adequada deve responder:
-
-### 1. O que foi enviado?
-
-Verificar o prompt utilizado.
-
-### 2. O que a LLM respondeu?
-
-Analisar a resposta real, e não apenas o status `FAIL`.
-
-### 3. Qual era o comportamento esperado?
-
-Identificar o critério definido pelo teste.
-
-### 4. Por que falhou?
-
-Determinar se:
-
-* a LLM não seguiu a instrução;
-* a resposta estava incorreta;
-* houve variação entre execuções;
-* o evaluator foi inadequado;
-* o prompt não era suficientemente claro;
-* o comportamento esperado estava mal definido.
-
-### 5. O que deve ser melhorado?
-
-A evolução pode estar em:
-
-```text
-Prompt
-Evaluator
-Modelo
-Parâmetros
-Dados
-Arquitetura
-Teste
-```
-
-Por isso, o resultado de um teste de LLM não deve ser analisado isoladamente.
-
----
-
-# 🧠 O papel do QA no AI Testing
-
-No AI Testing, o QA deixa de validar somente:
-
-```text
-Entrada → Saída
-```
-
-e passa a considerar também:
+No AI Testing, o QA deixa de validar somente entrada/saída, e passa a considerar também:
 
 ```text
 Entrada
@@ -286,9 +226,23 @@ O QA precisa ser capaz de:
 
 A responsabilidade pela decisão de qualidade continua sendo do QA.
 
----
+### Análise das respostas da LLM
 
-# ⚠ Limitações atuais do laboratório
+O resultado de um teste de LLM não deve ser analisado isoladamente. Uma análise adequada deve responder:
+
+- **O que foi enviado?** Verificar o prompt utilizado.
+- **O que a LLM respondeu?** Analisar a resposta real, e não apenas o status `FAIL`.
+- **Qual era o comportamento esperado?** Identificar o critério definido pelo teste.
+- **Por que falhou?** Devemos questionar e determinal se:
+  * a LLM não seguiu a instrução
+  * a resposta estava incorreta
+  * houve variação entre execuções
+  * o evaluator foi inadequado
+  * o prompt não era suficientemente claro
+  * o comportamento esperado estava mal definido
+- **O que deve ser melhorado?** A evolução pode estar em prompt, evaluator, modelo, parâmetros, dados, arquitetura, teste.
+
+## ⚠ Limitações atuais do laboratório
 
 Os testes atuais são exercícios introdutórios e não representam uma estratégia completa de qualidade para sistemas baseados em IA.
 
@@ -308,47 +262,3 @@ Entre as limitações:
 Essas limitações são intencionais nesta etapa do laboratório.
 
 O objetivo inicial é compreender os fundamentos antes de introduzir estratégias de avaliação mais sofisticadas.
-
----
-
-
-## 🎯 Ideia central
-
-O objetivo deste laboratório não é provar que uma LLM é "inteligente".
-
-O objetivo é aprender a construir um processo de avaliação:
-
-```text
-Entrada
-   ↓
-LLM
-   ↓
-Resposta
-   ↓
-Critério definido pelo QA
-   ↓
-Evaluator
-   ↓
-PASS / FAIL
-   ↓
-Análise crítica
-```
-
-A principal habilidade desenvolvida é entender que:
-
-> **Uma resposta de IA não é automaticamente uma resposta correta.**
-
-O QA precisa definir **o que deve ser considerado correto**, transformar esse critério em uma avaliação e analisar criticamente o resultado.
-
-Essa é a base para evoluir de testes simples de LLM para estratégias mais completas de **AI Testing**.
-
-
-## 📊 Resultados
-
-Os testes automatizados salvam as respostas recebidas da LLM na pasta `llm-results/`.
-
-Após uma falha, o Playwright gera automaticamente o relatório HTML em `playwright-report`. Para gerar o relatório manualmente, utilize o comando:
-
-```bash
-npx playwright report
-```
