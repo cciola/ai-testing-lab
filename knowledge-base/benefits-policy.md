@@ -1,1 +1,0 @@
-Employees receive a monthly meal benefit of R$ 800.

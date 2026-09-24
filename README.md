@@ -1,6 +1,6 @@
 # AI Testing Lab
 
-Laboratório prático de estudos sobre **AI-Assisted Testing** e **AI Testing** para exercitar técnicas de QA, usando uma LLM local e automação com Playwright e MCP Server.
+Laboratório prático de estudos básicos sobre **AI-Assisted Testing** e **AI Testing** para exercitar técnicas de QA, usando uma LLM local e automação com Playwright e MCP Server.
 
 ## 🎯 O que este laboratório pretende ensinar
 
@@ -129,7 +129,7 @@ Nos tópicos abaixo, temos uma relação do conteúdo teórico com exercícios e
 * [**AI-Assisted Testing**](/docs/AI-ASSISTED.md)
 * [**AI Testing / LLM API**](/docs/AI-TESTING.md)
 
-## 📊 Resultados
+### Resultados
 
 Os testes automatizados salvam as respostas recebidas da LLM na pasta `llm-results/`.
 
@@ -211,8 +211,6 @@ Evaluator
 Resultado
 ```
 
-Isso muda a natureza de algumas atividades de teste.
-
 O QA precisa ser capaz de:
 
 * definir o comportamento esperado;
@@ -224,14 +222,12 @@ O QA precisa ser capaz de:
 * avaliar falsos positivos e falsos negativos;
 * evoluir os critérios de avaliação.
 
-A responsabilidade pela decisão de qualidade continua sendo do QA.
-
 ### Análise das respostas da LLM
 
 O resultado de um teste de LLM não deve ser analisado isoladamente. Uma análise adequada deve responder:
 
 - **O que foi enviado?** Verificar o prompt utilizado.
-- **O que a LLM respondeu?** Analisar a resposta real, e não apenas o status `FAIL`.
+- **O que a LLM respondeu?** Analisar a resposta real, e não apenas o status FAIL.
 - **Qual era o comportamento esperado?** Identificar o critério definido pelo teste.
 - **Por que falhou?** Devemos questionar e determinal se:
   * a LLM não seguiu a instrução
@@ -244,7 +240,7 @@ O resultado de um teste de LLM não deve ser analisado isoladamente. Uma anális
 
 ## ⚠ Limitações atuais do laboratório
 
-Os testes atuais são exercícios introdutórios e não representam uma estratégia completa de qualidade para sistemas baseados em IA.
+Os testes atuais são exercícios **introdutórios** e não representam uma estratégia completa de qualidade para sistemas baseados em IA.
 
 Entre as limitações:
 
@@ -259,6 +255,4 @@ Entre as limitações:
 * ainda não existe comparação sistemática entre modelos;
 * ainda não existe execução de regressão de prompts em CI/CD.
 
-Essas limitações são intencionais nesta etapa do laboratório.
-
-O objetivo inicial é compreender os fundamentos antes de introduzir estratégias de avaliação mais sofisticadas.
+Essas limitações são intencionais nesta etapa do laboratório. O objetivo inicial é compreender os fundamentos antes de introduzir estratégias de avaliação mais sofisticadas.

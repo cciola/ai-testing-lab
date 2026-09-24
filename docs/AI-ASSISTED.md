@@ -183,7 +183,7 @@ A IA pode acelerar a criação de massa:
 entre 8 e 20 caracteres.
 ```
 
-> 💡 Observação: aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
+> Observação: aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
 
 ---
 
@@ -276,7 +276,7 @@ Uma técnica simples sobre como avaliar criticamente a saída da IA, é procurar
 * A IA adicionou alguma regra?
 * Se adicionou, ela deixou claro que é uma suposição?
 
-### Testes automatizados relacionados
+#### 🧪 Testes automatizados relacionados
 
 O laboratório utiliza essa abordagem de definição de contexto, objetivo, restrições e formato nos prompts dos testes de AI-Assisted Testing. Os principais exemplos são:
 
@@ -291,7 +291,7 @@ Esses testes demonstram, na prática, que o prompt não serve apenas para solici
 
 ---
 
-### ⚠ TODO 7. Revisão dos casos de teste pelo próprio QA + IA
+### 7. Revisão dos casos de teste pelo próprio QA + IA
 
 Podemos fornecer para a IA requisito + testes já criados. Isso é útil porque a IA passa a atuar como uma **segunda perspectiva de revisão**.
 
@@ -318,7 +318,13 @@ npx playwright test tests/ai-assisted/ai-test-review.spec.js
 
 O teste `ai-test-review` valida se a IA fornece casos de teste deliberadamente problemáticos e verifica se a IA identifica regras que não estão apoiadas pelo requisito.
 
-No resultado observado no arquivo`ai-test-review_20260902_151242.md`, ⚠ TODO
+No resultado observado no arquivo`ai-test-review_20260902_151242.md`, a IA conseguiu revisar testes existentes considerando um requisito como fonte de verdade e identificar regras, comportamentos e resultados esperados que não estão explicitamente especificados.
+
+Isso é diferente do `ai-test-generation`:
+
+* No **generation**, estamos verificando se a IA cria testes sem inventar requisitos.
+
+* No **review**, estamos verificando se a IA consegue detectar invenções ou extrapolações já presentes nos testes.
 
 ---
 
