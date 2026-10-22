@@ -198,7 +198,8 @@ Este teste foi estruturado para **falhar**; ele falhou, e isso significa que est
 
 Importante: não devemos assumir que "a primeira instrução sempre vence" só porque apareceu primeiro. O comportamento esperado depende da arquitetura e da hierarquia de instruções da aplicação. O teste deve refletir a regra de prioridade que o sistema realmente pretende implementar.
 
-> **Observação:** o cenário `llm-robustness.spec.js` utiliza uma instrução conflitante simples e serve como primeiro exercício de robustez. Ele não representa uma avaliação completa de robustez de uma aplicação real.
+> [!IMPORTANT]
+> O cenário `llm-robustness.spec.js` utiliza uma instrução conflitante simples e serve como primeiro exercício de robustez. Ele não representa uma avaliação completa de robustez de uma aplicação real.
 
 ### 6. Hallucination
 
@@ -253,4 +254,5 @@ expect(response.trim().toLowerCase())
 
 O objetivo é demonstrar, de forma simples, o conceito de resistência a uma instrução maliciosa inserida na entrada.
 
+> [!IMPORTANT]
 > Em uma aplicação real, prompt injection não deve ser tratado apenas como um problema de prompt. Dependendo da arquitetura, a LLM pode ter acesso a dados, documentos, APIs, ferramentas, bancos de dados, sistemas externos, etc. Nesse contexto, uma proteção baseada somente em instruções no prompt não deve ser considerada uma barreira de segurança completa.
