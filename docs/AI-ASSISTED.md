@@ -183,7 +183,8 @@ A IA pode acelerar a criação de massa:
 entre 8 e 20 caracteres.
 ```
 
-> Observação: aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
+> [!IMPORTANT]
+> Aqui o requisito precisa conter a regra de limite. Caso contrário, a IA pode inventar valores.
 
 ---
 
