@@ -25,7 +25,7 @@ Automatizar esses critérios
     ↓
 Aprender a testar sistemas que utilizam IA
 ```
-
+> [!NOTE]
 > **Princípio do laboratório:** a resposta da IA é uma saída a ser avaliada, não uma verdade automaticamente aceita. O QA continua responsável pela decisão final. A IA pode acelerar o trabalho, mas **não substitui o julgamento crítico do QA**.
 
 ---
@@ -116,9 +116,8 @@ Para validar o funcionamento do cliente/API `llm-client.js`, execute o comando a
 npx playwright test tests/llm-api/llm-basic-mock.spec.js
 ```
 
-> **Observação:** este cenário **não testa a inteligência ou o comportamento do modelo**. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio.
-
-Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relacionados ao comportamento e às respostas do modelo.
+> [!WARNING]
+> Este cenário **não testa a inteligência ou o comportamento do modelo**. Ele utiliza uma resposta simulada (mock) para validar o funcionamento do cliente/API `llm-client.js`, sem depender da execução de uma LLM real pelo LM Studio. Os demais testes desta pasta utilizam a LLM real para avaliar aspectos relacionados ao comportamento e às respostas do modelo.
 
 ---
 
